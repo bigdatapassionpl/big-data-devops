@@ -10,6 +10,6 @@ ssh root@localhost -p 2222
 chmod u+x hdp-centos7-local-prepare.sh
 chmod u+x hdp-centos7-local-ambari-install.sh
 
-./hdp-centos7-local-install.sh
+./hdp-centos7-local-prepare.sh
 ./hdp-centos7-local-ambari-install.sh
 ~~~
