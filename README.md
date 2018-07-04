@@ -1,6 +1,6 @@
-# big-data-devops
+# Big Data DevOps
 
-Instalacja:
+Instalacja HDP na jednym węźle (tryb pseudo-distributed):
 ~~~bash
 scp -r -P 2222 hdp-centos7-local-prepare.sh root@localhost://root
 scp -r -P 2222 hdp-centos7-local-ambari-install.sh root@localhost://root
