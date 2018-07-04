@@ -51,3 +51,5 @@ systemctl status ntpd.service
 umask 022
 echo umask 022 >> ~/.bash_profile
 echo umask 022 >> /etc/profile
+
+reboot
