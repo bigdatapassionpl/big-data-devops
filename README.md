@@ -11,5 +11,6 @@ chmod u+x hdp-centos7-local-prepare.sh
 chmod u+x hdp-centos7-local-ambari-install.sh
 
 ./hdp-centos7-local-prepare.sh
+reboot
 ./hdp-centos7-local-ambari-install.sh
 ~~~
