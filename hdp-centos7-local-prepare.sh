@@ -8,7 +8,7 @@ yum -y upgrade
 echo "Installing tools"
 yum install -y wget
 yum install -y epel-release
-yum -y install wget vim htop ntp openssh-server openssh-clients nano bash-completion tree
+yum -y install wget vim htop ntp openssh-server openssh-clients nano bash-completion tree mc
 
 
 echo "Hostname"
