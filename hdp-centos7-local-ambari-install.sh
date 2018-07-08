@@ -15,3 +15,9 @@ ambari-server setup
 
 
 ambari-server start
+
+
+sudo yum install mysql-connector-java* -y
+ls -al /usr/share/java/mysql-connector-java.jar
+cd /var/lib/ambari-server/resources/
+ln -s /usr/share/java/mysql-connector-java.jar mysql-connector-java.jar
