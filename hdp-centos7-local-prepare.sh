@@ -16,7 +16,8 @@ hostnamectl set-hostname sandbox.hortonworks.com
 hostnamectl status
 hostname
 hostname -f
-echo "\n127.0.0.1   sandbox sandbox.hortonworks.com" >> /etc/hosts
+echo -e "\n" >> /etc/hosts
+echo "127.0.0.1   sandbox sandbox.hortonworks.com" >> /etc/hosts
 
 
 echo "Keygen"
