@@ -1,29 +1,46 @@
+
 # Big Data DevOps
 
-Instalacja HDP na jednym węźle (tryb pseudo-distributed):
+## Instalacja dystrybucji HDP 2.6
 
+### Wrzuć na maszynę
+
+Lokalnie:
 ~~~bash
 scp -r -P 2222 hdp-centos7-local-prepare.sh root@localhost://root
 scp -r -P 2222 hdp-centos7-local-ambari-install.sh root@localhost://root
-
-ssh root@localhost -p 2222
-
-chmod u+x /tmp/hdp-centos7-local-prepare.sh
-chmod u+x /tmp/hdp-centos7-local-ambari-install.sh
-
-/tmp/hdp-centos7-local-prepare.sh
-reboot
-/tmp/hdp-centos7-local-ambari-install.sh
 ~~~
 
-Instalacja w AWS na wielu węzłach:
-
+AWS:
 ~~~bash
 for i in {1..5..1}; do scp -r hdp-centos7-local-prepare.sh ec2-user@aws${i}://tmp; done
 ~~~
 
-Instalacja na maszynach z root
+Własne maszyny HDP:
 ~~~bash
 for i in {1..5..1}; do scp -r hdp-centos7-local-prepare.sh hdp${i}://tmp; done
 scp -r hdp-centos7-local-ambari-install.sh hdp1://tmp
+~~~
+
+
+### Przygotowanie maszyn
+
+~~~bash
+ssh root@localhost -p 2222
+
+chmod u+x /tmp/hdp-centos7-local-prepare.sh
+
+/tmp/hdp-centos7-local-prepare.sh
+
+reboot
+~~~
+
+### Instalacja Ambari
+
+~~~bash
+ssh root@localhost -p 2222
+
+chmod u+x /tmp/hdp-centos7-local-ambari-install.sh
+
+/tmp/hdp-centos7-local-ambari-install.sh
 ~~~
