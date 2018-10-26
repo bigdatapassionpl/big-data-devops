@@ -17,7 +17,7 @@ for i in {1..5..1}; do scp -r hdp-centos7-local-prepare.sh ec2-user@aws${i}://tm
 Własne maszyny HDP:
 ~~~bash
 for i in {1..5..1}; do scp -r hdp-centos7-local-prepare.sh hdp${i}://tmp; done
-scp -r hdp-centos7-local-ambari-install.sh hdp1://tmp
+scp -r hdp-centos7-ambari-2.7.1.0-install.sh hdp1://tmp
 ~~~
 
 
