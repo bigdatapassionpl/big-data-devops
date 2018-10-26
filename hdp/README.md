@@ -6,7 +6,7 @@
 Lokalnie:
 ~~~bash
 scp -r -P 2222 hdp-centos7-local-prepare.sh root@localhost://root
-scp -r -P 2222 hdp-centos7-ambari-2.7.1.0-install.sh.sh root@localhost://root
+scp -r -P 2222 hdp-centos7-ambari-2.7.1.0-install.sh root@localhost://root
 ~~~
 
 AWS:
@@ -38,7 +38,7 @@ reboot
 ~~~bash
 ssh root@localhost -p 2222
 
-chmod u+x /tmp/hdp-centos7-ambari-2.7.1.0-install.sh.sh
+chmod u+x /tmp/hdp-centos7-ambari-2.7.1.0-install.sh
 
-/tmp/hdp-centos7-ambari-2.7.1.0-install.sh.sh
+/tmp/hdp-centos7-ambari-2.7.1.0-install.sh
 ~~~
