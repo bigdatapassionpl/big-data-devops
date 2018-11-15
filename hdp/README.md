@@ -5,6 +5,7 @@
 
 Wrzucenie skryptów:
 ~~~bash
+scp -r -P 2222 hdp-centos7-hosts-sandbox.sh root@localhost://tmp
 scp -r -P 2222 hdp-centos7-local-prepare.sh root@localhost://tmp
 scp -r -P 2222 hdp-centos7-ambari-2.7.1.0-install.sh root@localhost://tmp
 ~~~
@@ -13,12 +14,25 @@ Przygotowanie maszyn
 ~~~bash
 ssh root@localhost -p 2222
 
+chmod u+x /tmp/hdp-centos7-hosts-sandbox.sh
 chmod u+x /tmp/hdp-centos7-local-prepare.sh
 
+/tmp/hdp-centos7-hosts-sandbox.sh
 /tmp/hdp-centos7-local-prepare.sh
 
 reboot
 ~~~
+
+Instalacja Ambari
+~~~bash
+ssh root@localhost -p 2222
+
+chmod u+x /tmp/hdp-centos7-ambari-2.7.1.0-install.sh
+
+/tmp/hdp-centos7-ambari-2.7.1.0-install.sh
+~~~
+
+
 
 ### Klaster
 
@@ -45,18 +59,3 @@ TODO
 ### Azure
 
 TODO
-
-
-
-
-
-
-### Instalacja Ambari
-
-~~~bash
-ssh root@localhost -p 2222
-
-chmod u+x /tmp/hdp-centos7-ambari-2.7.1.0-install.sh
-
-/tmp/hdp-centos7-ambari-2.7.1.0-install.sh
-~~~
