@@ -11,14 +11,6 @@ yum install -y epel-release
 yum -y install wget vim htop ntp openssh-server openssh-clients nano bash-completion tree mc byobu ncdu
 
 
-#echo "Hostname"
-#hostnamectl set-hostname sandbox.hortonworks.com
-#hostnamectl status
-#hostname
-#hostname -f
-#echo -e "\n" >> /etc/hosts
-#echo "127.0.0.1   sandbox sandbox.hortonworks.com" >> /etc/hosts
-
 
 echo "Keygen"
 ssh-keygen -f .ssh/id_rsa -t rsa -N ''
