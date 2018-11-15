@@ -1,0 +1,336 @@
+vim /tmp/hdp-centos7-local-prepare.sh 
+yum install -y vim
+vim /tmp/hdp-centos7-local-prepare.sh 
+chmod u+x /tmp/hdp-centos7-local-prepare.sh
+/tmp/hdp-centos7-local-prepare.sh
+reboot 
+vim .ssh/authorized_keys 
+ping hdp2
+vim /etc/hosts
+reboot 
+cat .ssh/id_rsa.pub 
+chmod u+x /tmp/hdp-centos7-local-ambari-install.sh
+/tmp/hdp-centos7-local-ambari-install.sh
+reboot 
+cat .ssh/id_rsa.pub 
+cat .ssh/id_rsa
+hostname -f
+poweroff 
+hostname
+hostname -f
+hostname -s
+cat /etc/hostname
+vim /etc/hosts
+reboot 
+hostname
+hostname -f
+hostname -s
+man hostname
+hostname -A
+hostname
+cat
+cat .ssh/id_rsa
+ssh hdp2.hortonworks.com
+ssh hdp1.hortonworks.com
+ssh hdp3.hortonworks.com
+hostname -s
+hostname -f
+hostname
+hostnamectl
+man hostname
+hostname
+hostname -f
+vim /etc/hosts
+reboot 
+find / -iname "ambari.properties"
+vim /etc/ambari-server/conf/ambari.properties
+vim /etc/ambari-agent/conf/ambari-agent.ini
+reboot 
+vim /etc/ambari-agent/conf/ambari-agent.ini
+vim /etc/ambari-agent/conf/ambari-agent.ini
+reboot 
+cd /tmp/
+cd
+wget http://central.maven.org/maven2/mysql/mysql-connector-java/8.0.12/mysql-connector-java-8.0.12.jar
+ll
+cp mysql-connector-java-8.0.12.jar /opt/
+ll /opt/
+ambari-server setup --jdbc-db=mysql --jdbc-driver=/opt/mysql-connector-java-8.0.12.jar
+hostname -f
+hostname -A
+hostnamectl
+htop 
+reboot 
+cd /var/log/
+ll
+cd hadoop
+ll
+cd hdfs/
+ll
+cat hadoop-hdfs-datanode-hdp1.hortonworks.com.log
+vim /etc/hosts
+reboot 
+cd /var/log/hadoop/hdfs/
+ll
+tailf hadoop-hdfs-datanode-hdp1.hortonworks.com.log
+cat hadoop-hdfs-datanode-hdp1.hortonworks.com.log
+ll
+cat hadoop-hdfs-datanode-hdp1.hortonworks.com.out
+cat hadoop-hdfs-namenode-hdp1.hortonworks.com.log
+cd ..
+ll
+cd ..
+ll
+cd hadoop-hdfs/
+ll
+ls
+cd ..
+cd hadoop/hdfs/
+ll
+cat SecurityAuth.audit
+cat hdfs-audit.log
+cat hadoop-hdfs-namenode-hdp1.hortonworks.com.log
+cd
+ps -ef | grep namenode
+netstat -an | grep 50070
+ll
+mkdir dane
+cd dane/
+ll
+wget http://files.grouplens.org/datasets/movielens/ml-10m.zip
+unzip ml-10m.zip
+rm ml-10m.zip
+ll
+cd ml-10M100K/
+ll
+cd ..
+mkdir hive
+mkdir hive/movies
+mkdir hive/ratings
+mkdir hive/tags
+ll
+cp -r ml-10M100K/movies.dat hive/movies
+cp -r ml-10M100K/ratings.dat hive/ratings
+cp -r ml-10M100K/tags.dat hive/tags
+cd $HADOOP_DATA/movielens/hive/movies
+sed -i -e 's/@//g' movies.dat
+sed -i -e 's/::/@/g' movies.dat
+cd hive/movies/
+ll
+sed -i -e 's/@//g' movies.dat
+sed -i -e 's/::/@/g' movies.dat
+ll
+head movies.dat 
+cd ../ratings/
+sed -i -e 's/::/@/g' ratings.dat
+cd ../tags/
+sed -i -e 's/::/@/g' tags.dat
+ll
+head tags.dat 
+cd ..
+ll
+cd ..
+ll
+cd ..
+ll
+ll dane/
+export HADOOP_USER_NAME=hdfs
+hdfs dfs -rm -r -skipTrash /dane
+hdfs dfs -mkdir /dane
+hdfs dfs -put dane/* /dane
+hdfs dfs -chmod -R 777 /dane
+hdfs dfs -ls /dane
+unset HADOOP_USER_NAME
+adduser radek
+su radek
+export HADOOP_USER_NAME=hdfs
+hdfs dfs -mkdir /user/radek
+hdfs dfs -chmod radek /user/radek
+hdfs dfs -chown radek /user/radek
+hdfs dfs -ls /user
+unset HADOOP_USER_NAME
+su radek
+ll
+cd dane/
+ll
+mkdir movielens
+mv hive movielens
+mv ml* movielens
+ll
+cd movielens/
+ll
+cd hive/
+ll
+cd ../..
+ll
+cd ..
+ll
+export HADOOP_USER_NAME=hdfs
+hdfs dfs -rm -r -skipTrash /dane
+hdfs dfs -mkdir /dane
+hdfs dfs -put dane/* /dane
+hdfs dfs -chmod -R 777 /dane
+hdfs dfs -ls /dane
+unset HADOOP_USER_NAME
+hive -e "show databases;"
+su radek
+#!/bin/sh
+export HADOOP_USER_NAME=hdfs
+hdfs dfs -rm -r -skipTrash /user/admin
+hdfs dfs -mkdir /user/admin
+hdfs dfs -chown admin /user/admin
+hdfs dfs -ls /user
+unset HADOOP_USER_NAME
+#!/bin/sh
+export HADOOP_USER_NAME=hdfs
+hdfs dfs -rm -r -skipTrash /user/student
+hdfs dfs -mkdir /user/student
+hdfs dfs -chown student /user/student
+hdfs dfs -ls /user
+unset HADOOP_USER_NAME
+htop 
+reboot 
+byobu
+htop 
+yum install firewalld
+htop 
+ systemctl start firewalld
+htop 
+yum install firewalld -y
+systemctl enable firewalld
+vim .ssh/authorized_keys 
+htop 
+sudo -u yarn crontab -e
+htop 
+systemctl disable firewalld
+firewall-cmd --state
+firewall-cmd --get-active-zones
+/etc/init.d/ambari-server restart
+sudo -u yarn crontab -e
+systemctl disable firewalld
+iptables -S
+iptables -A INPUT -i lo -j ACCEPT
+iptables -A OUTPUT -o lo -j ACCEPT
+for e in 89.64.16.253 89.64.6.158 ; do iptables -I INPUT -s ${e} -j ACCEPT;done
+for f in `grep horton  /etc/hosts|awk '{ print $1 }'`;do iptables -I INPUT -s ${f} -j ACCEPT;done
+iptables -A INPUT -p tcp  --dport 22 -j  ACCEPT
+iptables -P INPUT DROP
+iptables -P FORWARD DROP                                       
+iptables -P OUTPUT ACCEPT
+iptables -S
+systemctl disable firewalld
+systemctl disable firewalld
+iptables -S
+iptables -A INPUT -i lo -j ACCEPT
+iptables -A OUTPUT -o lo -j ACCEPT
+for e in 89.64.16.253 89.64.6.158 ; do iptables -I INPUT -s ${e} -j ACCEPT;done
+for f in `grep horton  /etc/hosts|awk '{ print $1 }'`;do iptables -I INPUT -s ${f} -j ACCEPT;done
+iptables -A INPUT -p tcp  --dport 22 -j  ACCEPT
+iptables -P INPUT DROP
+iptables -P FORWARD DROP                                       
+iptables -P OUTPUT ACCEPT
+iptables -S
+reboot 
+iptables -S
+systemctl disable firewalld
+iptables -S
+iptables -A INPUT -i lo -j ACCEPT
+iptables -A OUTPUT -o lo -j ACCEPT
+for e in 89.64.16.253 89.64.6.158 ; do iptables -I INPUT -s ${e} -j ACCEPT;done
+for f in `grep horton  /etc/hosts|awk '{ print $1 }'`;do iptables -I INPUT -s ${f} -j ACCEPT;done
+iptables -A INPUT -p tcp  --dport 22 -j  ACCEPT
+iptables -P INPUT DROP
+iptables -P FORWARD DROP                                       
+iptables -P OUTPUT ACCEPT
+iptables -S
+su radek
+cat /var/lib/ambari-agent/data/status_command.json
+cat /var/lib/ambari-agent/data/status_command.json | grep Zielony
+su radek
+htop 
+poweroff 
+systemctl disable firewalld
+iptables -S
+iptables -A INPUT -i lo -j ACCEPT
+iptables -A OUTPUT -o lo -j ACCEPT
+for e in 89.64.16.253 89.64.6.158 ; do iptables -I INPUT -s ${e} -j ACCEPT;done
+for f in `grep horton  /etc/hosts|awk '{ print $1 }'`;do iptables -I INPUT -s ${f} -j ACCEPT;done
+iptables -A INPUT -p tcp  --dport 22 -j  ACCEPT
+iptables -P INPUT DROP
+iptables -P FORWARD DROP                                       
+iptables -P OUTPUT ACCEPT
+iptables -S
+htop 
+iptables -S
+for e in 194.29.160.144 31.0.43.23 5.173.176.21 ; do iptables -I INPUT -s ${e} -j ACCEPT;done
+iptables -S
+for e in 194.29.160.154  ; do iptables -I INPUT -s ${e} -j ACCEPT;done
+ls -la /tmp/
+ls -la /tmp/users.txt 
+for i in `cat /tmp/users.txt`; do echo ${i}; done
+wc -l /tmp/users.txt 
+wc -l /etc/passwd
+for i in `cat /tmp/users.txt`; do adduser ${i} ; done
+wc -l /etc/passwd
+for i in `cat /tmp/users.txt`; do echo "${i}:${i}" | chpasswd ; done
+su - hdfs
+history 
+adduser radek
+passwd radek
+cat /etc/passwd|grep -i jezi
+cat /etc/passwd|grep -i aje
+cat /etc/passwd
+adduser ajezio
+passwd ajezio
+su - hdfs
+htop 
+whos
+w
+htop 
+cat /etc/hosts
+hostname
+hostname -f
+hostname -s
+hdfs dfs -ls /user
+su radek
+hive
+su radek
+htop 
+poweroff 
+cat .bashrc 
+clear
+cat .bash_history 
+cat .bash_history | grep iptables
+vim white-list.txt
+poweroff 
+vim white-list.txt 
+cat white-list.txt 
+systemctl disable firewalld
+iptables -S
+iptables -A INPUT -i lo -j ACCEPT
+iptables -A OUTPUT -o lo -j ACCEPT
+for e in `cat white-list.txt` ; do echo iptables -I INPUT -s ${e} -j ACCEPT; done
+for f in `grep horton  /etc/hosts|awk '{ print $1 }'`; do iptables -I INPUT -s ${f} -j ACCEPT; done
+iptables -A INPUT -p tcp  --dport 22 -j  ACCEPT
+iptables -P INPUT DROP
+iptables -P FORWARD DROP
+iptables -P OUTPUT ACCEPT
+iptables -S
+reboot 
+systemctl disable firewalld
+iptables -S
+iptables -A INPUT -i lo -j ACCEPT
+iptables -A OUTPUT -o lo -j ACCEPT
+for e in `cat white-list.txt` ; do iptables -I INPUT -s ${e} -j ACCEPT; done
+for f in `grep horton  /etc/hosts|awk '{ print $1 }'`; do iptables -I INPUT -s ${f} -j ACCEPT; done
+iptables -A INPUT -p tcp  --dport 22 -j  ACCEPT
+iptables -P INPUT DROP
+iptables -P FORWARD DROP
+iptables -P OUTPUT ACCEPT
+iptables -S
+su radek
+iptables -S
+htop 
+byobu
+su - radek
+poweroff
