@@ -6,4 +6,4 @@ hostnamectl status
 hostname
 hostname -f
 echo -e "\n" >> /etc/hosts
-echo "127.0.0.1   sandbox sandbox.hortonworks.com" >> /etc/hosts
+echo "127.0.0.1  sandbox.hortonworks.com" >> /etc/hosts
