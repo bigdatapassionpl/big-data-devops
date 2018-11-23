@@ -20,6 +20,6 @@ echo -e "\n" >> /etc/hosts
 echo "127.0.0.1  sandbox.hortonworks.com" >> /etc/hosts
 echo "::1  sandbox.hortonworks.com" >> /etc/hosts
 
-
-
-/etc/sysconfig/network
+echo -e "\n" >> /etc/sysconfig/network
+echo "NETWORKING=yes" >> /etc/sysconfig/network
+echo "HOSTNAME=sandbox.hortonworks.com" >> /etc/sysconfig/network
