@@ -12,6 +12,12 @@ for i in {1..5..1}; do ssh hdp${i} uptime; done
 for i in {1..5..1}; do ssh aws${i} uptime; done
 ~~~
 
+# Removieng ip
+
+~~~
+ssh-keygen -R 176.119.46.247
+~~~
+
 # Połączenie się do maszyn
 
 ~~~shell
