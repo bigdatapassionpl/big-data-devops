@@ -42,6 +42,17 @@ for i in {1..5..1}; do scp -r hdp-centos7-local-prepare.sh hdp${i}://tmp; done
 scp -r hdp-centos7-ambari-2.7.1.0-install.sh hdp1://tmp
 ~~~
 
+Przygotowanie maszyn
+~~~bash
+cssh hdp{1..5}
+
+chmod u+x /tmp/hdp-centos7-local-prepare.sh
+
+/tmp/hdp-centos7-local-prepare.sh
+
+reboot
+~~~
+
 
 ### Amazon EC2
 
