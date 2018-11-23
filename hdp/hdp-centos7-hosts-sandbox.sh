@@ -7,7 +7,6 @@ hostnamectl set-hostname sandbox.hortonworks.com --static
 hostnamectl set-hostname sandbox.hortonworks.com --transient
 
 hostnamectl status
-
 hostname
 hostname -f
 
