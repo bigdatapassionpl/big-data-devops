@@ -2,6 +2,10 @@
 
 echo "Hostname"
 hostnamectl set-hostname sandbox.hortonworks.com
+hostnamectl set-hostname "Hortonworks Worker Node" --pretty
+hostnamectl set-hostname sandbox.hortonworks.com --static
+hostnamectl set-hostname sandbox.hortonworks.com --transient
+
 hostnamectl status
 
 hostname
@@ -15,3 +19,7 @@ mv /tmp/newhosts2 /etc/hosts
 echo -e "\n" >> /etc/hosts
 echo "127.0.0.1  sandbox.hortonworks.com" >> /etc/hosts
 echo "::1  sandbox.hortonworks.com" >> /etc/hosts
+
+
+
+/etc/sysconfig/network
