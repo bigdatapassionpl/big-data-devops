@@ -12,7 +12,7 @@ for i in {1..5..1}; do ssh hdp${i} uptime; done
 for i in {1..5..1}; do ssh aws${i} uptime; done
 ~~~
 
-# Removieng ip
+# Usuwanie adresów ip z known hosts
 
 ~~~
 ssh-keygen -R 176.119.46.247
