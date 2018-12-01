@@ -59,3 +59,12 @@ for i in `cat /tmp/users.txt`; do hdfs dfs -rm -r -skipTrash /user/${i}; done
 ~~~shell
 for i in `cat /tmp/users.txt`; do userdel -r  ${i} ; done
 ~~~
+
+# Czyszczenie Hive'a
+~~~shell
+hdfs dfs -ls /warehouse/tablespace/managed/hive
+hdfs dfs -ls /warehouse/tablespace/external/hive
+
+for i in `cat /tmp/users.txt`; do hdfs dfs -rm -r -skipTrash /warehouse/tablespace/external/hive/${i}; done
+for i in `cat /tmp/users.txt`; do hdfs dfs -rm -r -skipTrash /warehouse/tablespace/external/hive/${i}.db; done
+~~~
