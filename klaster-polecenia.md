@@ -3,6 +3,7 @@
 
 ~~~shell
 for i in {1..5..1}; do ssh-keygen -f "/home/radek/.ssh/known_hosts" -R hdp${i}; done
+for i in {1..5..1}; do ssh-keygen -f "/home/radek/.ssh/known_hosts" -R hdpoc${i}; done
 for i in {1..5..1}; do ssh-keygen -f "/home/radek/.ssh/known_hosts" -R aws${i}; done
 ~~~
 
