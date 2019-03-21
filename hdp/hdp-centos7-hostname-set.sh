@@ -11,3 +11,5 @@ hostnamectl status
 hostname
 
 hostname -f
+
+hostname -s

@@ -39,6 +39,8 @@ chmod u+x /tmp/hdp-centos7-hostname-set.sh
 
 /tmp/hdp-centos7-hostname-set.sh hdp.bigdatapassion.com
 
+reboot
+
 /tmp/hdp-centos7-local-prepare.sh
 
 reboot
