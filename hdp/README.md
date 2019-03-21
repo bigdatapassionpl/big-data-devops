@@ -15,6 +15,7 @@ scp -r hdp-centos7-ambari-2.7.3.0-install.sh ec2-user@aws1://tmp
 Oracle Cloud:
 ~~~bash
 for i in {1..5..1}; do scp -r hdp-centos7-local-prepare.sh opc@hdpoc${i}://tmp; done
+for i in {1..5..1}; do scp -r hdp-centos7-hostname-set.sh opc@hdpoc${i}://tmp; done
 scp -r hdp-centos7-ambari-2.7.3.0-install.sh opc@hdpoc1://tmp
 ~~~
 
@@ -35,6 +36,10 @@ Przygotowanie maszyn (na wszystkich)
 chmod u+x /tmp/hdp-centos7-local-prepare.sh
 
 /tmp/hdp-centos7-local-prepare.sh
+
+chmod u+x /tmp/hdp-centos7-hostname-set.sh
+
+/tmp/hdp-centos7-hostname-set.sh hdp.bigdatapassion.com
 
 reboot
 ~~~
