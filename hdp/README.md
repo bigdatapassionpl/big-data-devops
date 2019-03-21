@@ -57,7 +57,7 @@ Instalacja Ambari
 ~~~bash
 ssh root@hdp1
 
-chmod u+x /tmp/hdp-centos7-ambari-2.7.1.0-install.sh
+chmod u+x /tmp/hdp-centos7-ambari-2.7.3.0-install.sh
 
 /tmp/hdp-centos7-ambari-2.7.1.0-install.sh
 ~~~
