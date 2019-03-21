@@ -1,5 +1,58 @@
 
-# Instalacja dystrybucji HDP 2.6
+# Instalacja dystrybucji HDP 3.1
+
+
+
+
+## Wrzucenie skryptów
+
+AWS:
+~~~bash
+for i in {1..5..1}; do scp -r hdp-centos7-local-prepare.sh ec2-user@aws${i}://tmp; done
+scp -r hdp-centos7-ambari-2.7.3.0-install.sh ec2-user@aws1://tmp
+~~~
+
+Oracle Cloud:
+~~~bash
+for i in {1..5..1}; do scp -r hdp-centos7-local-prepare.sh opc@hdpoc${i}://tmp; done
+scp -r hdp-centos7-ambari-2.7.3.0-install.sh opc@hdpoc1://tmp
+~~~
+
+Oktawawe:
+~~~bash
+for i in {1..5..1}; do scp -r hdp-centos7-local-prepare.sh hdp${i}://tmp; done
+scp -r hdp-centos7-ambari-2.7.3.0-install.sh hdp1://tmp
+~~~
+
+
+
+
+## Instalacja
+
+
+Przygotowanie maszyn (na wszystkich)
+~~~bash
+chmod u+x /tmp/hdp-centos7-local-prepare.sh
+
+/tmp/hdp-centos7-local-prepare.sh
+
+reboot
+~~~
+
+Instalacja Ambari (na głównej)
+~~~bash
+chmod u+x /tmp/hdp-centos7-ambari-2.7.3.0-install.sh
+
+/tmp/hdp-centos7-ambari-2.7.3.0-install.sh
+~~~
+
+
+
+
+
+
+
+
 
 ### Sandbox
 
@@ -32,50 +85,3 @@ chmod u+x /tmp/hdp-centos7-ambari-2.7.1.0-install.sh
 /tmp/hdp-centos7-ambari-2.7.1.0-install.sh
 ~~~
 
-
-
-### Klaster
-
-Wrzucenie skryptów:
-~~~bash
-for i in {1..5..1}; do scp -r hdp-centos7-local-prepare.sh hdp${i}://tmp; done
-scp -r hdp-centos7-ambari-2.7.1.0-install.sh hdp1://tmp
-~~~
-
-Przygotowanie maszyn
-~~~bash
-cssh hdp{1..5}
-
-chmod u+x /tmp/hdp-centos7-local-prepare.sh
-
-/tmp/hdp-centos7-local-prepare.sh
-
-reboot
-~~~
-
-Instalacja Ambari
-~~~bash
-ssh root@hdp1
-
-chmod u+x /tmp/hdp-centos7-ambari-2.7.3.0-install.sh
-
-/tmp/hdp-centos7-ambari-2.7.1.0-install.sh
-~~~
-
-
-### Amazon EC2
-
-AWS:
-~~~bash
-for i in {1..5..1}; do scp -r hdp-centos7-local-prepare.sh ec2-user@aws${i}://tmp; done
-~~~
-
-
-
-### Google Cloud
-
-TODO
-
-### Azure
-
-TODO
