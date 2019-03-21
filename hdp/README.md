@@ -35,12 +35,11 @@ scp -r hdp-centos7-ambari-2.7.3.0-install.sh hdp1://tmp
 Przygotowanie maszyn (na wszystkich)
 ~~~bash
 chmod u+x /tmp/hdp-centos7-local-prepare.sh
-
-/tmp/hdp-centos7-local-prepare.sh
-
 chmod u+x /tmp/hdp-centos7-hostname-set.sh
 
 /tmp/hdp-centos7-hostname-set.sh hdp.bigdatapassion.com
+
+/tmp/hdp-centos7-local-prepare.sh
 
 reboot
 ~~~
