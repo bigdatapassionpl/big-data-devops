@@ -22,6 +22,7 @@ scp -r hdp-centos7-ambari-2.7.3.0-install.sh opc@hdpoc1://tmp
 Oktawawe:
 ~~~bash
 for i in {1..5..1}; do scp -r hdp-centos7-local-prepare.sh hdp${i}://tmp; done
+for i in {1..5..1}; do scp -r hdp-centos7-hostname-set.sh hdp${i}://tmp; done
 scp -r hdp-centos7-ambari-2.7.3.0-install.sh hdp1://tmp
 ~~~
 
