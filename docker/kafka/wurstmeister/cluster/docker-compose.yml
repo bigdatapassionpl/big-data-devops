@@ -83,6 +83,8 @@ services:
           SCHEMA_REGISTRY_HOST_NAME: schema-registry
           SCHEMA_REGISTRY_LISTENERS: http://0.0.0.0:8085
           SCHEMA_REGISTRY_KAFKASTORE_BOOTSTRAP_SERVERS: kafka1:9092
+          SCHEMA_REGISTRY_ACCESS_CONTROL_ALLOW_METHODS: GET,POST,PUT,OPTIONS
+          SCHEMA_REGISTRY_ACCESS_CONTROL_ALLOW_ORIGIN: '*'
 
   rest-proxy:
       container_name: rest-proxy
@@ -104,17 +106,33 @@ services:
   kafka-topics-ui:
       container_name: kafka-topics-ui
       hostname: kafka-topics-ui
-      image: landoop/kafka-topics-ui:0.9.2
+      image: landoop/kafka-topics-ui:latest
       ports:
         - 8000:8000
       networks:
         - kafkanetwork
       depends_on:
         - rest-proxy
-      environment:
-          KAFKA_REST_PROXY_URL: http://rest-proxy:8082
-          PROXY: "TRUE"
       restart: always
+      environment:
+        KAFKA_REST_PROXY_URL: http://rest-proxy:8082
+        PROXY: "TRUE"
+        PORT: 8000
+
+  schema-registry-ui:
+    container_name: schema-registry-ui
+    hostname: schema-registry-ui
+    image: landoop/schema-registry-ui:latest
+    ports:
+      - 8001:8001
+    networks:
+      - kafkanetwork
+    depends_on:
+      - kafka-topics-ui
+    restart: always
+    environment:
+      SCHEMAREGISTRY_URL: http://schema-registry:8085
+      PORT: 8001
 
 networks:
   kafkanetwork:

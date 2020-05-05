@@ -15,3 +15,5 @@ docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' sch
 docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' rest-proxy
 
 docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' kafka-topics-ui
+
+docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' schema-registry-ui
