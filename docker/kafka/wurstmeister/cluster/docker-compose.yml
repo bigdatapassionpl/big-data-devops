@@ -3,7 +3,8 @@ version: '3.5'
 services:
 
   zookeeper:
-      container_name: cluster_zookeeper
+      container_name: zookeeper
+      hostname: zookeeper
       image: wurstmeister/zookeeper
       ports:
         - "2181:2181"
@@ -11,44 +12,44 @@ services:
         - kafkanetwork
 
   kafka1:
-      container_name: cluster_kafka1
+      container_name: kafka1
+      hostname: kafka1
       image: wurstmeister/kafka:2.12-2.1.0
       ports:
         - "9092:9092"
-      hostname: cluster_kafka1
       networks:
         - kafkanetwork
       environment:
         KAFKA_LISTENERS: PLAINTEXT://:9092
-        KAFKA_ZOOKEEPER_CONNECT: cluster_zookeeper:2181
+        KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
       depends_on:
         - zookeeper
 
   kafka2:
-      container_name: cluster_kafka2
+      container_name: kafka2
+      hostname: kafka2
       image: wurstmeister/kafka:2.12-2.1.0
       ports:
         - "9093:9092"
-      hostname: cluster_kafka2
       networks:
         - kafkanetwork
       environment:
         KAFKA_LISTENERS: PLAINTEXT://:9092
-        KAFKA_ZOOKEEPER_CONNECT: cluster_zookeeper:2181
+        KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
       depends_on:
         - kafka1
 
   kafka3:
-      container_name: cluster_kafka3
+      container_name: kafka3
+      hostname: kafka3
       image: wurstmeister/kafka:2.12-2.1.0
       ports:
         - "9094:9092"
-      hostname: cluster_kafka3
       networks:
         - kafkanetwork
       environment:
         KAFKA_LISTENERS: PLAINTEXT://:9092
-        KAFKA_ZOOKEEPER_CONNECT: cluster_zookeeper:2181
+        KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
       depends_on:
         - kafka2
 
@@ -63,7 +64,7 @@ services:
       depends_on:
         - kafka3
       environment:
-          ZK_HOSTS: cluster_zookeeper:2181
+          ZK_HOSTS: zookeeper:2181
           APPLICATION_SECRET: letmein
           KM_ARGS: -Djava.net.preferIPv4Stack=true
 
@@ -81,7 +82,7 @@ services:
       environment:
           SCHEMA_REGISTRY_HOST_NAME: schema-registry
           SCHEMA_REGISTRY_LISTENERS: http://0.0.0.0:8085
-          SCHEMA_REGISTRY_KAFKASTORE_BOOTSTRAP_SERVERS: cluster_kafka1:9092
+          SCHEMA_REGISTRY_KAFKASTORE_BOOTSTRAP_SERVERS: kafka1:9092
 
   rest-proxy:
       container_name: rest-proxy
@@ -98,7 +99,7 @@ services:
           KAFKA_REST_HOST_NAME: rest-proxy
           KAFKA_REST_LISTENERS: "http://0.0.0.0:8082"
           KAFKA_REST_SCHEMA_REGISTRY_URL: http://schema-registry:8085
-          KAFKA_REST_BOOTSTRAP_SERVERS: cluster_kafka1:9092
+          KAFKA_REST_BOOTSTRAP_SERVERS: kafka1:9092
 
   kafka-topics-ui:
       container_name: kafka-topics-ui
