@@ -72,46 +72,51 @@ services:
       hostname: schema-registry
       image: confluentinc/cp-schema-registry:5.5.0
       ports:
-        - '8085:8085'
+        - 8085:8085
       networks:
         - kafkanetwork
       depends_on:
         - kafka-manager
       restart: always
       environment:
-        SCHEMA_REGISTRY_HOST_NAME: schema-registry
-        SCHEMA_REGISTRY_LISTENERS: http://0.0.0.0:8085
-        SCHEMA_REGISTRY_KAFKASTORE_SSL_ENDPOINT_IDENTIFIED_ALGORITHM: "http"
-        SCHEMA_REGISTRY_KAFKASTORE_BOOTSTRAP_SERVERS: cluster_kafka1:9092
-        SCHEMA_REGISTRY_KAFKASTORE_SASL_MECHANISM: "PLAIN"
+          SCHEMA_REGISTRY_HOST_NAME: schema-registry
+          SCHEMA_REGISTRY_LISTENERS: http://0.0.0.0:8085
+          SCHEMA_REGISTRY_KAFKASTORE_BOOTSTRAP_SERVERS: cluster_kafka1:9092
 
-#  confluent-rest-proxy:
-#      container_name: confluent-rest-proxy
-#      image: confluentinc/cp-kafka-rest:3.2.1
-#      networks:
-#        - kafkanetwork
-#      environment:
-#        KAFKA_REST_BOOTSTRAP_SERVERS: kafka1:9092,kafka2:9092,kafka3:9092
-#        KAFKA_REST_ZOOKEEPER_CONNECT: zookeeper1:2181,zookeeper2:2181,zookeeper3:2181/kafka
-#        KAFKA_REST_LISTENERS: http://0.0.0.0:8082/
-#        KAFKA_REST_SCHEMA_REGISTRY_URL: http://localhost:8081/
-#        # please replace this setting by the IP of your web tools server
-#        KAFKA_REST_HOST_NAME: "54.206.91.106"
-#      depends_on:
-#        - confluent-schema-registry
-#      restart: always
-#
-#  kafka-topics-ui:
-#      image: landoop/kafka-topics-ui:0.9.2
-#      networks:
-#        - kafkanetwork
-#      environment:
-#          KAFKA_REST_PROXY_URL: http://localhost:8082
-#          PROXY: "TRUE"
-#      depends_on:
-#        - kafka3
-#      restart: always
+  rest-proxy:
+      container_name: rest-proxy
+      hostname: rest-proxy
+      image: confluentinc/cp-kafka-rest:5.5.0
+      ports:
+        - 8082:8082
+      networks:
+        - kafkanetwork
+      depends_on:
+        - schema-registry
+      restart: always
+      environment:
+          KAFKA_REST_HOST_NAME: rest-proxy
+          KAFKA_REST_LISTENERS: "http://0.0.0.0:8082"
+          KAFKA_REST_SCHEMA_REGISTRY_URL: http://schema-registry:8085
+          KAFKA_REST_BOOTSTRAP_SERVERS: cluster_kafka1:9092
+
+  kafka-topics-ui:
+      container_name: kafka-topics-ui
+      hostname: kafka-topics-ui
+      image: landoop/kafka-topics-ui:0.9.2
+      ports:
+        - 8000:8000
+      networks:
+        - kafkanetwork
+      depends_on:
+        - rest-proxy
+      environment:
+          KAFKA_REST_PROXY_URL: http://rest-proxy:8082
+          PROXY: "TRUE"
+      restart: always
 
 networks:
   kafkanetwork:
     driver: bridge
+
+# https://github.com/confluentinc/cp-all-in-one/blob/latest/cp-all-in-one-cloud/docker-compose.yml
