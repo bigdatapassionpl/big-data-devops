@@ -4,21 +4,21 @@ services:
 
   zookeeper:
       container_name: zookeeper
-      hostname: zookeeper
+      hostname: zookeeper.bigdatapassion.com
       image: wurstmeister/zookeeper
       networks:
         - kafkanetwork
 
   zookeeperdr:
       container_name: zookeeperdr
-      hostname: zookeeperdr
+      hostname: zookeeperdr.bigdatapassion.com
       image: wurstmeister/zookeeper
       networks:
         - kafkanetwork
 
   kafka1:
       container_name: kafka1
-      hostname: kafka1
+      hostname: kafka1.bigdatapassion.com
       image: wurstmeister/kafka:2.12-2.1.0
       networks:
         - kafkanetwork
@@ -30,7 +30,7 @@ services:
 
   kafka2:
       container_name: kafka2
-      hostname: kafka2
+      hostname: kafka2.bigdatapassion.com
       image: wurstmeister/kafka:2.12-2.1.0
       networks:
         - kafkanetwork
@@ -42,7 +42,7 @@ services:
 
   kafkadr1:
       container_name: kafkadr1
-      hostname: kafkadr1
+      hostname: kafkadr1.bigdatapassion.com
       image: wurstmeister/kafka:2.12-2.1.0
       networks:
         - kafkanetwork
@@ -54,7 +54,7 @@ services:
 
   kafkadr2:
     container_name: kafkadr2
-    hostname: kafkadr2
+    hostname: kafkadr2.bigdatapassion.com
     image: wurstmeister/kafka:2.12-2.1.0
     networks:
       - kafkanetwork
