@@ -10,8 +10,8 @@ services:
         - kafkanetwork
 
   zookeeperdr:
-      container_name: zookeeper
-      hostname: zookeeper
+      container_name: zookeeperdr
+      hostname: zookeeperdr
       image: wurstmeister/zookeeper
       networks:
         - kafkanetwork
