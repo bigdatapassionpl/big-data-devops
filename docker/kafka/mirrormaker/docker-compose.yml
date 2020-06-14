@@ -25,6 +25,8 @@ services:
     environment:
       KAFKA_LISTENERS: PLAINTEXT://:9092
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+    volumes:
+      - ./config:/opt/kafka/mirrormaker
     depends_on:
       - zookeeper
 
