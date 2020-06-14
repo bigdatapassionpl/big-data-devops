@@ -22,6 +22,7 @@ cd /opt/kafka/bin/
     --producer.config /opt/kafka/mirrormaker/producer.properties \
     --num.streams 1 --whitelist=".*"
 
+./kafka-consumer-groups.sh --describe --group mirror_maker --bootstrap-server kafka1:9092
 ~~~
 
 
