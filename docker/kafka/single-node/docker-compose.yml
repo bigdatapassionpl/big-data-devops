@@ -22,7 +22,7 @@ services:
         KAFKA_LISTENERS: PLAINTEXT://:9092
         KAFKA_ZOOKEEPER_CONNECT: cluster_zookeeper:2181
       volumes:
-        - ../config:/opt/kafka/config
+        - ./config:/opt/kafka/config
       depends_on:
         - zookeeper
 
