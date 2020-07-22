@@ -23,3 +23,11 @@ Stworzony przez BigDataPassion.pl
 172.22.0.9 kafka-topics-ui
 172.22.0.10 schema-registry-ui
 ~~~
+
+## Ansible - pobieranie konfiguracji + informacji o hostach
+
+Katalog ```ansible-collect-technical-info```.
+
+* shut-up-and-give-me-your-money.sh - skrypt do wizualizacji zasobów
+* shut-up-and-take-my-money.yml - playbook do tworrzenia kopii konfiguracji
+

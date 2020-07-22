@@ -1,0 +1,18 @@
+---
+
+- name: Pause - Common Crawl is about to begin
+  pause:
+    prompt: "Are you sure that you want to continue?"
+    seconds: 4
+  tags:
+    - start-pause
+
+- name: "Create Local Directory"
+  file:
+    path: "{{ tmpdirsegment }}"
+    state: directory
+    mode: 0755
+  tags:
+    - hadoop
+
+...

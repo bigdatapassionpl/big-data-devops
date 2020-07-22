@@ -26,3 +26,7 @@ WEB-INF/lib
 build
 
 jupyter/*
+
+ansible-collect-technical-info/cmdbout
+ansible-collect-technical-info/overview.html
+
