@@ -3,7 +3,7 @@
 - name: Pause - Common Crawl is about to begin
   pause:
     prompt: "Are you sure that you want to continue?"
-    seconds: 4
+    seconds: 2
   tags:
     - start-pause
 
@@ -12,7 +12,33 @@
     path: "{{ tmpdirsegment }}"
     state: directory
     mode: 0755
+    recurse: yes
+  delegate_to: localhost
   tags:
     - hadoop
 
+- name: "Create {{ inventory_hostname }} Folder"
+  file:
+    path: "{{ tmpdirsegment }}/{{ inventory_hostname }}"
+    state: directory
+    mode: 0755
+  tags:
+    - hadoop
+
+- name: "Store File Into {{ tmpdirsegment }} Remote Dir"
+  copy:
+    src: "{{ hadoopconffolder }}/"
+    dest: "{{ tmpdirsegment }}/{{ inventory_hostname }}"
+    remote_src: yes
+    follow: no
+    
+- name: "Take Config Dir From {{ inventory_hostname }} (req. rsync)"
+  synchronize:
+    src: "{{ tmpdirsegment }}/"
+    dest: "{{ tmpdirsegment }}"
+    mode: pull
+    dirs: yes
+    recursive: yes
+
 ...
+

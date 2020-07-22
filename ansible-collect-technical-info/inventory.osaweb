@@ -1,0 +1,10 @@
+[namenodes]
+h3host200.osaweb.pl ansible_host=10.35.0.200
+
+[datanodes]
+h3host201.osaweb.pl ansible_host=10.35.0.201
+h3host204.osaweb.pl ansible_host=10.35.0.204
+
+[all:vars]
+ansible_user=root
+

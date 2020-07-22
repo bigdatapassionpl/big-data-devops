@@ -29,4 +29,5 @@ jupyter/*
 
 ansible-collect-technical-info/cmdbout
 ansible-collect-technical-info/overview.html
+ansible-collect-technical-info/clusterfiles
 

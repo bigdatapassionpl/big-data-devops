@@ -1,0 +1,6 @@
+---
+- hosts: namenodes
+  gather_facts: True
+  roles:
+  - download-config-directory
+...

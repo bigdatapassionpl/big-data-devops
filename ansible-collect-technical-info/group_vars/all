@@ -1,2 +1,3 @@
 tmpdirsegment: clusterfiles
+hadoopconffolder: /etc/hadoop/conf
 localuser: hadoop

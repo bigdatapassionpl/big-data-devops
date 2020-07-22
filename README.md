@@ -1,5 +1,6 @@
 
 # Big Data DevOps
+
 Stworzony przez BigDataPassion.pl
 
 ## Adresy URL maszyn wirtualnych
@@ -12,6 +13,7 @@ Stworzony przez BigDataPassion.pl
     * http://kafka-manager:9000/
     
 ## Wpisy w /etc/hosts
+
 ~~~bash
 172.22.0.2 zookeeper
 172.22.0.3 kafka1
@@ -30,4 +32,15 @@ Katalog ```ansible-collect-technical-info```.
 
 * shut-up-and-give-me-your-money.sh - skrypt do wizualizacji zasobów
 * shut-up-and-take-my-money.yml - playbook do tworrzenia kopii konfiguracji
+
+### miniHOWTO
+
+```
+git clone git@github.com:bigdatapassionpl/big-data-devops.git
+cd big-data-devops/ansible-collect-technical-info/
+# edytujemy plik z inwentarzem inventory
+./shut-up-and-give-me-your-money.sh
+python -m SimpleHTTPServer 8000
+# otwieramy w przeglądarce http://127.0.0.1:8000/overview.html
+```
 
