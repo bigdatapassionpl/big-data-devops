@@ -16,24 +16,29 @@ services:
     networks:
       - kafkanetwork
 
+  zookeepermm:
+    container_name: zookeepermm
+    hostname: zookeepermm
+    image: wurstmeister/zookeeper
+    networks:
+      - kafkanetwork
+
   kafka1:
     container_name: kafka1
     hostname: kafka1
-    image: wurstmeister/kafka:2.12-2.5.0
+    image: wurstmeister/kafka:2.12-2.1.0
     networks:
       - kafkanetwork
     environment:
       KAFKA_LISTENERS: PLAINTEXT://:9092
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
-    volumes:
-      - ./config:/opt/kafka/mirrormaker
     depends_on:
       - zookeeper
 
   kafka2:
     container_name: kafka2
     hostname: kafka2
-    image: wurstmeister/kafka:2.12-2.5.0
+    image: wurstmeister/kafka:2.12-2.1.0
     networks:
       - kafkanetwork
     environment:
@@ -45,7 +50,7 @@ services:
   kafkadr1:
     container_name: kafkadr1
     hostname: kafkadr1
-    image: wurstmeister/kafka:2.12-2.5.0
+    image: wurstmeister/kafka:2.12-2.1.0
     networks:
       - kafkanetwork
     environment:
@@ -57,7 +62,7 @@ services:
   kafkadr2:
     container_name: kafkadr2
     hostname: kafkadr2
-    image: wurstmeister/kafka:2.12-2.5.0
+    image: wurstmeister/kafka:2.12-2.1.0
     networks:
       - kafkanetwork
     environment:
@@ -66,20 +71,19 @@ services:
     depends_on:
       - kafkadr1
 
-  kafka-manager:
-      container_name: kafka-manager
-      hostname: kafka-manager
-      image: solsson/kafka-manager
-      ports:
-        - "9000:9000"
-      networks:
-        - kafkanetwork
-      depends_on:
-        - kafka2
-      environment:
-          ZK_HOSTS: zookeeper:2181
-          APPLICATION_SECRET: letmein
-          KM_ARGS: -Djava.net.preferIPv4Stack=true
+  mm2:
+    container_name: mm2
+    hostname: mm2
+    image: wurstmeister/kafka:2.12-2.5.0
+    networks:
+      - kafkanetwork
+    environment:
+      KAFKA_LISTENERS: PLAINTEXT://:9092
+      KAFKA_ZOOKEEPER_CONNECT: zookeepermm:2181
+    volumes:
+      - ./config:/opt/kafka/mirrormaker
+    depends_on:
+      - zookeepermm
 
 networks:
   kafkanetwork:
