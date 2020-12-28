@@ -1,0 +1,16 @@
+version: '3.5'
+
+services:
+
+  airflow:
+      container_name: airflow
+      image: apache/airflow
+      ports:
+        - "8080:8080"
+      hostname: airflow
+      networks:
+        - bigdatanetwork
+
+networks:
+  bigdatanetwork:
+    driver: bridge
