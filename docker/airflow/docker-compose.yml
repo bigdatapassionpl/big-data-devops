@@ -1,15 +1,39 @@
-version: '3.5'
+version: '3.8'
 
 services:
 
-  airflow:
-      container_name: airflow
-      image: apache/airflow
-      ports:
-        - "8080:8080"
-      hostname: airflow
-      networks:
-        - bigdatanetwork
+  airflow-postgres:
+    image: postgres
+    environment:
+      - POSTGRES_USER=airflow
+      - POSTGRES_PASSWORD=airflow
+      - POSTGRES_DB=airflow
+
+  airflow-scheduler:
+    image: apache/airflow
+    command: scheduler
+    depends_on:
+      - airflow-postgres
+    env_file:
+      - .env
+    volumes:
+      - ./dags:/opt/airflow/dags
+      - ./logs:/opt/airflow/logs
+
+  airflow-webserver:
+    image: apache/airflow
+    entrypoint: ./scripts/entrypoint.sh
+    depends_on:
+      - airflow-postgres
+      - airflow-scheduler
+    env_file:
+      - .env
+    volumes:
+      - ./dags:/opt/airflow/dags
+      - ./logs:/opt/airflow/logs
+      - ./scripts:/opt/airflow/scripts
+    ports:
+    - "8080:8080"
 
 networks:
   bigdatanetwork:
