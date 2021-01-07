@@ -5,6 +5,7 @@ containers=$(sudo docker ps | awk '{if(NR>1) print $NF}')
 host=$(hostname)
 
 # loop through all containers
+echo "# Docker" >> /etc/hosts
 for container in $containers
 do
   echo "Container: $container"
