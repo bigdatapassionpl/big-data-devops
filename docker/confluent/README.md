@@ -12,6 +12,8 @@
 * https://docs.confluent.io/platform/current/tutorials/cp-demo/docs/index.html
 * https://github.com/confluentinc/cp-demo
 
+* https://docs.confluent.io/platform/current/installation/cli-reference.html
+
 
 ## Adresy
 
