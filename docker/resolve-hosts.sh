@@ -16,27 +16,10 @@ do
   container_hostname=$(docker inspect -f '{{.Config.Hostname}}' $container)
   echo $container_hostname
 
+  sed "/$container_hostname/d" /etc/hosts > /tmp/newhosts
+  cp /tmp/newhosts /etc/hosts
+
   echo "$container_ip $container_hostname" >> /etc/hosts
 
   echo ================================
 done
-
-
-
-#docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' zookeeper
-#
-#docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' kafka1
-#
-#docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' kafka2
-#
-#docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' kafka3
-#
-#docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' kafka-manager
-#
-#docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' schema-registry
-#
-#docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' rest-proxy
-#
-#docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' kafka-topics-ui
-#
-#docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' schema-registry-ui
