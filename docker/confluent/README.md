@@ -11,3 +11,8 @@
 
 * https://docs.confluent.io/platform/current/tutorials/cp-demo/docs/index.html
 * https://github.com/confluentinc/cp-demo
+
+
+## Adresy
+
+* http://control-center:9021/
