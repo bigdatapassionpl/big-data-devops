@@ -31,3 +31,12 @@ ansible-collect-technical-info/cmdbout
 ansible-collect-technical-info/overview.html
 ansible-collect-technical-info/clusterfiles
 
+
+# Python & Airflow
+*venv
+/scripts/scheduler/airflow/logs/
+/scripts/scheduler/airflow/dags/__pycache__/
+/scripts/scheduler/airflow/airflow.db
+/scripts/scheduler/airflow/airflow.cfg
+/scripts/scheduler/airflow/airflow-webserver.pid
+/scripts/scheduler/airflow/unittests.cfg
