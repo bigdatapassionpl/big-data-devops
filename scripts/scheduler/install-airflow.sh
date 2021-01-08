@@ -8,7 +8,8 @@
 export AIRFLOW_HOME=/home/radek/projects/BigDataPassion/big-data-devops/scripts/scheduler/airflow
 
 rm -rf airflow-venv
-virtualenv -p python3.6 airflow-venv
+virtualenv -p python3.8 airflow-venv
+#virtualenv -p python3.6 airflow-venv
 #virtualenv -p python3.6m airflow-venv
 #virtualenv -p python3 airflow-venv
 
@@ -18,7 +19,11 @@ python --version
 
 pip install apache-airflow
 
-airflow initdb
+#airflow initdb
+airflow db init
+
+#airflow create_user -r Admin -u admin -e admin@acme.com -f admin -l user -p password123
+airflow users create -r Admin -u admin -e admin@acme.com -f admin -l user -p password123
 
 echo "source airflow-venv/bin/activate"
 echo "airflow webserver -p 8080"

@@ -38,5 +38,6 @@ ansible-collect-technical-info/clusterfiles
 /scripts/scheduler/airflow/dags/__pycache__/
 /scripts/scheduler/airflow/airflow.db
 /scripts/scheduler/airflow/airflow.cfg
+/scripts/scheduler/airflow/webserver_config.py
 /scripts/scheduler/airflow/airflow-webserver.pid
 /scripts/scheduler/airflow/unittests.cfg
