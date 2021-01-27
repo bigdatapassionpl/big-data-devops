@@ -1,5 +1,7 @@
 #!/bin/bash
 
+cat /etc/hosts
+
 # get all running docker container names
 containers=$(sudo docker ps | awk '{if(NR>1) print $NF}')
 host=$(hostname)
