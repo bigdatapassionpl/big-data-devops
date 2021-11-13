@@ -18,3 +18,5 @@
 ## Adresy
 
 * http://control-center:9021/
+* http://rest-proxy:8082/
+* http://schema-registry:8081/
