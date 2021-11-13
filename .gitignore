@@ -27,9 +27,9 @@ build
 
 jupyter/*
 
-ansible-collect-technical-info/cmdbout
-ansible-collect-technical-info/overview.html
-ansible-collect-technical-info/clusterfiles
+ansible/ansible-collect-technical-info/cmdbout
+ansible/ansible-collect-technical-info/overview.html
+ansible/ansible-collect-technical-info/clusterfiles
 
 
 # Python & Airflow
