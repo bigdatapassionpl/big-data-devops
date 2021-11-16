@@ -160,6 +160,9 @@ function install_and_configure_kafka_server() {
     sed -i "/kafka-run-class.sh/i export JMX_PORT=${KAFKA_JMX_PORT}" /usr/lib/kafka/bin/kafka-server-start.sh
   fi
 
+  cp /etc/kafka/conf/server.properties /tmp/
+  echo -e "listeners = PLAINTEXT://${HOSTNAME}:9092" >> /etc/kafka/conf/server.properties
+
   wait_for_zookeeper
 
   # Start Kafka.
