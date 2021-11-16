@@ -14,13 +14,15 @@ export CLUSTER_NAME=bigdatacluster
 
 gcloud dataproc clusters create ${CLUSTER_NAME} \
     --region ${REGION} \
+    --enable-component-gateway \
     --master-boot-disk-size=30GB \
     --worker-boot-disk-size=30GB \
     --num-masters 1 \
     --num-workers=3 \
     --optional-components=ZOOKEEPER,JUPYTER,ZEPPELIN \
-    --initialization-actions gs://goog-dataproc-initialization-actions-${REGION}/kafka/kafka.sh
+    --initialization-actions gs://dob2k21/goog-dataproc-initialization-actions/kafka.sh
 
+gs://goog-dataproc-initialization-actions-${REGION}/kafka/kafka.sh
 --metadata "run-on-master=true" \
 ,gs://goog-dataproc-initialization-actions-${REGION}/kafka/cruise-control.sh
 ,gs://goog-dataproc-initialization-actions-${REGION}/kafka/kafka-manager.sh
