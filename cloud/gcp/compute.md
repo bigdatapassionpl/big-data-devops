@@ -18,6 +18,8 @@ export ZONE=europe-central2-a
 export INSTANCE=nifi-vm
 
 gcloud compute instances list
+gcloud compute instances list --format="table(NAME,EXTERNAL_IP)"
+
 gcloud compute machine-types list --zones $ZONE
 
 gcloud compute ssh <instance_name>
