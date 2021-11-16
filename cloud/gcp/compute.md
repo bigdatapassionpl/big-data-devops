@@ -18,9 +18,14 @@ export ZONE=europe-central2-a
 export INSTANCE=nifi-vm
 
 gcloud compute instances list
+gcloud compute instances list --format="json"
 gcloud compute instances list --format="table(NAME,EXTERNAL_IP)"
+gcloud compute instances list --format='get(networkInterfaces[0].accessConfigs[0].natIP)'
 
 gcloud compute machine-types list --zones $ZONE
 
 gcloud compute ssh <instance_name>
+
+gcloud compute instances list --format='get(networkInterfaces[0].accessConfigs[0].natIP,name)' | sudo tee -a /etc/hosts  > /dev/null
+ssh <host>
 ~~~
