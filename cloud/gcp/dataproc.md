@@ -9,6 +9,7 @@
 
 ~~~
 export REGION=europe-central2
+export ZONE=europe-central2-a
 export CLUSTER_NAME=bigdatacluster
 
 gcloud dataproc clusters create ${CLUSTER_NAME} \
@@ -28,7 +29,11 @@ gcloud dataproc clusters create ${CLUSTER_NAME} \
 gcloud dataproc clusters list --region $REGION
 gcloud dataproc clusters delete $CLUSTER_NAME --region $REGION
 
-vim /etc/kafka/conf/server.properties
+cssh bigdatacluster-{m,w-0,w-1,w-2}
+
+cp /etc/kafka/conf/server.properties /tmp/
+echo -e "listeners = PLAINTEXT://${HOSTNAME}:9092" >> /etc/kafka/conf/server.properties
+/etc/init.d/kafka-server restart
 
 systemctl list-unit-files
 systemctl status {servicename}
