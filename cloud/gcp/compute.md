@@ -28,4 +28,7 @@ gcloud compute ssh <instance_name>
 
 gcloud compute instances list --format='get(networkInterfaces[0].accessConfigs[0].natIP,name)' | sudo tee -a /etc/hosts  > /dev/null
 ssh <host>
+
+ssh-keygen -f "/home/radek/.ssh/known_hosts" -R "bigdatacluster-m"
+ssh-keygen -f "/home/radek/.ssh/known_hosts" -R "34.118.82.206"
 ~~~
