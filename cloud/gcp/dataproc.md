@@ -17,8 +17,10 @@ gcloud dataproc clusters create ${CLUSTER_NAME} \
     --enable-component-gateway \
     --master-boot-disk-size=30GB \
     --worker-boot-disk-size=30GB \
-    --num-masters 1 \
-    --num-workers=3 \
+    --num-masters=1 \
+    --num-workers=2 \
+    --master-machine-type=e2-standard-2 \
+    --worker-machine-type=e2-standard-2 \
     --optional-components=ZOOKEEPER,JUPYTER,ZEPPELIN \
     --initialization-actions gs://dob2k21/goog-dataproc-initialization-actions/kafka.sh
 
