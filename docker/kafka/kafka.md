@@ -9,10 +9,13 @@ docker exec -it --user root broker1 bash
 
 
 # Docker zmienne do poleceń w konsoli
-~~~bash
-#export KAFKA_HOME=/opt/kafka
-export KAFKA_HOME=/usr
 
+~~~bash
+export KAFKA_HOME=/opt/kafka
+alias kafka-topics=kafka-topics
+~~~
+
+~~~bash
 export KAFKA_ZOOKEEPER=zookeeper:2181
 export KAFKA_BROKER=broker1:9092,broker2:9092,broker3:9092
 
@@ -24,7 +27,7 @@ export TOPIC_OUT=output-topic
 
 ### Stworzenie topicu
 ~~~bash
-$KAFKA_HOME/bin/kafka-topics.sh --create --zookeeper $KAFKA_ZOOKEEPER \
+kafka-topics --create --zookeeper $KAFKA_ZOOKEEPER \
     --replication-factor 2 --partitions 3 --topic $TOPIC
 ~~~
 
@@ -32,10 +35,10 @@ $KAFKA_HOME/bin/kafka-topics.sh --create --zookeeper $KAFKA_ZOOKEEPER \
 
 ### Informacje o topicu
 ~~~bash
-$KAFKA_HOME/bin/kafka-topics.sh --describe --zookeeper $KAFKA_ZOOKEEPER
-$KAFKA_HOME/bin/kafka-topics.sh --describe --zookeeper $KAFKA_ZOOKEEPER \
+kafka-topics --describe --zookeeper $KAFKA_ZOOKEEPER
+kafka-topics --describe --zookeeper $KAFKA_ZOOKEEPER \
     --topic $TOPIC
-$KAFKA_HOME/bin/kafka-topics.sh --zookeeper $KAFKA_ZOOKEEPER --describe \
+kafka-topics --zookeeper $KAFKA_ZOOKEEPER --describe \
     --under-replicated-partitions
 ~~~
 
@@ -43,7 +46,7 @@ $KAFKA_HOME/bin/kafka-topics.sh --zookeeper $KAFKA_ZOOKEEPER --describe \
 
 ### Edycja topicu
 ~~~bash
-$KAFKA_HOME/bin/kafka-topics.sh --alter --zookeeper $KAFKA_ZOOKEEPER \
+kafka-topics --alter --zookeeper $KAFKA_ZOOKEEPER \
     --topic $TOPIC --partitions 3
 ~~~
 
@@ -51,16 +54,16 @@ $KAFKA_HOME/bin/kafka-topics.sh --alter --zookeeper $KAFKA_ZOOKEEPER \
 
 ### Lista topiców
 ~~~bash
-$KAFKA_HOME/bin/kafka-topics.sh --list --zookeeper $KAFKA_ZOOKEEPER
+kafka-topics --list --zookeeper $KAFKA_ZOOKEEPER
 ~~~
 
 
 
 ### Topic z replikami
 ~~~bash
-$KAFKA_HOME/bin/kafka-topics.sh --create --zookeeper $KAFKA_ZOOKEEPER \
+kafka-topics --create --zookeeper $KAFKA_ZOOKEEPER \
     --replication-factor 3 --partitions 3 --topic my-super-topic
-$KAFKA_HOME/bin/kafka-topics.sh --describe --zookeeper $KAFKA_ZOOKEEPER \
+kafka-topics --describe --zookeeper $KAFKA_ZOOKEEPER \
     --topic my-super-topic
 ~~~
 
