@@ -1,6 +1,6 @@
 #!/bin/bash
 
-cat /etc/hosts
+cp /etc/hosts /tmp/hosts-`date +"%Y-%m-%d-%H-%M-%S"`
 
 # get all running docker container names
 containers=$(sudo docker ps | awk '{if(NR>1) print $NF}')
