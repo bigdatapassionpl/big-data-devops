@@ -1,0 +1,8 @@
+version: "3.9"
+
+services:
+
+  sandbox-hdp:
+    image: hortonworks/sandbox-hdp:3.0.1
+    container_name: sandbox-hdp
+    hostname: sandbox-hdp
