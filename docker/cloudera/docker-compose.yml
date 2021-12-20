@@ -1,0 +1,8 @@
+version: "3.9"
+
+services:
+
+  sandbox-cdh:
+    image: cloudera/sandbox-cdh:6.3.0
+    container_name: sandbox-cdh
+    hostname: sandbox-cdh
