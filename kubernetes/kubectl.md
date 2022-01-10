@@ -19,6 +19,9 @@ kubectl config get-contexts
 kubectl config current-context
 kubectl config use-context {my-cluster-name}
 kubectl config set-context --current --namespace={namespace}
+
+kubectl get all
+kubectl get all -n {namespace}
 ~~~
 
 ### Namespaces
