@@ -22,13 +22,14 @@ kubectl config set-context --current --namespace={namespace}
 
 kubectl get all
 kubectl get all -n {namespace}
+kubectl get all --all-namespaces 
 ~~~
 
 ### Namespaces
 ~~~
 kubectl get namespaces
 kubectl get namespaces -o yaml
-kubectl create namespace airflow
+kubectl create namespace {namespace}
 ~~~
 
 ### Pods
