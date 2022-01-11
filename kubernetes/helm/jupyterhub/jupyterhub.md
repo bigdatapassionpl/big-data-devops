@@ -1,4 +1,9 @@
 
+* https://jupyterhub.github.io/helm-chart/
+* https://zero-to-jupyterhub.readthedocs.io/en/latest/
+* https://github.com/jupyterhub/helm-chart
+* 
+
 ~~~
 helm repo add jupyterhub https://jupyterhub.github.io/helm-chart/
 helm repo update
@@ -17,4 +22,6 @@ helm upgrade --cleanup-on-fail \
   --namespace jupyterhub \
   --version=$JUPYTER_HUB_HELM_VERSION \
   --values config.yaml
+
+helm delete jupyterhub --namespace jupyterhub
 ~~~

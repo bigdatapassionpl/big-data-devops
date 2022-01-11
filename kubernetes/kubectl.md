@@ -30,6 +30,7 @@ kubectl get all --all-namespaces
 kubectl get namespaces
 kubectl get namespaces -o yaml
 kubectl create namespace {namespace}
+kubectl delete ns {namespace}
 ~~~
 
 ### Pods

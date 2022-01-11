@@ -1,4 +1,6 @@
 
+* https://superset.apache.org/docs/installation/running-on-kubernetes
+
 ~~~
 helm repo add superset https://apache.github.io/superset
 helm search repo superset
@@ -10,4 +12,6 @@ helm upgrade --cleanup-on-fail \
   --namespace superset \
   --create-namespace \
   --values values-minikube.yaml
+  
+helm delete superset --namespace superset
 ~~~
