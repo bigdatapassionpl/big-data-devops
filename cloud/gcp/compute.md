@@ -1,4 +1,7 @@
 
+* https://gcpinstances.doit-intl.com/
+* https://cloud.google.com/compute/docs/regions-zones
+* 
 
 ~~~
 gcloud compute networks list
