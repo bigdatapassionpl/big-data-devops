@@ -9,11 +9,39 @@
 # Available chart versions: https://jupyterhub.github.io/helm-chart/
 #
 
+
+
+#singleuser:
+#  image:
+#    # You should replace the "latest" tag with a fixed version from:
+#    # https://hub.docker.com/r/jupyter/datascience-notebook/tags/
+#    # Inspect the Dockerfile at:
+#    # https://github.com/jupyter/docker-stacks/tree/HEAD/datascience-notebook/Dockerfile
+#    name: jupyter/datascience-notebook
+#    tag: latest
+
 singleuser:
+  # Defines the default image
   image:
-    # You should replace the "latest" tag with a fixed version from:
-    # https://hub.docker.com/r/jupyter/datascience-notebook/tags/
-    # Inspect the Dockerfile at:
-    # https://github.com/jupyter/docker-stacks/tree/HEAD/datascience-notebook/Dockerfile
-    name: jupyter/datascience-notebook
+    name: jupyter/minimal-notebook
     tag: latest
+  profileList:
+    - display_name: "Minimal environment"
+      description: "To avoid too much bells and whistles: Python."
+      default: true
+    - display_name: "Datascience environment"
+      description: "If you want the additional bells and whistles: Python, R, and Julia."
+      kubespawner_override:
+        image: jupyter/datascience-notebook:latest
+    - display_name: "Spark environment"
+      description: "The Jupyter Stacks spark image!"
+      kubespawner_override:
+        image: jupyter/all-spark-notebook:latest
+    - display_name: "Learning R"
+      description: "Jupyter Notebook R Stack"
+      kubespawner_override:
+        image: jupyter/r-notebook:latest
+    - display_name: "Tensorflow"
+      description: "Tensorflow environment"
+      kubespawner_override:
+        image: jupyter/tensorflow-notebook
