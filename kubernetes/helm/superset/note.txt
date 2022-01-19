@@ -1,0 +1,6 @@
+NOTES:
+
+1. Get the application URL by running these commands:
+  echo "Visit http://127.0.0.1:8088 to use your application"
+  kubectl port-forward service/superset 8088:8088 --namespace superset
+
