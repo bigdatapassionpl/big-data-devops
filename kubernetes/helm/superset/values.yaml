@@ -1,0 +1,17 @@
+
+service:
+  type: LoadBalancer
+
+init:
+  loadExamples: true
+
+bootstrapScript: |
+  #!/bin/bash
+  rm -rf /var/lib/apt/lists/* && \
+  pip install \
+    pybigquery
+    snowflake-sqlalchemy
+    pyhive
+    psycopg2-binary==2.9.1 \
+    redis==3.5.3 && \
+  if [ ! -f ~/bootstrap ]; then echo "Running Superset with uid {{ .Values.runAsUser }}" > ~/bootstrap; fi
