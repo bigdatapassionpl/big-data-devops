@@ -26,4 +26,15 @@ sudo apt-get install helm
 ### Helm basics
 ~~~
 helm repo list
+helm repo update
+helm search repo jupyterhub
+helm list -aA
+helm history jupyterhub -n jupyterhub
+
+helm get all jupyterhub -n jupyterhub
+helm get notes jupyterhub -n jupyterhub
+helm get hooks jupyterhub -n jupyterhub
+helm get values jupyterhub -n jupyterhub
+helm get values --all jupyterhub -n jupyterhub
+helm get manifest jupyterhub -n jupyterhub
 ~~~
