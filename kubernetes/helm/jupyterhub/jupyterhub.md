@@ -8,6 +8,7 @@
 helm repo add jupyterhub https://jupyterhub.github.io/helm-chart/
 
 helm repo update
+helm search repo jupyterhub
 
 export JUPYTER_HUB_HELM_VERSION=1.1.3-n263.hfafb144a
 

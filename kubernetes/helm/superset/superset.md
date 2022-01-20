@@ -7,7 +7,6 @@ helm repo add superset https://apache.github.io/superset
 helm repo update
 helm search repo superset
 
-#wget https://raw.githubusercontent.com/apache/superset/master/helm/superset/values.yaml -O values-default.yaml
 helm show values superset/superset > superset/values-default.yaml
 
 time helm upgrade superset superset/superset \
