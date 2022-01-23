@@ -11,8 +11,9 @@ helm show values superset/superset > superset/values-default.yaml
 
 time helm upgrade superset superset/superset \
   --install \
-  --create-namespace \
+  --timeout 10m \
   --cleanup-on-fail \
+  --create-namespace \
   --namespace superset \
   --values superset/values.yaml
 
