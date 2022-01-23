@@ -9,5 +9,15 @@ helm search repo gethue
 
 helm show values gethue/hue > hue/values-default.yaml
 
-helm install hue gethue/hue
+time helm upgrade hue gethue/hue \
+  --install \
+  --timeout 10m \
+  --cleanup-on-fail \
+  --create-namespace \
+  --namespace hue \
+  --values hue/values.yaml
+  
+helm get notes hue -n hue > hue/note.txt
+
+helm delete hue
 ~~~
