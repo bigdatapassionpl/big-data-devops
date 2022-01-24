@@ -19,5 +19,7 @@ time helm upgrade hue gethue/hue \
   
 helm get notes hue -n hue > hue/note.txt
 
-helm delete hue
+helm delete hue -n hue
+
+kubectl delete ns hue
 ~~~
