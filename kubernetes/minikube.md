@@ -13,9 +13,15 @@ minikube version
 kubectl version -o json
 
 minikube start
+minikube start \
+    --cpus='6' \
+    --memory 16384 \
+    --disk-size='50000mb' \
+    --container-runtime='docker'
+
 minikube status
 minikube stop
--- minikube delete
+# minikube delete
 
 minikube ssh
 
