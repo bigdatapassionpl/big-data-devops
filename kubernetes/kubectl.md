@@ -43,4 +43,7 @@ kubectl get pods --all-namespaces
 kubectl delete pod {name}
 
 kubectl port-forward pod/tescik-7c8b6f564b-f5n9r 8181:80
+kubectl port-forward svc/hue-balancer 8080:80 --namespace hue
+
+kubectl get svc --all-namespaces 
 ~~~
