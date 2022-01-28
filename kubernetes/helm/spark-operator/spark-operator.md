@@ -15,9 +15,9 @@ time helm upgrade spark-operator spark-operator/spark-operator \
   --cleanup-on-fail \
   --create-namespace \
   --namespace spark-operator \
+  --set image.tag=v1beta2-1.3.2-3.1.1 \
+  --set image.repository=ghcr.io/googlecloudplatform/spark-operator \
   --values spark-operator/values.yaml
 
-helm get notes spark-operator -n spark-operator > spark-operator/note.txt
-  
 helm delete spark-operator --namespace spark-operator
 ~~~
