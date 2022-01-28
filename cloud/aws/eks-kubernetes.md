@@ -22,4 +22,5 @@ time eksctl create cluster \
 
 eksctl create cluster --name=cluster-5 --nodes-min=3 --nodes-max=5
 
+eksctl delete cluster $CLUSTER
 ~~~
