@@ -20,4 +20,12 @@ time helm upgrade spark-operator spark-operator/spark-operator \
   --values spark-operator/values.yaml
 
 helm delete spark-operator --namespace spark-operator
+
+
+kubectl get sparkapplications --all-namespaces
+
+kubectl get sparkapplications spark-pi
+kubectl get sparkapplications spark-pi -o=yaml
+
+kubectl describe sparkapplication spark-pi
 ~~~
