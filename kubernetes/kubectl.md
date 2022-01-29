@@ -25,16 +25,28 @@ kubectl get all -n {namespace}
 kubectl get all --all-namespaces 
 ~~~
 
-### Namespaces
+### Service Accounts
+~~~shell
+kubectl get serviceaccounts
 ~~~
+
+### Namespaces
+~~~shell
 kubectl get namespaces
 kubectl get namespaces -o yaml
 kubectl create namespace {namespace}
 kubectl delete ns {namespace}
 ~~~
 
-### Pods
+### Deployment
+~~~shell
+kubectl logs deployment/<name-of-deployment> # logs of deployment
+kubectl logs -f deployment/<name-of-deployment> # follow logs
+kubectl describe deploy <name-of-deployment>
 ~~~
+
+### Pods
+~~~shell
 kubectl apply -f https://k8s.io/examples/pods/simple-pod.yaml
 kubectl apply -f kubernetes/basics/simple-pod.yaml
 
