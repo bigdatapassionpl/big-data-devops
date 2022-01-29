@@ -9,22 +9,27 @@ helm repo add jupyterhub https://jupyterhub.github.io/helm-chart/
 
 helm repo update
 helm search repo jupyterhub
+helm search repo jupyterhub/jupyterhub --versions
+helm search repo jupyterhub/jupyterhub --versions --devel
 
 export JUPYTER_HUB_HELM_VERSION=1.1.3-n263.hfafb144a
 
+helm show values jupyterhub/jupyterhub \
+    --version=$JUPYTER_HUB_HELM_VERSION \
+    > jupyterhub/values-default.yaml
+
 time helm upgrade jupyterhub jupyterhub/jupyterhub \
   --install \
+  --timeout 10m \
+  --cleanup-on-fail \
   --create-namespace \
-  --cleanup-on-fail \
   --namespace jupyterhub \
   --version=$JUPYTER_HUB_HELM_VERSION \
-  --values jupyterhub/config.yaml
+  --values jupyterhub/values.yaml
 
-time helm upgrade jupyterhub jupyterhub/jupyterhub \
-  --cleanup-on-fail \
-  --namespace jupyterhub \
-  --version=$JUPYTER_HUB_HELM_VERSION \
-  --values jupyterhub/config.yaml
+helm get notes jupyterhub -n jupyterhub > jupyterhub/note.txt
 
 helm delete jupyterhub --namespace jupyterhub
+
+kubectl delete ns jupyterhub
 ~~~
