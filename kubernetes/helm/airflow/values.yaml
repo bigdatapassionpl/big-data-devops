@@ -2,3 +2,7 @@
 webserver:
   service:
     type: LoadBalancer
+
+config:
+  core:
+    load_examples: 'True'
