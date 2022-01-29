@@ -1,0 +1,4 @@
+
+webserver:
+  service:
+    type: LoadBalancer
