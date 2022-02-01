@@ -79,7 +79,7 @@ hub:
   extraVolumeMounts: []
   image:
     name: jupyterhub/k8s-hub
-    tag: "1.2.0"
+    tag: "1.1.3-n263.hfafb144a"
     pullPolicy:
     pullSecrets: []
   resources: {}
@@ -88,6 +88,7 @@ hub:
     runAsGroup: 1000
     allowPrivilegeEscalation: false
   lifecycle: {}
+  loadRoles: {}
   services: {}
   pdb:
     enabled: false
@@ -201,11 +202,14 @@ proxy:
       enabled: true
       initialDelaySeconds: 60
       periodSeconds: 10
+      failureThreshold: 30
+      timeoutSeconds: 3
     readinessProbe:
       enabled: true
       initialDelaySeconds: 0
       periodSeconds: 2
       failureThreshold: 1000
+      timeoutSeconds: 1
     resources: {}
     defaultTarget:
     errorTarget:
@@ -235,7 +239,7 @@ proxy:
       allowPrivilegeEscalation: false
     image:
       name: traefik
-      tag: v2.4.11 # ref: https://hub.docker.com/_/traefik?tab=tags
+      tag: v2.5.6 # ref: https://hub.docker.com/_/traefik?tab=tags
       pullPolicy:
       pullSecrets: []
     hsts:
@@ -275,7 +279,7 @@ proxy:
       allowPrivilegeEscalation: false
     image:
       name: jupyterhub/k8s-secret-sync
-      tag: "1.2.0"
+      tag: "1.1.3-n178.h12898c9e"
       pullPolicy:
       pullSecrets: []
     resources: {}
@@ -315,9 +319,10 @@ singleuser:
   networkTools:
     image:
       name: jupyterhub/k8s-network-tools
-      tag: "1.2.0"
+      tag: "1.1.3-n176.h739f4b47"
       pullPolicy:
       pullSecrets: []
+    resources: {}
   cloudMetadata:
     # block set to true will append a privileged initContainer using the
     # iptables to block the sensitive metadata server at the provided ip.
@@ -369,7 +374,7 @@ singleuser:
       storageAccessModes: [ReadWriteOnce]
   image:
     name: jupyterhub/k8s-singleuser-sample
-    tag: "1.2.0"
+    tag: "1.1.3-n248.h20c9028e"
     pullPolicy:
     pullSecrets: []
   startTimeout: 300
@@ -382,7 +387,7 @@ singleuser:
   extraResource:
     limits: {}
     guarantees: {}
-  cmd: jupyterhub-singleuser
+  cmd:
   defaultUrl:
   extraPodConfig: {}
   profileList: []
@@ -428,7 +433,7 @@ scheduling:
       #            hand with an inspection of the user-scheduelrs RBAC resources
       #            that we have forked.
       name: k8s.gcr.io/kube-scheduler
-      tag: v1.19.13 # ref: https://github.com/kubernetes/website/blob/main/content/en/releases/patch-releases.md
+      tag: v1.19.16 # ref: https://github.com/kubernetes/website/blob/main/content/en/releases/patch-releases.md
       pullPolicy:
       pullSecrets: []
     nodeSelector: {}
@@ -454,7 +459,7 @@ scheduling:
       # gcloud container images list-tags k8s.gcr.io/pause --sort-by=~tags
       #
       # If you update this, also update prePuller.pause.image.tag
-      tag: "3.5"
+      tag: "3.6"
       pullPolicy:
       pullSecrets: []
     replicas: 0
@@ -504,7 +509,7 @@ prePuller:
     # image and the configuration below relates to the hook-image-awaiter Job
     image:
       name: jupyterhub/k8s-image-awaiter
-      tag: "1.2.0"
+      tag: "1.1.3-n100.h25378636"
       pullPolicy:
       pullSecrets: []
     containerSecurityContext:
@@ -532,13 +537,14 @@ prePuller:
       # gcloud container images list-tags k8s.gcr.io/pause --sort-by=~tags
       #
       # If you update this, also update scheduling.userPlaceholder.image.tag
-      tag: "3.5"
+      tag: "3.6"
       pullPolicy:
       pullSecrets: []
 
 ingress:
   enabled: false
   annotations: {}
+  ingressClassName:
   hosts: []
   pathSuffix:
   pathType: Prefix
