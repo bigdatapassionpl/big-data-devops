@@ -17,7 +17,7 @@ minikube start \
     --nodes=1 \
     --cpus='6' \
     --memory 16384 \
-    --disk-size='50000mb' \
+    --disk-size='75gb' \
     --container-runtime='docker'
 
 minikube status
