@@ -2,20 +2,9 @@
 * https://superset.apache.org/docs/installation/running-on-kubernetes
 
 ~~~shell
-helm repo add superset https://apache.github.io/superset
-
-helm repo update
-helm search repo superset
-
-helm show values superset/superset > superset/values-default.yaml
-
-time helm upgrade superset superset/superset \
-  --install \
-  --timeout 10m \
-  --cleanup-on-fail \
-  --create-namespace \
-  --namespace superset \
-  --values superset/values.yaml
+export HELM_REPO_NAME=superset
+export HELM_REPO_URL=https://apache.github.io/superset
+export HELM_CHART=superset/superset
 
 helm get notes superset -n superset > superset/note.txt
   

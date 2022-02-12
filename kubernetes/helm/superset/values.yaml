@@ -1,4 +1,14 @@
 
+image:
+  repository: apache/superset
+  tag: latest
+  pullPolicy: Always
+
+initImage:
+  repository: busybox
+  tag: latest
+  pullPolicy: Always
+
 service:
   type: LoadBalancer
 
