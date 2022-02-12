@@ -25,19 +25,14 @@ replicaCount: 1
 # Runn containers as root is not recommended in production. Change this to another UID - e.g. 1000 to be more secure
 runAsUser: 0
 
-# Create custom service account for Superset. If create: true and name is not provided, superset.fullname will be used.
-# serviceAccountName: superset
-serviceAccount:
-  create: false
-
 # Install additional packages and do any other bootstrap configuration in this script
 # For production clusters it's recommended to build own image with this step done in CI
 bootstrapScript: |
   #!/bin/bash
   rm -rf /var/lib/apt/lists/* && \
   pip install \
-    psycopg2-binary==2.9.1 \
-    redis==3.5.3 && \
+    psycopg2==2.8.5 \
+    redis==3.2.1 && \
   if [ ! -f ~/bootstrap ]; then echo "Running Superset with uid {{ .Values.runAsUser }}" > ~/bootstrap; fi
 
 ## The name of the secret which we will use to generate a superset_config.py file
@@ -59,20 +54,10 @@ extraEnv: {}
   # GUNICORN_TIMEOUT: 300
 
 
-  # OAUTH_HOME_DOMAIN: ..
+   # OAUTH_HOME_DOMAIN: ..
   # # If a whitelist is not set, any address that can use your OAuth2 endpoint will be able to login.
   # #   this includes any random Gmail address if your OAuth2 Web App is set to External.
   # OAUTH_WHITELIST_REGEX: ...
-
-## Extra environment variables in RAW format that will be passed into pods
-##
-extraEnvRaw: []
-  # Load DB password from other secret (e.g. for zalando operator)
-  # - name: DB_PASS
-  #   valueFrom:
-  #     secretKeyRef:
-  #       name: superset.superset-postgres.credentials.postgresql.acid.zalan.do
-  #       key: password
 
 ## Extra environment variables to pass as secrets
 ##
@@ -85,33 +70,17 @@ extraSecretEnv: {}
 extraConfigs: {}
   # datasources-init.yaml: |
   #     databases:
-  #     - allow_file_upload: true
+  #     - allow_csv_upload: true
   #       allow_ctas: true
   #       allow_cvas: true
   #       database_name: example-db
   #       extra: "{\r\n    \"metadata_params\": {},\r\n    \"engine_params\": {},\r\n    \"\
-  #         metadata_cache_timeout\": {},\r\n    \"schemas_allowed_for_file_upload\": []\r\n\
+  #         metadata_cache_timeout\": {},\r\n    \"schemas_allowed_for_csv_upload\": []\r\n\
   #         }"
   #       sqlalchemy_uri: example://example-db.local
   #       tables: []
 
 extraSecrets: {}
-
-extraVolumes: []
- # - name: customConfig
- #   configMap:
- #     name: '{{ template "superset.fullname" . }}-custom-config'
- # - name: additionalSecret
- #   secret:
- #     secretName: my-secret
- #     defaultMode: 0600
-
-extraVolumeMounts: []
- # - name: customConfig
- #   mountPath: /mnt/config
- #   readOnly: true
- # - name: additionalSecret:
- #   mountPath: /mnt/secret
 
 # A dictionary of overrides to append at the end of superset_config.py - the name does not matter
 # WARNING: the order is not guaranteed
@@ -148,11 +117,6 @@ configOverrides: {}
   #   AUTH_USER_REGISTRATION = True
   #   # The default user self registration role
   #   AUTH_USER_REGISTRATION_ROLE = "Admin"
-# Same as above but the values are files
-configOverridesFiles: {}
-  # extend_timeout: extend_timeout.py
-  # enable_oauth: enable_oauth.py
-
 
 configMountPath: "/app/pythonpath"
 
@@ -165,10 +129,6 @@ image:
 
 imagePullSecrets: []
 
-initImage:
-  repository: busybox
-  tag: latest
-  pullPolicy: IfNotPresent
 
 service:
   type: ClusterIP
@@ -179,15 +139,14 @@ service:
 
 ingress:
   enabled: false
-  # ingressClassName: nginx
   annotations: {}
+    # kubernetes.io/ingress.class: nginx
     # kubernetes.io/tls-acme: "true"
     ## Extend timeout to allow long running queries.
     # nginx.ingress.kubernetes.io/proxy-connect-timeout: "300"
     # nginx.ingress.kubernetes.io/proxy-read-timeout: "300"
     # nginx.ingress.kubernetes.io/proxy-send-timeout: "300"
   path: /
-  pathType: ImplementationSpecific
   hosts:
     - chart-example.local
   tls: []
@@ -208,21 +167,12 @@ resources: {}
   #   memory: 128Mi
 
 ##
-## Custom hostAliases for all superset pods
-## https://kubernetes.io/docs/tasks/network/customize-hosts-file-for-pods/
-hostAliases: []
-# - hostnames:
-#   - nodns.my.lan
-#   ip: 18.27.36.45
-
-
-##
 ## Superset node configuration
 supersetNode:
   command:
     - "/bin/sh"
     - "-c"
-    - ". {{ .Values.configMountPath }}/superset_bootstrap.sh; /usr/bin/run-server.sh"
+    - ". {{ .Values.configMountPath }}/superset_bootstrap.sh; /usr/bin/docker-entrypoint.sh"
   connections:
     redis_host: '{{ template "superset.fullname" . }}-redis-headless'
     redis_port: "6379"
@@ -231,12 +181,11 @@ supersetNode:
     db_user: superset
     db_pass: superset
     db_name: superset
-  env: {}
   forceReload: false # If true, forces deployment to reload on each upgrade
   initContainers:
     - name: wait-for-postgres
-      image: "{{ .Values.initImage.repository }}:{{ .Values.initImage.tag }}"
-      imagePullPolicy: "{{ .Values.initImage.pullPolicy }}"
+      image: busybox:latest
+      imagePullPolicy: IfNotPresent
       envFrom:
         - secretRef:
             name: '{{ tpl .Values.envFromSecret . }}'
@@ -256,8 +205,8 @@ supersetWorker:
   forceReload: false # If true, forces deployment to reload on each upgrade
   initContainers:
     - name: wait-for-postgres
-      image: "{{ .Values.initImage.repository }}:{{ .Values.initImage.tag }}"
-      imagePullPolicy: "{{ .Values.initImage.pullPolicy }}"
+      image: busybox:latest
+      imagePullPolicy: IfNotPresent
       envFrom:
         - secretRef:
             name: '{{ tpl .Values.envFromSecret . }}'
@@ -279,8 +228,8 @@ supersetCeleryBeat:
   forceReload: false # If true, forces deployment to reload on each upgrade
   initContainers:
     - name: wait-for-postgres
-      image: "{{ .Values.initImage.repository }}:{{ .Values.initImage.tag }}"
-      imagePullPolicy: "{{ .Values.initImage.pullPolicy }}"
+      image: busybox:latest
+      imagePullPolicy: IfNotPresent
       envFrom:
         - secretRef:
             name: '{{ tpl .Values.envFromSecret . }}'
@@ -294,7 +243,7 @@ supersetCeleryBeat:
 ## Init job configuration
 init:
   # Configure resources
-  # Warning: fab command consumes a lot of ram and can
+  # Warning: fab commant consumes a lot of ram and can
   # cause the process to be killed due to OOM if it exceeds limit
   resources: {}
     # limits:
@@ -318,15 +267,14 @@ init:
     password: admin
   initContainers:
     - name: wait-for-postgres
-      image: "{{ .Values.initImage.repository }}:{{ .Values.initImage.tag }}"
-      imagePullPolicy: "{{ .Values.initImage.pullPolicy }}"
+      image: busybox:latest
+      imagePullPolicy: IfNotPresent
       envFrom:
         - secretRef:
             name: '{{ tpl .Values.envFromSecret . }}'
       command: [ "/bin/sh", "-c", "until nc -zv $DB_HOST $DB_PORT -w1; do echo 'waiting for db'; sleep 1; done" ]
   initscript: |-
     #!/bin/sh
-    set -eu
     echo "Upgrading DB schema..."
     superset db upgrade
     echo "Initializing roles..."
@@ -349,8 +297,6 @@ init:
       echo "Importing database connections.... "
       superset import_datasources -p {{ .Values.extraConfigMountPath }}/import_datasources.yaml
     fi
-  ## Annotations to be added to init job pods
-  podAnnotations: {}
 ##
 ## Configuration values for the postgresql dependency.
 ## ref: https://github.com/kubernetes/charts/blob/master/stable/postgresql/README.md

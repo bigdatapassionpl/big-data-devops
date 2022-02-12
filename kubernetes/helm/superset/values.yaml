@@ -1,12 +1,12 @@
 
 image:
   repository: apache/superset
-  tag: latest
+  tag: 1.4.1
   pullPolicy: Always
 
 initImage:
   repository: busybox
-  tag: latest
+  tag: busybox:1.34.1-uclibc
   pullPolicy: Always
 
 service:
@@ -19,9 +19,12 @@ bootstrapScript: |
   #!/bin/bash
   rm -rf /var/lib/apt/lists/* && \
   pip install \
-    pybigquery
-    snowflake-sqlalchemy
-    pyhive
+    pyhive \
+    sqlalchemy-trino \
+    pybigquery \
+    snowflake-sqlalchemy \
+    "PyAthenaJDBC>1.0.9 \
+    "PyAthena>1.2.0 \
     psycopg2-binary==2.9.1 \
     redis==3.5.3 && \
   if [ ! -f ~/bootstrap ]; then echo "Running Superset with uid {{ .Values.runAsUser }}" > ~/bootstrap; fi
