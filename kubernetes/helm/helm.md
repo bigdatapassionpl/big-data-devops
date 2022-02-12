@@ -25,9 +25,10 @@ sudo apt-get install helm
 
 ### Helm commands
 ~~~shell
-export HELM_REPO_NAME=superset
-export HELM_REPO_URL=https://apache.github.io/superset
-export HELM_CHART=superset/superset
+#export HELM_REPO_NAME=unknown
+#export HELM_REPO_URL=unknown
+#export HELM_CHART=unknown
+#export HELM_CHART_VERSION=unknown
 
 export HELM_DIR=$HELM_REPO_NAME
 export HELM_NAMESPACE=$HELM_REPO_NAME
@@ -37,9 +38,11 @@ helm repo add $HELM_REPO_NAME $HELM_REPO_URL
 helm repo list
 helm repo update
 helm search repo $HELM_REPO_NAME
+helm search repo $HELM_REPO_NAME --versions
+helm search repo $HELM_REPO_NAME --versions --devel
 #helm repo remove $HELM_REPO_NAME
 
-helm show values $HELM_CHART > $HELM_DIR/values-default.yaml
+helm show values $HELM_CHART --version=$HELM_CHART_VERSION > $HELM_DIR/values-default.yaml
 
 time helm upgrade $HELM_RELEASE $HELM_CHART \
   --install \
@@ -47,7 +50,8 @@ time helm upgrade $HELM_RELEASE $HELM_CHART \
   --cleanup-on-fail \
   --create-namespace \
   --namespace $HELM_NAMESPACE \
-  --values $HELM_DIR/values.yaml
+  --values $HELM_DIR/values.yaml \
+  --version=$HELM_CHART_VERSION
 
 helm list -aA
 
