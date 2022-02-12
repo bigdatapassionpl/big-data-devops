@@ -1,0 +1,5 @@
+
+image:
+  repository: trinodb/trino
+  pullPolicy: Always
+  tag: 370
