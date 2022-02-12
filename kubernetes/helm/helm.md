@@ -49,14 +49,22 @@ time helm upgrade $HELM_RELEASE $HELM_CHART \
   --namespace $HELM_NAMESPACE \
   --values $HELM_DIR/values.yaml
 
-
 helm list -aA
-helm history jupyterhub -n jupyterhub
 
-helm get all jupyterhub -n jupyterhub
-helm get notes jupyterhub -n jupyterhub
-helm get hooks jupyterhub -n jupyterhub
-helm get values jupyterhub -n jupyterhub
-helm get values --all jupyterhub -n jupyterhub
-helm get manifest jupyterhub -n jupyterhub
+helm status $HELM_RELEASE
+helm test $HELM_RELEASE
+helm history $HELM_RELEASE
+
+helm get notes $HELM_RELEASE -n $HELM_NAMESPACE > $HELM_DIR/note.txt
+
+helm get all jupyterhub -n $HELM_NAMESPACE
+helm get notes jupyterhub -n $HELM_NAMESPACE
+helm get hooks jupyterhub -n $HELM_NAMESPACE
+helm get values jupyterhub -n $HELM_NAMESPACE
+helm get values --all jupyterhub -n $HELM_NAMESPACE
+helm get manifest jupyterhub -n $HELM_NAMESPACE
+
+
+#helm delete $HELM_RELEASE
+#helm uninstall $HELM_RELEASE
 ~~~
