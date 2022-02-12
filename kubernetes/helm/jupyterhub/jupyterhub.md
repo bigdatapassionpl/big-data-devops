@@ -4,32 +4,12 @@
 * https://github.com/jupyterhub/helm-chart
 * 
 
-~~~
-helm repo add jupyterhub https://jupyterhub.github.io/helm-chart/
+~~~shell
+export HELM_REPO_NAME=jupyterhub
+export HELM_REPO_URL=https://jupyterhub.github.io/helm-chart/
+export HELM_CHART=jupyterhub/jupyterhub
+export HELM_CHART_VERSION=1.1.3-n313.h2d03a133
+#export HELM_CHART_VERSION=1.2.0
 
-helm repo update
-helm search repo jupyterhub
-helm search repo jupyterhub/jupyterhub --versions
-helm search repo jupyterhub/jupyterhub --versions --devel
-
-export JUPYTER_HUB_HELM_VERSION=1.1.3-n263.hfafb144a
-
-helm show values jupyterhub/jupyterhub \
-    --version=$JUPYTER_HUB_HELM_VERSION \
-    > jupyterhub/values-default.yaml
-
-time helm upgrade jupyterhub jupyterhub/jupyterhub \
-  --install \
-  --timeout 10m \
-  --cleanup-on-fail \
-  --create-namespace \
-  --namespace jupyterhub \
-  --version=$JUPYTER_HUB_HELM_VERSION \
-  --values jupyterhub/values.yaml
-
-helm get notes jupyterhub -n jupyterhub > jupyterhub/note.txt
-
-helm delete jupyterhub --namespace jupyterhub
-
-kubectl delete ns jupyterhub
+kubectl --namespace=jupyterhub port-forward service/proxy-public 8080:http
 ~~~

@@ -38,8 +38,8 @@ helm repo add $HELM_REPO_NAME $HELM_REPO_URL
 helm repo list
 helm repo update
 helm search repo $HELM_REPO_NAME
-helm search repo $HELM_REPO_NAME --versions
-helm search repo $HELM_REPO_NAME --versions --devel
+helm search repo $HELM_REPO_NAME --versions | head
+helm search repo $HELM_REPO_NAME --versions --devel | head
 #helm repo remove $HELM_REPO_NAME
 
 helm show values $HELM_CHART --version=$HELM_CHART_VERSION > $HELM_DIR/values-default.yaml
@@ -71,4 +71,5 @@ helm get manifest jupyterhub -n $HELM_NAMESPACE
 
 #helm delete $HELM_RELEASE
 #helm uninstall $HELM_RELEASE
+#kubectl delete ns $HELM_NAMESPACE
 ~~~
