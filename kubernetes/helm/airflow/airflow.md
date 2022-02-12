@@ -2,22 +2,11 @@
 * https://airflow.apache.org/docs/helm-chart/stable/index.html
 
 ~~~
-helm repo add airflow https://airflow.apache.org
+export HELM_REPO_NAME=airflow
+export HELM_REPO_URL=https://airflow.apache.org
+export HELM_CHART=airflow/airflow
+export HELM_CHART_VERSION=1.4.0
 
-helm repo update
-helm search repo airflow
-
-helm show values airflow/airflow > airflow/values-default.yaml
-
-time helm upgrade airflow airflow/airflow \
-  --install \
-  --timeout 10m \
-  --cleanup-on-fail \
-  --create-namespace \
-  --namespace airflow \
-  --values airflow/values.yaml
-
-helm get notes airflow -n airflow > airflow/note.txt
-  
-helm delete airflow --namespace airflow
+kubectl port-forward svc/airflow-webserver 8080:8080 --namespace airflow
+kubectl port-forward svc/airflow-flower 5555:5555 --namespace airflow
 ~~~
