@@ -16,5 +16,4 @@ redis:
   password: $(openssl rand -base64 32)
 EOM
 
-kubectl port-forward svc/superset 8088:8088 --namespace superset
 ~~~
