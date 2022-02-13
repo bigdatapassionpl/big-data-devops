@@ -2,6 +2,7 @@
 * https://jupyterhub.github.io/helm-chart/
 * https://zero-to-jupyterhub.readthedocs.io/en/latest/
 * https://github.com/jupyterhub/helm-chart
+* https://jupyter-docker-stacks.readthedocs.io/en/latest/using/selecting.html
 * 
 
 ~~~shell
@@ -15,7 +16,6 @@ kubectl --namespace=jupyterhub port-forward service/proxy-public 8080:http
 ~~~
 
 ### Images
-* https://jupyter-docker-stacks.readthedocs.io/en/latest/using/selecting.html
 ~~~shell
 export JUPYTER_DOCKER_VERSION=2022-02-12
 
