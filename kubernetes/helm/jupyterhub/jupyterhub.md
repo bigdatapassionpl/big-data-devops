@@ -9,8 +9,19 @@
 export HELM_REPO_NAME=jupyterhub
 export HELM_REPO_URL=https://jupyterhub.github.io/helm-chart/
 export HELM_CHART=jupyterhub/jupyterhub
-export HELM_CHART_VERSION=1.1.3-n313.h2d03a133
+export HELM_CHART_VERSION=1.1.3-n357.h3a348ab0
 #export HELM_CHART_VERSION=1.2.0
+
+time helm upgrade $HELM_RELEASE $HELM_CHART \
+  --install \
+  --timeout 10m \
+  --cleanup-on-fail \
+  --create-namespace \
+  --namespace $HELM_NAMESPACE \
+  --values $HELM_DIR/values.yaml \
+  --set hub.config.GitHubOAuthenticator.client_id=$GITHUB_CLIENT_ID \
+  --set hub.config.GitHubOAuthenticator.client_secret=$GITHUB_CLIENT_SECRET \
+  --version=$HELM_CHART_VERSION
 
 kubectl --namespace=jupyterhub port-forward service/proxy-public 8080:http
 ~~~

@@ -37,6 +37,7 @@ export HELM_RELEASE=$HELM_REPO_NAME
 helm repo add $HELM_REPO_NAME $HELM_REPO_URL
 helm repo list
 helm repo update
+
 helm search repo $HELM_REPO_NAME
 helm search repo $HELM_REPO_NAME --versions | head
 helm search repo $HELM_REPO_NAME --versions --devel | head

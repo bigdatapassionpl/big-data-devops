@@ -28,6 +28,8 @@ kubectl get all --all-namespaces
 ### Service Accounts
 ~~~shell
 kubectl get serviceaccounts
+kubectl get serviceaccounts -A
+kubectl get serviceaccounts -n {namespace}
 ~~~
 
 ### Namespaces
