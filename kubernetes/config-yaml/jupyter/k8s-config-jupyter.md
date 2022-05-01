@@ -8,17 +8,17 @@
 * https://kubernetes.io/docs/concepts/services-networking/service/
 
 ~~~shell
-export githubrepo=https://raw.githubusercontent.com/bigdatapassionpl/big-data-devops/master
+export githubrepo=https://raw.githubusercontent.com/bigdatapassionpl/big-data-devops/master/kubernetes/config-yaml/jupyter
 
-kubectl apply -f $githubrepo/kubernetes/config-yaml/jupyter/jupyter-namespace.yaml
-kubectl apply -f $githubrepo/kubernetes/config-yaml/jupyter/jupyter-pod.yaml
-kubectl apply -f $githubrepo/kubernetes/config-yaml/jupyter/jupyter-replicaset.yaml
-kubectl apply -f $githubrepo/kubernetes/config-yaml/jupyter/jupyter-deployment.yaml
-kubectl apply -f $githubrepo/kubernetes/config-yaml/jupyter/jupyter-service.yaml
+kubectl apply -f $githubrepo/jupyter-namespace.yaml
+kubectl apply -f $githubrepo/jupyter-pod.yaml
+kubectl apply -f $githubrepo/jupyter-replicaset.yaml
+kubectl apply -f $githubrepo/jupyter-deployment.yaml
+kubectl apply -f $githubrepo/jupyter-service.yaml
 
-kubectl delete -f $githubrepo/kubernetes/config-yaml/jupyter/jupyter-service.yaml
-kubectl delete -f $githubrepo/kubernetes/config-yaml/jupyter/jupyter-deployment.yaml
-kubectl delete -f $githubrepo/kubernetes/config-yaml/jupyter/jupyter-replicaset.yaml
-kubectl delete -f $githubrepo/kubernetes/config-yaml/jupyter/jupyter-pod.yaml
-kubectl delete -f $githubrepo/kubernetes/config-yaml/jupyter/jupyter-namespace.yaml
+kubectl delete -f $githubrepo/jupyter-service.yaml
+kubectl delete -f $githubrepo/jupyter-deployment.yaml
+kubectl delete -f $githubrepo/jupyter-replicaset.yaml
+kubectl delete -f $githubrepo/jupyter-pod.yaml
+kubectl delete -f $githubrepo/jupyter-namespace.yaml
 ~~~
