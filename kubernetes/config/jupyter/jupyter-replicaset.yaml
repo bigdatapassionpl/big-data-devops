@@ -1,23 +1,22 @@
 apiVersion: apps/v1
 kind: ReplicaSet
 metadata:
-  name: jupyter
+  name: jupyter-rs
   namespace: jupyter-ns
   labels:
-    app: jupyter
-    tier: jupyter
+    app: jupyter-app
 spec:
   replicas: 3
   selector:
     matchLabels:
-      tier: jupyter
+      app: jupyter-app
   template:
     metadata:
       labels:
-        tier: jupyter
+        app: jupyter-app
     spec:
       containers:
-      - name: jupyter
+      - name: jupyter-con
         image: jupyter/minimal-notebook:latest
         ports:
         - containerPort: 8888
