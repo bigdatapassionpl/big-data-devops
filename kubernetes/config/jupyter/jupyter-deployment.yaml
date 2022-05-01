@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jupyter-deployment
+  namespace: jupyter-ns
+  labels:
+    app: jupyter-app
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: jupyter-app
+  template:
+    metadata:
+      labels:
+        app: jupyter-app
+    spec:
+      containers:
+      - name: jupyter-con
+        image: jupyter/minimal-notebook:latest
+        ports:
+        - containerPort: 8888
