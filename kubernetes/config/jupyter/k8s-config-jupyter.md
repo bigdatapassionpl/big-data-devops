@@ -4,6 +4,7 @@
 * https://kubernetes.io/docs/concepts/workloads/pods/
 * https://kubernetes.io/docs/concepts/workloads/controllers/replicaset/
 * https://kubernetes.io/docs/concepts/workloads/controllers/deployment/
+* https://kubernetes.io/docs/concepts/services-networking/service/
 
 ~~~shell
 export githubrepourl=https://raw.githubusercontent.com/bigdatapassionpl/big-data-devops/master
