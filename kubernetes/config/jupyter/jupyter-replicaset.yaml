@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: ReplicaSet
 metadata:
   name: jupyter
-  namespace: jupyter
+  namespace: jupyter-ns
   labels:
     app: jupyter
     tier: jupyter

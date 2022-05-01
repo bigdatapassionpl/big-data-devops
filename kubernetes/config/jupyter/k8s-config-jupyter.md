@@ -3,7 +3,7 @@
 * https://kubernetes.io/docs/tasks/administer-cluster/namespaces/
 * https://kubernetes.io/docs/concepts/workloads/pods/
 * https://kubernetes.io/docs/concepts/workloads/controllers/replicaset/
-* 
+* https://kubernetes.io/docs/concepts/workloads/controllers/deployment/
 
 ~~~shell
 export githubrepourl=https://raw.githubusercontent.com/bigdatapassionpl/big-data-devops/master

@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Pod
 metadata:
   name: jupyter
-  namespace: jupyter
+  namespace: jupyter-ns
 spec:
   containers:
   - name: jupyter
