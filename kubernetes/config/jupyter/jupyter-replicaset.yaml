@@ -1,0 +1,13 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: jupyter
+  namespace: jupyter
+spec:
+  replicas: 3
+    spec:
+      containers:
+      - name: jupyter
+        image: jupyter/minimal-notebook:latest
+        ports:
+        - containerPort: 8888
