@@ -4,7 +4,7 @@ metadata:
   name: jupyter
   namespace: jupyter
   labels:
-    app: guestbook
+    app: jupyter
     tier: jupyter
 spec:
   replicas: 3
