@@ -10,15 +10,19 @@ sudo dpkg -i minikube_latest_amd64.deb
 minikube version
 -- minikube version: v1.24.0
 -- commit: 76b94fb3c4e8ac5062daf70d60cf03ddcc0a741b
-kubectl version -o json
+
+minikube --help
 
 minikube start
-minikube start \
+
+time minikube start \
     --nodes=1 \
     --cpus='6' \
     --memory 16384 \
     --disk-size='75gb' \
-    --container-runtime='docker'
+    --container-runtime='docker' \
+    --kubernetes-version=latest \
+    --driver=virtualbox
 
 minikube status
 minikube stop
