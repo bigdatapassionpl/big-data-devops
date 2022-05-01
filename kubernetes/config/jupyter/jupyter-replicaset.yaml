@@ -3,8 +3,18 @@ kind: ReplicaSet
 metadata:
   name: jupyter
   namespace: jupyter
+  labels:
+    app: guestbook
+    tier: jupyter
 spec:
   replicas: 3
+  selector:
+    matchLabels:
+      tier: jupyter
+  template:
+    metadata:
+      labels:
+        tier: jupyter
     spec:
       containers:
       - name: jupyter
