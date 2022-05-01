@@ -1,11 +1,11 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: jupyter
+  name: jupyter-pod
   namespace: jupyter-ns
 spec:
   containers:
-  - name: jupyter
+  - name: jupyter-con
     image: jupyter/minimal-notebook:latest
     ports:
     - containerPort: 8888
