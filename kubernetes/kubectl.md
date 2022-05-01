@@ -4,6 +4,8 @@
 * https://kubernetes.io/docs/reference/kubectl/cheatsheet/
 
 ~~~
+kubectl --help
+
 cat ~/.kube/config
 kubectl config view
 
@@ -12,6 +14,7 @@ kubectl cluster-info dump
 
 kubectl version
 kubectl version --client
+kubectl version -o json
 
 kubectl get nodes
 
