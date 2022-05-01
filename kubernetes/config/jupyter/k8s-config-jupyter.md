@@ -1,0 +1,4 @@
+
+~~~shell
+kubectl apply -f 
+~~~
