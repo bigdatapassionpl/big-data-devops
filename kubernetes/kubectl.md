@@ -2,6 +2,9 @@
 
 * https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/#install-kubectl-binary-with-curl-on-linux
 * https://kubernetes.io/docs/reference/kubectl/cheatsheet/
+* https://kubernetes.io/docs/reference/kubectl/
+* https://kubernetes.io/docs/tasks/tools/
+* https://kubernetes.io/docs/concepts/configuration/organize-cluster-access-kubeconfig/
 
 # The basics
 ~~~shell
@@ -32,11 +35,11 @@ kubectl get all --all-namespaces
 
 ### Run image
 ~~~shell
-export myappimage=jupyter/minimal-notebook
-export myappport=8888
-
 export myappimage=apache/myapplication:0.10.1
 export myappport=8080
+
+export myappimage=jupyter/minimal-notebook
+export myappport=8888
 
 kubectl run myapplication \
   --image=$myappimage \
