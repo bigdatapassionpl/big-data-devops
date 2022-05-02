@@ -25,6 +25,7 @@ kubectl get nodes
 kubectl config get-contexts
 kubectl config current-context
 kubectl config use-context {my-cluster-name}
+kubectl config delete-context {my-cluster-name}
 
 kubectl config set-context --current --namespace={namespace}
 
