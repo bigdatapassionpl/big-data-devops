@@ -29,7 +29,7 @@ singleuser:
     EDITOR: "vim"
   image:
     name: jupyter/minimal-notebook
-    tag: 2022-02-12
+    tag: 2022-04-24
   profileList:
     - display_name: "Python Notebooks"
       description: "Minimal Jupyter Notebook Stack"
@@ -37,24 +37,24 @@ singleuser:
     - display_name: "Scientific Python (SciPy) Notebooks"
       description: "Jupyter Notebook Scientific Python Stack"
       kubespawner_override:
-        image: jupyter/scipy-notebook:2022-02-12
+        image: jupyter/scipy-notebook:2022-04-24
     - display_name: "Datascience Notebooks"
       description: "Jupyter Notebook Data Science Stack"
       kubespawner_override:
-        image: jupyter/datascience-notebook:2022-02-12
+        image: jupyter/datascience-notebook:2022-04-24
     - display_name: "R Notebooks"
       description: "Jupyter Notebook R Stack"
       kubespawner_override:
-        image: jupyter/r-notebook:2022-02-12
+        image: jupyter/r-notebook:2022-04-24
     - display_name: "Tensorflow Notebooks"
       description: "Jupyter Notebook Deep Learning Stack"
       kubespawner_override:
-        image: jupyter/tensorflow-notebook:2022-02-12
+        image: jupyter/tensorflow-notebook:2022-04-24
     - display_name: "PySpark Notebooks"
       description: "Jupyter Notebook Python, Spark Stack"
       kubespawner_override:
-        image: jupyter/pyspark-notebook:2022-02-12
+        image: jupyter/pyspark-notebook:2022-04-24
     - display_name: "Spark Scala Notebooks"
       description: "Jupyter Notebook Python, Scala, R, Spark Stack"
       kubespawner_override:
-        image: jupyter/all-spark-notebook:2022-02-12
+        image: jupyter/all-spark-notebook:2022-04-24

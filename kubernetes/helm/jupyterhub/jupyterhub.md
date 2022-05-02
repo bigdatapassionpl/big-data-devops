@@ -9,7 +9,7 @@
 export HELM_REPO_NAME=jupyterhub
 export HELM_REPO_URL=https://jupyterhub.github.io/helm-chart/
 export HELM_CHART=jupyterhub/jupyterhub
-export HELM_CHART_VERSION=1.1.3-n357.h3a348ab0
+export HELM_CHART_VERSION=1.1.3-n445.hce673fec
 #export HELM_CHART_VERSION=1.2.0
 
 time helm upgrade $HELM_RELEASE $HELM_CHART \
@@ -28,7 +28,7 @@ kubectl --namespace=jupyterhub port-forward service/proxy-public 8080:http
 
 ### Images
 ~~~shell
-export JUPYTER_DOCKER_VERSION=2022-02-12
+export JUPYTER_DOCKER_VERSION=2022-04-24
 
 docker pull jupyter/minimal-notebook:$JUPYTER_DOCKER_VERSION
 docker pull jupyter/scipy-notebook:$JUPYTER_DOCKER_VERSION

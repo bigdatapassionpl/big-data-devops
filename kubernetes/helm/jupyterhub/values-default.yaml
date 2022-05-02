@@ -79,7 +79,7 @@ hub:
   extraVolumeMounts: []
   image:
     name: jupyterhub/k8s-hub
-    tag: "1.1.3-n354.h751bc313"
+    tag: "1.1.3-n445.hce673fec"
     pullPolicy:
     pullSecrets: []
   resources: {}
@@ -279,7 +279,7 @@ proxy:
       allowPrivilegeEscalation: false
     image:
       name: jupyterhub/k8s-secret-sync
-      tag: "1.1.3-n326.h06579021"
+      tag: "1.1.3-n438.ha2e1b4f1"
       pullPolicy:
       pullSecrets: []
     resources: {}
@@ -319,7 +319,7 @@ singleuser:
   networkTools:
     image:
       name: jupyterhub/k8s-network-tools
-      tag: "1.1.3-n176.h739f4b47"
+      tag: "1.1.3-n416.he2332122"
       pullPolicy:
       pullSecrets: []
     resources: {}
@@ -374,7 +374,7 @@ singleuser:
       storageAccessModes: [ReadWriteOnce]
   image:
     name: jupyterhub/k8s-singleuser-sample
-    tag: "1.1.3-n354.haf55d884"
+    tag: "1.1.3-n438.hd332a691"
     pullPolicy:
     pullSecrets: []
   startTimeout: 300
