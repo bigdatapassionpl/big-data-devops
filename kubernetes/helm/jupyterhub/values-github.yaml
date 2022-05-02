@@ -1,4 +1,25 @@
 
+hub:
+  config:
+    GitHubOAuthenticator:
+      client_id: # pass this value, see $GITHUB_CLIENT_ID in jupyterhub.md
+      client_secret: # pass this value, see $GITHUB_CLIENT_SECRET in jupyterhub.md
+      oauth_callback_url: http://localhost:8080/hub/oauth_callback
+    JupyterHub:
+      authenticator_class: github
+  extraConfig:
+    00-first-config: |
+      def notebook_dir_hook(spawner):
+          print("************************ notebook_dir_hook")
+          print(list(spawner.environment))
+          spawner.environment['NB_USER'] = spawner.user.name
+          spawner.environment['GRANT_SUDO'] = "yes"
+          spawner.environment['CHOWN_HOME'] = "yes"
+          # spawner.environment['NB_UID'] = "500"
+      c.Spawner.pre_spawn_hook = notebook_dir_hook
+      c.KubeSpawner.allow_privilege_escalation=True
+      # c.KubeSpawner.args = ['--allow-root']
+
 singleuser:
   uid: 0
   storage:
