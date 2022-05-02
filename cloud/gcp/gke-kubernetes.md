@@ -16,4 +16,6 @@ time gcloud container clusters resize $GKE_CLUSTER \
     --num-nodes 5
 
 gcloud container clusters delete $GKE_CLUSTER
+
+gcloud container clusters get-credentials $GKE_CLUSTER
 ~~~
