@@ -1,9 +1,9 @@
 
+* https://zero-to-jupyterhub.readthedocs.io/en/latest/index.html
 * https://jupyterhub.github.io/helm-chart/
-* https://zero-to-jupyterhub.readthedocs.io/en/latest/
 * https://github.com/jupyterhub/helm-chart
 * https://jupyter-docker-stacks.readthedocs.io/en/latest/using/selecting.html
-* 
+* https://hub.docker.com/u/jupyter
 
 ~~~shell
 export HELM_REPO_NAME=jupyterhub

@@ -1,11 +1,6 @@
 
 singleuser:
   uid: 0
-  storage:
-    homeMountPath: "/home/{username}"
-  extraEnv:
-    RADZIO: radzio123
-    EDITOR: "vim"
   image:
     name: jupyter/minimal-notebook
     tag: 2022-04-24

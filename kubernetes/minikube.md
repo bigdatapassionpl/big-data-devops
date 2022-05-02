@@ -1,7 +1,7 @@
 
 
 * https://minikube.sigs.k8s.io/docs/start/
-* 
+* https://minikube.sigs.k8s.io/docs/
 
 ~~~
 curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube_latest_amd64.deb
