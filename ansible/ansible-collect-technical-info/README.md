@@ -1,3 +1,24 @@
+
+## Ansible - pobieranie konfiguracji + informacji o hostach
+
+Katalog ```ansible-collect-technical-info```.
+
+* shut-up-and-give-me-your-money.sh - skrypt do wizualizacji zasobów
+* shut-up-and-take-my-money.yml - playbook do tworrzenia kopii konfiguracji
+
+### miniHOWTO
+
+```
+git clone git@github.com:bigdatapassionpl/big-data-devops.git
+cd big-data-devops/ansible-collect-technical-info/
+# edytujemy plik z inwentarzem inventory
+./shut-up-and-give-me-your-money.sh
+python -m SimpleHTTPServer 8000
+# otwieramy w przeglądarce http://127.0.0.1:8000/overview.html
+```
+
+
+
 ## Plik z hostami
 
 W pliku ```inventory``` wpisujemy nazwy hostów lub ich adresy IPv4/IPv6. Wartości są przykładowe, tutaj odwołanie się do swojego hosta, ale za pomocą połączenia (domyślnie) ssh.
