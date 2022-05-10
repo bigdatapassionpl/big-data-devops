@@ -51,7 +51,7 @@ dag = DAG(
 
 t1 = SparkKubernetesOperator(
     task_id='spark_pi_submit',
-    namespace="default",
+    namespace="spark-operator",
     application_file="example_spark_kubernetes_spark_pi.yaml",
     do_xcom_push=True,
     dag=dag,
@@ -59,7 +59,7 @@ t1 = SparkKubernetesOperator(
 
 t2 = SparkKubernetesSensor(
     task_id='spark_pi_monitor',
-    namespace="default",
+    namespace="spark-operator",
     application_name="{{ task_instance.xcom_pull(task_ids='spark_pi_submit')['metadata']['name'] }}",
     dag=dag,
 )
