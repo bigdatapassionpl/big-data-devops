@@ -20,15 +20,17 @@ apiVersion: "sparkoperator.k8s.io/v1beta2"
 kind: SparkApplication
 metadata:
   name: "spark-pi-{{ ds }}-{{ task_instance.try_number }}"
-  namespace: default
+  namespace: spark-operator
 spec:
   type: Scala
   mode: cluster
-  image: "gcr.io/spark-operator/spark:v2.4.4"
+  image: "gcr.io/spark-operator/spark:v3.1.1"
   imagePullPolicy: Always
   mainClass: org.apache.spark.examples.SparkPi
-  mainApplicationFile: "local:///opt/spark/examples/jars/spark-examples_2.11-2.4.4.jar"
-  sparkVersion: "2.4.4"
+  mainApplicationFile: "local:///opt/spark/examples/jars/spark-examples_2.12-3.1.1.jar"
+  arguments:
+    - "10000"
+  sparkVersion: "3.1.1"
   restartPolicy:
     type: Never
   volumes:
@@ -41,17 +43,17 @@ spec:
     coreLimit: "1200m"
     memory: "512m"
     labels:
-      version: 2.4.4
-    serviceAccount: spark
+      version: 3.1.1
+    serviceAccount: spark-operator-spark
     volumeMounts:
       - name: "test-volume"
         mountPath: "/tmp"
   executor:
     cores: 1
-    instances: 1
+    instances: 5
     memory: "512m"
     labels:
-      version: 2.4.4
+      version: 3.1.1
     volumeMounts:
       - name: "test-volume"
         mountPath: "/tmp"
