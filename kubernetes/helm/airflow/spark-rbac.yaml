@@ -1,8 +1,8 @@
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
-  namespace: default
   name: spark-role
+  namespace: airflow-test
 rules:
 - apiGroups:
   - ""
@@ -33,12 +33,12 @@ rules:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
-  name: spark-role-binding
-  namespace: default
+  name: spark
+  namespace: airflow-test
 subjects:
 - kind: ServiceAccount
-  name: airflow-worker
-  namespace: airflow
+  name: default
+  namespace: airflow-test
 roleRef:
   kind: Role
   name: spark-role
