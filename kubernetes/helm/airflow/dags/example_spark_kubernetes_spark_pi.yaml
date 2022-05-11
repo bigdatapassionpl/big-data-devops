@@ -19,7 +19,7 @@
 apiVersion: "sparkoperator.k8s.io/v1beta2"
 kind: SparkApplication
 metadata:
-  name: "spark-pi-{{ run_id }}-{{ ds }}-{{ task_instance.try_number }}"
+  name: "spark-pi-{{ ts_nodash.replace('T', '-') }}-{{ task_instance.try_number }}"
   namespace: airflow
 spec:
   type: Scala
