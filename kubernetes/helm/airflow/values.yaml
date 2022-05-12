@@ -18,5 +18,5 @@ dags:
   gitSync:
     enabled: true
     repo: https://github.com/bigdatapassionpl/big-data-devops.git
-    branch: master
+    branch: osa
     subPath: "kubernetes/helm/airflow/dags"
