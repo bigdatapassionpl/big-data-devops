@@ -11,7 +11,8 @@ spec:
   mainClass: pl.osaweb.crawler.wikipedia.WikipediaImport
   mainApplicationFile: "hdfs://hadoopbackup.osaweb.pl:8020/tmp/jars/osa-jobs.jar"
   arguments:
-    - "-master k8s://https://192.168.59.111:8443"
+    - "-master"
+    - "k8s://https://192.168.59.111:8443"
   sparkVersion: "3.1.1"
   restartPolicy:
     type: Never
