@@ -1,0 +1,21 @@
+apiVersion: eksctl.io/v1alpha5
+kind: ClusterConfig
+
+metadata:
+  name: bigdatapassion4
+  region: us-east-1
+
+nodeGroups:
+  - name: ng2-private
+    instanceType: m5.large
+    desiredCapacity: 1
+
+nodeGroups:
+  - name: ng2-private
+    instanceType: m5.large
+    desiredCapacity: 1
+    iam:
+      instanceRoleARN: "arn:aws:iam::689298090607:role/LabRole"
+
+iam:
+  ServiceRoleARN: "arn:aws:iam::689298090607:role/LabRole"

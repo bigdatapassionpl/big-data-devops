@@ -6,3 +6,17 @@ webserver:
 config:
   core:
     load_examples: 'True'
+
+#dags:
+#  gitSync:
+#    enabled: true
+#    repo: https://github.com/apache/airflow.git
+#    branch: main
+#    subPath: "airflow/providers/cncf/kubernetes/example_dags"
+
+dags:
+  gitSync:
+    enabled: true
+    repo: https://github.com/bigdatapassionpl/big-data-devops.git
+    branch: master
+    subPath: "kubernetes/helm/airflow/dags"

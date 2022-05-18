@@ -10,17 +10,57 @@ export CLUSTER=bigdatapassion
 time eksctl create cluster --name $CLUSTER
 
 time eksctl create cluster \
---name $CLUSTER \
---region eu-west-1 \
---nodes=3 \
---without-nodegroup
+  --name $CLUSTER \
+  --region $AWS_REGION \
+  --nodes=2
 
 time eksctl create cluster \
---name $CLUSTER \
---region us-east-1 \
---fargate
+  --name $CLUSTER \
+  --region $AWS_REGION \
+  --nodes=3 \
+  --without-nodegroup
 
-eksctl create cluster --name=cluster-5 --nodes-min=3 --nodes-max=5
+time eksctl create cluster \
+  --name $CLUSTER \
+  --region $AWS_REGION \
+  --fargate
+
+time eksctl create cluster \
+  --name=$CLUSTER \
+  --nodes-min=3 \
+  --nodes-max=5
+  
+eksctl utils describe-stacks --region=us-east-1 --cluster=$CLUSTER
 
 eksctl delete cluster $CLUSTER
+~~~
+
+~~~shell
+eksctl create cluster -f cluster.yaml
+eksctl delete cluster -f cluster.yaml
+~~~
+
+
+~~~shell
+eksctl get iamidentitymapping \
+  --cluster $CLUSTER \
+  --region=$AWS_REGION
+
+eksctl create iamidentitymapping \
+  --cluster $CLUSTER \
+  --region=$AWS_REGION \
+  --arn arn:aws:iam::689298090607:role/LabRole \
+  --group system:masters \
+  --username admin
+~~~
+
+
+~~~shell
+
+aws eks create-cluster \
+   --region $AWS_REGION \
+   --name my-cluster \
+   --kubernetes-version 1.22 \
+   --role-arn arn:aws:iam::689298090607:role/LabRole \
+   --resources-vpc-config subnetIds=subnet-00c88461fc1c007c4,subnet-0259df5dd48da7134,securityGroupIds=sg-084ae776fb1403ff4
 ~~~

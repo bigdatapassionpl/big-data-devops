@@ -18,7 +18,7 @@ minikube start
 time minikube start \
     --nodes=1 \
     --cpus='6' \
-    --memory 16384 \
+    --memory 20480 \
     --disk-size='75gb' \
     --container-runtime='docker' \
     --kubernetes-version=latest \

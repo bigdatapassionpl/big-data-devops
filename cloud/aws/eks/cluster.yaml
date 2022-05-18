@@ -1,0 +1,24 @@
+apiVersion: eksctl.io/v1alpha5
+kind: ClusterConfig
+
+metadata:
+  name: bigdatapassion11
+  region: us-east-1
+
+iam:
+  serviceRoleARN: "arn:aws:iam::689298090607:role/LabRole"
+
+vpc:
+  id: "vpc-06dc425792fa97d32"
+  cidr: "172.31.0.0/16"
+  subnets:
+    private:
+      us-east-1a:
+        id: "subnet-00c88461fc1c007c4"
+        cidr: "172.31.32.0/20"
+      us-east-1f:
+        id: "subnet-0259df5dd48da7134"
+        cidr: "172.31.64.0/20"
+      us-east-1d:
+        id: "subnet-0aefc93fe081d7737"
+        cidr: "172.31.16.0/20"
