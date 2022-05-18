@@ -60,6 +60,9 @@ helm status $HELM_RELEASE
 helm test $HELM_RELEASE
 helm history $HELM_RELEASE
 
+export HELM_REVISION=67
+helm rollback $HELM_RELEASE $HELM_REVISION --namespace $HELM_NAMESPACE
+
 helm get notes $HELM_RELEASE -n $HELM_NAMESPACE > $HELM_DIR/note.txt
 
 helm get all jupyterhub -n $HELM_NAMESPACE
