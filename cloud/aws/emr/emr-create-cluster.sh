@@ -5,6 +5,7 @@ aws emr create-cluster \
   --os-release-label 2.0.20220406.1 \
   --auto-scaling-role EMR_AutoScaling_DefaultRole \
   --applications Name=Hive Name=Hue Name=Hadoop Name=JupyterHub Name=JupyterEnterpriseGateway Name=Zeppelin Name=Oozie Name=Tez Name=Spark Name=Livy Name=Ganglia Name=Presto \
+  --configurations file://emr-configurations.json \
   --ebs-root-volume-size 15 \
   --ec2-attributes file://emr-ec2-attributes.json \
   --service-role EMR_DefaultRole \
