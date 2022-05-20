@@ -1,0 +1,7 @@
+{
+  "KeyName": "vockey",
+  "InstanceProfile": "EMR_EC2_DefaultRole",
+  "SubnetId": "subnet-00ce44baa41afb24f",
+  "EmrManagedSlaveSecurityGroup": "sg-07ec8701c65344bc7",
+  "EmrManagedMasterSecurityGroup": "sg-09a762bdfb7c7b0ec"
+}
