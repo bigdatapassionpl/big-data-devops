@@ -10,7 +10,7 @@ aws emr create-cluster \
   --enable-debugging \
   --release-label emr-5.31.0 \
   --log-uri 's3n://aws-logs-109824097611-us-east-1/elasticmapreduce/' \
-  --steps file:///home/radek/projects/OSA/osa-parent/scripts/master/emr/emr-steps.json \
+  --steps file://emr-steps.json \
   --instance-groups file://emr-instance-groups.json \
   --scale-down-behavior TERMINATE_AT_TASK_COMPLETION \
   --region us-east-1 \
