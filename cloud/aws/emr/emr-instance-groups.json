@@ -1,0 +1,38 @@
+[
+  {
+    "InstanceCount": 7,
+    "BidPrice": "OnDemandPrice",
+    "EbsConfiguration": {
+      "EbsBlockDeviceConfigs": [
+        {
+          "VolumeSpecification": {
+            "SizeInGB": 32,
+            "VolumeType": "gp2"
+          },
+          "VolumesPerInstance": 2
+        }
+      ]
+    },
+    "InstanceGroupType": "CORE",
+    "InstanceType": "m5.xlarge",
+    "Name": "Core - 2"
+  },
+  {
+    "InstanceCount": 1,
+    "BidPrice": "OnDemandPrice",
+    "EbsConfiguration": {
+      "EbsBlockDeviceConfigs": [
+        {
+          "VolumeSpecification": {
+            "SizeInGB": 32,
+            "VolumeType": "gp2"
+          },
+          "VolumesPerInstance": 2
+        }
+      ]
+    },
+    "InstanceGroupType": "MASTER",
+    "InstanceType": "m5.xlarge",
+    "Name": "Master - 1"
+  }
+]
