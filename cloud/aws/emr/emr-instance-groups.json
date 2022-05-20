@@ -1,7 +1,6 @@
 [
   {
-    "InstanceCount": 7,
-    "BidPrice": "OnDemandPrice",
+    "InstanceCount": 2,
     "EbsConfiguration": {
       "EbsBlockDeviceConfigs": [
         {
@@ -19,7 +18,23 @@
   },
   {
     "InstanceCount": 1,
-    "BidPrice": "OnDemandPrice",
+    "EbsConfiguration": {
+      "EbsBlockDeviceConfigs": [
+        {
+          "VolumeSpecification": {
+            "SizeInGB": 32,
+            "VolumeType": "gp2"
+          },
+          "VolumesPerInstance": 2
+        }
+      ]
+    },
+    "InstanceGroupType": "TASK",
+    "InstanceType": "m5.xlarge",
+    "Name": "Task - 3"
+  },
+  {
+    "InstanceCount": 1,
     "EbsConfiguration": {
       "EbsBlockDeviceConfigs": [
         {
