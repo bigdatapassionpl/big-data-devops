@@ -2,7 +2,6 @@
 
 aws emr create-cluster \
   --name 'EMR Cluster' \
-  --os-release-label 2.0.20220406.1 \
   --auto-scaling-role EMR_AutoScaling_DefaultRole \
   --applications Name=Hive Name=Hue Name=Hadoop Name=JupyterHub Name=JupyterEnterpriseGateway Name=Zeppelin Name=Oozie Name=Tez Name=Spark Name=Livy Name=Ganglia Name=Presto \
   --configurations file://emr-configurations.json \
@@ -15,6 +14,5 @@ aws emr create-cluster \
   --instance-groups file://emr-instance-groups.json \
   --region us-east-1 \
   --profile default \
-  --auto-termination-policy '{"IdleTimeout":14400}' \
   --scale-down-behavior TERMINATE_AT_TASK_COMPLETION \
   --steps file://emr-steps.json
