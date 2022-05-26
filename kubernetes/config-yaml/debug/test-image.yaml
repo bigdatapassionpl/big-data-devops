@@ -1,11 +1,15 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: test
+  name: test-image
+  namespace: default
 spec:
   containers:
-  - name: test
-    image: ubuntu:latest
+  - name: test-image
+    image: apache/airflow:2.3.1-python3.8
     # Just spin & wait forever
     command: [ "/bin/bash", "-c", "--" ]
     args: [ "while true; do sleep 30; done;" ]
+    securityContext:
+      allowPrivilegeEscalation: false
+      runAsUser: 0
