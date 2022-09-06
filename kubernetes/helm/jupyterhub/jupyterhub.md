@@ -9,8 +9,12 @@
 export HELM_REPO_NAME=jupyterhub
 export HELM_REPO_URL=https://jupyterhub.github.io/helm-chart/
 export HELM_CHART=jupyterhub/jupyterhub
-export HELM_CHART_VERSION=1.1.3-n445.hce673fec
-#export HELM_CHART_VERSION=1.2.0
+export HELM_CHART_VERSION=1.1.3-n772.hf133567f
+
+# 1.1.3-n772.hf133567f  02 August 2022    2.3.1
+# 1.1.3-n445.hce673fec  25 April 2022     2.2.0
+# 1.1.3-n263.hfafb144a  08 January 2022   2.0.1
+# 1.2.0                 04 November 2021  1.5.0
 
 time helm upgrade $HELM_RELEASE $HELM_CHART \
   --install \
