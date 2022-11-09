@@ -2,13 +2,13 @@
   "name": "snowpipestreamingtest",
   "config": {
     "connector.class": "com.snowflake.kafka.connector.SnowflakeSinkConnector",
-    "tasks.max": "8",
+    "tasks.max": "4",
     "topics": "test-person",
     "snowflake.topic2table.map": "test-person:person",
     "buffer.count.records": "10000",
     "buffer.flush.time": "60",
-    "buffer.size.bytes": "5000000",
-    "snowflake.url.name": "xxx.snowflakecomputing.com:443",
+    "buffer.size.bytes": "20000000",
+    "snowflake.url.name": "xxx.snowflakecomputing.com",
     "snowflake.user.name": "kafka",
     "snowflake.role.name": "ACCOUNTADMIN",
     "snowflake.private.key": "xxx",
@@ -18,6 +18,8 @@
     "key.converter": "org.apache.kafka.connect.storage.StringConverter",
     "value.converter": "org.apache.kafka.connect.json.JsonConverter",
     "value.converter.schemas.enable": "false",
-    "snowflake.ingestion.method": "SNOWPIPE_STREAMING"
+    "snowflake.ingestion.method": "SNOWPIPE_STREAMING",
+    "errors.log.enable": "true",
+    "delivery.guarantee": "EXACTLY_ONCE"
   }
 }
