@@ -1,6 +1,19 @@
 
+hub:
+  extraConfig:
+    jupyterlab: |
+      c.Spawner.default_url = "/lab"
+
 singleuser:
+  extraEnv:
+    NB_USER: "radek"
+    GRANT_SUDO: "yes"
+    NB_UID: "146"
+    # NOTEBOOK_ARGS: "--allow-root"
+  allowPrivilegeEscalation: true
   uid: 0
+  cmd: null
+  defaultUrl: "/lab"
   image:
     name: jupyter/minimal-notebook
     tag: 2022-04-24
@@ -32,3 +45,17 @@ singleuser:
       description: "Jupyter Notebook Python, Scala, R, Spark Stack"
       kubespawner_override:
         image: jupyter/all-spark-notebook:2022-04-24
+    - display_name: "GetInData MLOps (dev-0.2.10)"
+      description: "https://github.com/getindata/jupyter-images"
+      kubespawner_override:
+        image: gcr.io/getindata-images-public/jupyterlab-mlops:dev-0.2.10
+    - display_name: "GetInData DataOps (1.0.2)"
+      description: "https://github.com/getindata/jupyter-images"
+      kubespawner_override:
+        image: gcr.io/getindata-images-public/jupyterlab-dataops:1.0.2
+
+prePuller:
+  pullProfileListImages: false
+
+debug:
+  enabled: true
