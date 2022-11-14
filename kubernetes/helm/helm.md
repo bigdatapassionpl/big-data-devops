@@ -30,8 +30,8 @@ sudo apt-get install helm
 #export HELM_CHART=unknown
 #export HELM_CHART_VERSION=unknown
 
-export HELM_DIR=$HELM_REPO_NAME
-export HELM_NAMESPACE=$HELM_REPO_NAME
+export HELM_DIR=$HELM_CHART
+export HELM_NAMESPACE=$HELM_CHART
 export HELM_RELEASE=$HELM_REPO_NAME
 
 helm repo add $HELM_REPO_NAME $HELM_REPO_URL
@@ -43,9 +43,9 @@ helm search repo $HELM_REPO_NAME --versions | head
 helm search repo $HELM_REPO_NAME --versions --devel | head
 #helm repo remove $HELM_REPO_NAME
 
-helm show values $HELM_CHART --version=$HELM_CHART_VERSION > $HELM_DIR/values-default.yaml
+helm show values $HELM_REPO_NAME/$HELM_CHART --version=$HELM_CHART_VERSION > $HELM_DIR/values-default.yaml
 
-time helm upgrade $HELM_RELEASE $HELM_CHART \
+time helm upgrade $HELM_RELEASE $HELM_REPO_NAME/$HELM_CHART \
   --install \
   --timeout 10m \
   --cleanup-on-fail \
