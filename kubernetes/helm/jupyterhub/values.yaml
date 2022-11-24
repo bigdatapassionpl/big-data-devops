@@ -45,10 +45,10 @@ singleuser:
       description: "Jupyter Notebook Python, Scala, R, Spark Stack"
       kubespawner_override:
         image: jupyter/all-spark-notebook:2022-11-14
-    - display_name: "GetInData MLOps (dev-0.2.10)"
+    - display_name: "GetInData MLOps (dev-latest)"
       description: "https://github.com/getindata/jupyter-images"
       kubespawner_override:
-        image: gcr.io/getindata-images-public/jupyterlab-mlops:dev-0.2.10
+        image: gcr.io/getindata-images-public/jupyterlab-mlops:dev-latest
     - display_name: "GetInData DataOps (1.0.2)"
       description: "https://github.com/getindata/jupyter-images"
       kubespawner_override:
@@ -60,6 +60,10 @@ singleuser:
 
 prePuller:
   pullProfileListImages: false
+  hook:
+    enabled: false
+  continuous:
+    enabled: false
 
 debug:
   enabled: true
