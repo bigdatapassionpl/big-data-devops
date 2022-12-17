@@ -49,10 +49,10 @@ singleuser:
       description: "https://github.com/getindata/jupyter-images"
       kubespawner_override:
         image: gcr.io/getindata-images-public/jupyterlab-mlops:dev-latest
-    - display_name: "GetInData DataOps (1.0.2)"
+    - display_name: "GetInData DataOps 1.2.0"
       description: "https://github.com/getindata/jupyter-images"
       kubespawner_override:
-        image: gcr.io/getindata-images-public/jupyterlab-dataops:1.0.2
+        image: gcr.io/getindata-images-public/jupyterlab-dataops:jupyterhub-1.2.0
     - display_name: "GetInData Streaming (1.0.1)"
       description: "https://github.com/getindata/jupyter-images"
       kubespawner_override:
