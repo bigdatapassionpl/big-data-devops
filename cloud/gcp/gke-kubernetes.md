@@ -9,7 +9,7 @@ gcloud container clusters list
 #gcloud container clusters create $GKE_CLUSTER
 
 time gcloud container clusters create $GKE_CLUSTER \
-    --num-nodes=3 \
+    --num-nodes=5 \
     --machine-type=e2-standard-2
 
 time gcloud container clusters create $GKE_CLUSTER \
@@ -18,7 +18,7 @@ time gcloud container clusters create $GKE_CLUSTER \
     --enable-autoscaling --min-nodes=1 --max-nodes=3
     
 time gcloud container clusters resize $GKE_CLUSTER \
-    --num-nodes 5
+    --num-nodes 3
 
 gcloud container clusters delete $GKE_CLUSTER
 
