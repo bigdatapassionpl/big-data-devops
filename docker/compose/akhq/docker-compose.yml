@@ -1,0 +1,20 @@
+version: '3.9'
+
+services:
+  akhq:
+    image: tchiotludo/akhq
+    environment:
+      AKHQ_CONFIGURATION: |
+        akhq:
+          connections:
+            docker-kafka-server:
+              properties:
+                bootstrap.servers: "broker:9092"
+    ports:
+      - 8080:8080
+
+networks:
+  default:
+    name: bigdatanetwork
+    driver: bridge
+    external: true
