@@ -1,5 +1,5 @@
 {
-  "name": "snowpipestreamingtest",
+  "name": "snowflake-snowpipe",
   "config": {
     "connector.class": "com.snowflake.kafka.connector.SnowflakeSinkConnector",
     "tasks.max": "4",
@@ -18,8 +18,6 @@
     "key.converter": "org.apache.kafka.connect.storage.StringConverter",
     "value.converter": "org.apache.kafka.connect.json.JsonConverter",
     "value.converter.schemas.enable": "false",
-    "snowflake.ingestion.method": "SNOWPIPE_STREAMING",
-    "errors.log.enable": "true",
-    "delivery.guarantee": "EXACTLY_ONCE"
+    "snowflake.ingestion.method": "SNOWPIPE"
   }
 }
