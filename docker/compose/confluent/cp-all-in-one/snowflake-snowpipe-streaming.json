@@ -1,0 +1,23 @@
+{
+  "name": "snowflake-snowpipe",
+  "config": {
+    "connector.class": "com.snowflake.kafka.connector.SnowflakeSinkConnector",
+    "tasks.max": "4",
+    "topics": "test-person",
+    "snowflake.topic2table.map": "test-person:person",
+    "buffer.count.records": "10000",
+    "buffer.flush.time": "60",
+    "buffer.size.bytes": "20000000",
+    "snowflake.url.name": "xxx.snowflakecomputing.com",
+    "snowflake.user.name": "kafka",
+    "snowflake.role.name": "ACCOUNTADMIN",
+    "snowflake.private.key": "xxx",
+    "snowflake.private.key.passphrase": "xxx",
+    "snowflake.database.name": "KAFKA",
+    "snowflake.schema.name": "STREAMING",
+    "key.converter": "org.apache.kafka.connect.storage.StringConverter",
+    "value.converter": "org.apache.kafka.connect.json.JsonConverter",
+    "value.converter.schemas.enable": "false",
+    "snowflake.ingestion.method": "SNOWPIPE"
+  }
+}
