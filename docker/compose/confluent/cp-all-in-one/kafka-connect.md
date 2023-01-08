@@ -16,6 +16,8 @@ alter user jsmith set rsa_public_key='MIIBIjANBgkqh...';
 docker ps
 docker exec -it connect bash
 
+cat /etc/kafka-connect/kafka-connect.properties
+
 # alias wget='curl -O'
 wget https://repo1.maven.org/maven2/com/snowflake/snowflake-kafka-connector/1.8.1/snowflake-kafka-connector-1.8.1.jar
 wget https://repo1.maven.org/maven2/com/snowflake/snowflake-kafka-connector/1.8.1/snowflake-kafka-connector-1.8.1.jar -P /usr/share/confluent-hub-components/
