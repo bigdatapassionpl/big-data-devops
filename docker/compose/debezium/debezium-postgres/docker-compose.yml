@@ -9,7 +9,16 @@ services:
      - POSTGRES_USER=postgres
      - POSTGRES_PASSWORD=postgres
 
+  debezium-ui:
+    container_name: debezium-ui
+    image: quay.io/debezium/debezium-ui:2.1
+    ports:
+      - "8080:8080"
+    environment:
+      - KAFKA_CONNECT_URIS=http://connect:8083
+
 networks:
   default:
     name: bigdatanetwork
     driver: bridge
+    external: true
