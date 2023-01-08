@@ -25,8 +25,10 @@ wget https://repo1.maven.org/maven2/com/snowflake/snowflake-kafka-connector/1.8.
 
 ~~~
 export CONNECT_URL=http://localhost:8083
+
 export CONNECTOR_NAME=snowflake-snowpipe
 export CONNECTOR_NAME=snowflake-snowpipe-streaming
+export CONNECTOR_NAME=debezium-postgres
 
 curl $CONNECT_URL | jq
 
