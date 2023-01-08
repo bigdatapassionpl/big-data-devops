@@ -1,0 +1,15 @@
+version: "3.9"
+
+services:
+  postgres:
+    image: quay.io/debezium/example-postgres:2.1
+    ports:
+     - 5432:5432
+    environment:
+     - POSTGRES_USER=postgres
+     - POSTGRES_PASSWORD=postgres
+
+networks:
+  default:
+    name: bigdatanetwork
+    driver: bridge
