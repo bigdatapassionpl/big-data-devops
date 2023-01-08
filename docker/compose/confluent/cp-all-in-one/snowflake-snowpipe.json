@@ -6,7 +6,7 @@
     "topics": "test-person",
     "snowflake.topic2table.map": "test-person:person",
     "buffer.count.records": "10000",
-    "buffer.flush.time": "60",
+    "buffer.flush.time": "600",
     "buffer.size.bytes": "20000000",
     "snowflake.url.name": "${file:/opt/snowflake.properties:snowflake.url.name}",
     "snowflake.user.name": "${file:/opt/snowflake.properties:snowflake.user.name}",
