@@ -23,7 +23,8 @@ wget https://repo1.maven.org/maven2/com/snowflake/snowflake-kafka-connector/1.8.
 
 ~~~
 export CONNECT_URL=http://localhost:8083
-export CONNECTOR_NAME=snowpipestreamingtest
+export CONNECTOR_NAME=snowflake-snowpipe
+export CONNECTOR_NAME=snowflake-snowpipe-streaming
 
 curl $CONNECT_URL | jq
 
@@ -31,7 +32,7 @@ curl $CONNECT_URL/connector-plugins/ | jq
 
 curl $CONNECT_URL/connectors | jq
 
-curl -X POST -H "Content-Type: application/json" --data @snowflake.json $CONNECT_URL/connectors | jq
+curl -X POST -H "Content-Type: application/json" --data @$CONNECTOR_NAME.json $CONNECT_URL/connectors | jq
 
 curl $CONNECT_URL/connectors/$CONNECTOR_NAME/status | jq
 
