@@ -16,7 +16,7 @@ services:
                 - name: "connect"
                   url: "http://connect:8083"
     ports:
-      - 8080:8080
+      - 9090:8080
 
 networks:
   default:
