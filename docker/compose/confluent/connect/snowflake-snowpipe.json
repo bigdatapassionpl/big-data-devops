@@ -3,10 +3,9 @@
   "config": {
     "connector.class": "com.snowflake.kafka.connector.SnowflakeSinkConnector",
     "tasks.max": "2",
-    "topics": "test-person",
-    "snowflake.topic2table.map": "test-person:person",
+    "topics.regex": "debezium.dbserver1.*",
     "buffer.count.records": "10000",
-    "buffer.flush.time": "600",
+    "buffer.flush.time": "60",
     "buffer.size.bytes": "20000000",
     "snowflake.url.name": "${file:/opt/snowflake.properties:snowflake.url.name}",
     "snowflake.user.name": "${file:/opt/snowflake.properties:snowflake.user.name}",
