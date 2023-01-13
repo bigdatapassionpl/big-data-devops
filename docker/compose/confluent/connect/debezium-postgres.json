@@ -1,26 +1,27 @@
 {
-    "name": "debezium-postgres",
-    "config": {
-        "connector.class": "io.debezium.connector.postgresql.PostgresConnector",
-        "plugin.name": "pgoutput",
-        "slot.name": "debezium2",
-        "tasks.max": "1",
-        "database.hostname": "postgres",
-        "database.port": "5432",
-        "database.user": "postgres",
-        "database.password": "postgres",
-        "database.dbname" : "postgres",
-        "topic.prefix": "debezium.dbserver1",
-        "schema.include.list": ".*",
+  "name": "debezium-postgres",
+  "config": {
+    "connector.class": "io.debezium.connector.postgresql.PostgresConnector",
+    "plugin.name": "pgoutput",
+    "slot.name": "debezium",
+    "tasks.max": "1",
 
-        "key.converter": "org.apache.kafka.connect.storage.StringConverter",
-        "value.converter": "org.apache.kafka.connect.json.JsonConverter",
-        "value.converter.schemas.enable": "true",
-        "value.converter.schema.registry.url": "http://schema-registry:8081",
+    "database.hostname": "postgres",
+    "database.port": "5432",
+    "database.user": "postgres",
+    "database.password": "postgres",
+    "database.dbname": "postgres",
+    "topic.prefix": "debezium.dbserver1",
+    "schema.include.list": ".*",
 
-        "topic.creation.default.replication.factor": 1,
-        "topic.creation.default.partitions": 3,
-        "topic.creation.default.cleanup.policy": "delete",
-        "topic.creation.default.compression.type": "lz4"
-    }
+    "key.converter": "org.apache.kafka.connect.storage.StringConverter",
+    "value.converter": "org.apache.kafka.connect.json.JsonConverter",
+    "value.converter.schemas.enable": "true",
+    "value.converter.schema.registry.url": "http://schema-registry:8081",
+
+    "topic.creation.default.replication.factor": 1,
+    "topic.creation.default.partitions": 3,
+    "topic.creation.default.cleanup.policy": "delete",
+    "topic.creation.default.compression.type": "lz4"
+  }
 }
