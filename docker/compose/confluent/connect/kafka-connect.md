@@ -24,6 +24,7 @@ kafka-console-producer --broker-list $KAFKA_BROKER --topic $TOPIC --property "pa
 echo '["debezium-postgres",{"server":"debezium.dbserver1"}]|' | kafka-console-producer --broker-list $KAFKA_BROKER --topic $TOPIC --property "parse.key=true" --property "key.separator=|"
 
 for i in {1..10}; do echo $i'|{"message": "message'$i'"}' | kafka-console-producer --broker-list $KAFKA_BROKER --topic $TOPIC --property "parse.key=true" --property "key.separator=|"; done
+for i in {11..100}; do echo $i'|{"message": "message'$i'"}' | kafka-console-producer --broker-list $KAFKA_BROKER --topic $TOPIC --property "parse.key=true" --property "key.separator=|"; done
 
 # kafka-topics --zookeeper localhost:2181 --delete --topic
 ~~~
