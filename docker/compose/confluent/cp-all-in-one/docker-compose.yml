@@ -55,7 +55,7 @@ services:
       SCHEMA_REGISTRY_LISTENERS: http://0.0.0.0:8081
 
   connect:
-    image: cnfldemos/cp-server-connect-datagen:0.6.0-7.2.1
+    image: confluentinc/cp-kafka-connect-base:7.2.2
     hostname: connect
     container_name: connect
     user: root
@@ -100,9 +100,9 @@ services:
         #
         mkdir /usr/share/confluent-hub-components/snowflake-kafka-connector
         mkdir /usr/share/confluent-hub-components/snowflake-kafka-connector/lib
-        wget https://repo1.maven.org/maven2/com/snowflake/snowflake-kafka-connector/1.8.1/snowflake-kafka-connector-1.8.1.jar -P /usr/share/confluent-hub-components/snowflake-kafka-connector/lib/
-        wget https://repo1.maven.org/maven2/org/bouncycastle/bc-fips/1.0.1/bc-fips-1.0.1.jar -P /usr/share/confluent-hub-components/snowflake-kafka-connector/lib/
-        wget https://repo1.maven.org/maven2/org/bouncycastle/bcpkix-fips/1.0.3/bcpkix-fips-1.0.3.jar -P /usr/share/confluent-hub-components/snowflake-kafka-connector/lib/
+        wget https://repo1.maven.org/maven2/com/snowflake/snowflake-kafka-connector/1.8.2/snowflake-kafka-connector-1.8.2.jar -P /usr/share/confluent-hub-components/snowflake-kafka-connector/lib/
+        wget https://repo1.maven.org/maven2/org/bouncycastle/bc-fips/1.0.2.3/bc-fips-1.0.2.3.jar -P /usr/share/confluent-hub-components/snowflake-kafka-connector/lib/
+        wget https://repo1.maven.org/maven2/org/bouncycastle/bcpkix-fips/1.0.7/bcpkix-fips-1.0.7.jar -P /usr/share/confluent-hub-components/snowflake-kafka-connector/lib/
         #
         echo "Launching Kafka Connect worker"
         /etc/confluent/docker/run
