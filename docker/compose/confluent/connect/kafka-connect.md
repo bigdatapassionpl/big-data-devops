@@ -3,10 +3,29 @@
 * https://www.confluent.io/blog/kafka-connect-deep-dive-converters-serialization-explained/
 
 ~~~shell
-kafka-topics --bootstrap-server localhost:9092 --list
+alias kafka-topics="/home/jovyan/programs/kafka/kafka_2.12-2.8.2/bin/kafka-topics.sh"
+alias kafka-console-consumer="/home/jovyan/programs/kafka/kafka_2.12-2.8.2/bin/kafka-console-consumer.sh"
+alias kafka-console-producer="/home/jovyan/programs/kafka/kafka_2.12-2.8.2/bin/kafka-console-producer.sh"
+
+export KAFKA_BROKER="localhost:9092"
 
 export TOPIC=debezium.dbserver1.inventory.customers
-kafka-console-consumer --bootstrap-server localhost:9092 --topic $TOPIC --property print.key=true --property key.separator=" => " --from-beginning
+export TOPIC=docker-connect-offsets
+export TOPIC=test-topic
+
+kafka-topics --bootstrap-server $KAFKA_BROKER --list
+
+kafka-topics --describe --bootstrap-server $KAFKA_BROKER --topic $TOPIC
+
+kafka-console-consumer --bootstrap-server $KAFKA_BROKER --topic $TOPIC --property print.key=true --property key.separator="|" --from-beginning
+
+kafka-console-producer --broker-list $KAFKA_BROKER --topic $TOPIC --property "parse.key=true" --property "key.separator=|"
+
+echo '["debezium-postgres",{"server":"debezium.dbserver1"}]|' | kafka-console-producer --broker-list $KAFKA_BROKER --topic $TOPIC --property "parse.key=true" --property "key.separator=|"
+
+for i in {1..10}; do echo $i'|{"message": "message'$i'"}' | kafka-console-producer --broker-list $KAFKA_BROKER --topic $TOPIC --property "parse.key=true" --property "key.separator=|"; done
+
+# kafka-topics --zookeeper localhost:2181 --delete --topic
 ~~~
 
 ~~~sql
@@ -38,6 +57,8 @@ export CONNECTOR_NAME=snowflake-snowpipe
 export CONNECTOR_NAME=snowflake-snowpipe-streaming
 export CONNECTOR_NAME=debezium-postgres
 
+echo $CONNECT_URL; echo $CONNECTOR_NAME
+
 curl $CONNECT_URL | jq
 
 curl $CONNECT_URL/connector-plugins/ | jq
@@ -47,6 +68,10 @@ curl $CONNECT_URL/connectors | jq
 curl -X POST -H "Content-Type: application/json" --data @$CONNECTOR_NAME.json $CONNECT_URL/connectors | jq
 
 curl $CONNECT_URL/connectors/$CONNECTOR_NAME/status | jq
+
+curl $CONNECT_URL/connectors/$CONNECTOR_NAME/config | jq
+curl $CONNECT_URL/connectors/$CONNECTOR_NAME/restart?includeTasks=true | jq
+curl $CONNECT_URL/connectors/$CONNECTOR_NAME/tasks/0/restart | jq
 
 curl -X DELETE $CONNECT_URL/connectors/$CONNECTOR_NAME | jq
 
