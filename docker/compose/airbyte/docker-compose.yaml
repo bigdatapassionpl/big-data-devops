@@ -113,6 +113,7 @@ services:
       - 9000
     networks:
       - airbyte_internal
+      - my-proxy-net
   server:
     image: airbyte/server:${VERSION}
     logging: *default-logging
@@ -221,6 +222,7 @@ services:
     networks:
       - airbyte_internal
       - airbyte_public
+      - my-proxy-net
     depends_on:
       - webapp
       - server
@@ -237,3 +239,6 @@ volumes:
 networks:
   airbyte_public:
   airbyte_internal:
+  my-proxy-net:
+    external:
+      name: bigdatanetwork
