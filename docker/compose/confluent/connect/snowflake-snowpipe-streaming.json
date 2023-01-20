@@ -4,7 +4,7 @@
     "connector.class": "com.snowflake.kafka.connector.SnowflakeSinkConnector",
     "tasks.max": "1",
     "topics.regex": "test.*|debezium.dbserver1.*",
-    "snowflake.topic2table.map": "test-topic:test_topic,debezium.dbserver1.inventory.customers:customers",
+    "snowflake.topic2table.map": "test-topic:test_topic,test-person:test_person,debezium.dbserver1.inventory.customers:customers",
     "buffer.count.records": "10000",
     "buffer.flush.time": "60",
     "buffer.size.bytes": "20000000",
