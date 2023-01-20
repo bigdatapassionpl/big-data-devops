@@ -6,8 +6,10 @@
 alias kafka-topics="/home/jovyan/programs/kafka/kafka_2.12-2.8.2/bin/kafka-topics.sh"
 alias kafka-console-consumer="/home/jovyan/programs/kafka/kafka_2.12-2.8.2/bin/kafka-console-consumer.sh"
 alias kafka-console-producer="/home/jovyan/programs/kafka/kafka_2.12-2.8.2/bin/kafka-console-producer.sh"
+alias kafka-consumer-groups="/home/jovyan/programs/kafka/kafka_2.12-2.8.2/bin/kafka-consumer-groups.sh"
 
 export KAFKA_BROKER="localhost:9092"
+export GROUP=connect-snowflake-snowpipe
 
 export TOPIC=debezium.dbserver1.inventory.customers
 export TOPIC=docker-connect-offsets
@@ -23,10 +25,17 @@ kafka-console-producer --broker-list $KAFKA_BROKER --topic $TOPIC --property "pa
 
 echo '["debezium-postgres",{"server":"debezium.dbserver1"}]|' | kafka-console-producer --broker-list $KAFKA_BROKER --topic $TOPIC --property "parse.key=true" --property "key.separator=|"
 
-for i in {1..10}; do echo $i'|{"message": "message'$i'"}' | kafka-console-producer --broker-list $KAFKA_BROKER --topic $TOPIC --property "parse.key=true" --property "key.separator=|"; done
-for i in {11..100}; do echo $i'|{"message": "message'$i'"}' | kafka-console-producer --broker-list $KAFKA_BROKER --topic $TOPIC --property "parse.key=true" --property "key.separator=|"; done
+time for i in {1..10}; do echo $i'|{"message": "message'$i'"}' | kafka-console-producer --broker-list $KAFKA_BROKER --topic $TOPIC --property "parse.key=true" --property "key.separator=|"; done
+time for i in {11..100}; do echo $i'|{"message": "message'$i'"}' | kafka-console-producer --broker-list $KAFKA_BROKER --topic $TOPIC --property "parse.key=true" --property "key.separator=|"; done
 
-# kafka-topics --zookeeper localhost:2181 --delete --topic
+kafka-consumer-groups  --list --bootstrap-server $KAFKA_BROKER
+kafka-consumer-groups --describe --group $GROUP --bootstrap-server $KAFKA_BROKER
+
+# kafka-topics --bootstrap-server $KAFKA_BROKER --delete --topic $TOPIC
+~~~
+
+~~~shell
+openssl pkcs8 -topk8 -inform PEM -outform DER -in private.pem -out private.der -nocrypt
 ~~~
 
 ~~~sql
