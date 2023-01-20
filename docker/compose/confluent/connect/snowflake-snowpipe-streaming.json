@@ -6,7 +6,7 @@
     "topics.regex": "test.*|debezium.dbserver1.*",
     "snowflake.topic2table.map": "test-topic:test_topic,debezium.dbserver1.inventory.customers:customers",
     "buffer.count.records": "10000",
-    "buffer.flush.time": "600",
+    "buffer.flush.time": "60",
     "buffer.size.bytes": "20000000",
     "snowflake.url.name": "${file:/opt/snowflake.properties:snowflake.url.name}",
     "snowflake.user.name": "${file:/opt/snowflake.properties:snowflake.user.name}",
