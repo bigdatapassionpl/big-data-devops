@@ -3,6 +3,7 @@
 
 ~~~shell
 kubectl apply -f spark-operator/jobs/spark-pi.yaml
+kubectl apply -f spark-operator/jobs/spark-pi-volcano.yaml
 
 kubectl get sparkapplications --all-namespaces
 
