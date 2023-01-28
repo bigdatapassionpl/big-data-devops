@@ -17,6 +17,7 @@ helm repo add $HELM_REPO_NAME $HELM_REPO_URL
 helm repo list
 helm repo update
 
+echo "VERSION: "$HELM_CHART_VERSION
 helm search repo $HELM_REPO_NAME
 
 helm show values $HELM_REPO_NAME/$HELM_CHART --version=$HELM_CHART_VERSION > $HELM_DIR/values-default.yaml
