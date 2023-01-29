@@ -15,10 +15,13 @@ minikube --help
 
 minikube start
 
+export MINIKUBE_MEMORY=20480
+export MINIKUBE_MEMORY=9962
+
 time minikube start \
     --nodes=1 \
     --cpus='6' \
-    --memory 20480 \
+    --memory $MINIKUBE_MEMORY \
     --disk-size='75gb' \
     --container-runtime='docker' \
     --kubernetes-version=latest \
