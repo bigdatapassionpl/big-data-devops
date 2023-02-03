@@ -9,7 +9,7 @@ RUN apt install -y bzip2 git
 RUN apt install -y python2.7
 
 COPY ambari-setup.sh /opt/ambari-setup.sh
-RUN #bash /opt/ambari-setup.sh
+# RUN bash /opt/ambari-setup.sh
 
 ENTRYPOINT /bin/bash
 

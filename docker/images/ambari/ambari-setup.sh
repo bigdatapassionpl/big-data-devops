@@ -34,4 +34,7 @@ popd
 mvn -B clean install jdeb:jdeb -DnewVersion=2.7.7.0.0 -DbuildNumber=388e072381e71c7755673b7743531c03a4d61be8 -DskipTests -Dpython.ver="python >= 2.6"
 
 #apt-get install ./ambari-server*.deb
-apt-get install ./ambari-server/target/ambari-server_3.0.0.0-SNAPSHOT-dist.deb
+apt-get install -y /opt/ambari/ambari-server/target/ambari-server_2.7.7.0-0-dist.deb
+
+ambari-server setup -s
+
