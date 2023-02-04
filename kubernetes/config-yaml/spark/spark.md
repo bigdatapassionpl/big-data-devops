@@ -9,8 +9,8 @@ kubectl config set-context minikube --namespace=spark-jobs
 
 kubectl cluster-info
 
-kubectl create serviceaccount spark
-kubectl create clusterrolebinding spark-role --clusterrole=edit --serviceaccount=default:spark --namespace=spark-jobs
+kubectl create serviceaccount spark -n spark-jobs
+kubectl create clusterrolebinding spark-jobs-role --clusterrole=edit --serviceaccount=spark-jobs:spark --namespace=spark-jobs
 
 export K8S_CLUSTER="https://127.0.0.1:51239"
 export SPARK_IMAGE="gcr.io/spark-operator/spark:v3.1.1"
