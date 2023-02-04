@@ -16,7 +16,7 @@ ${SPARK_HOME}/bin/spark-submit \
     --deploy-mode cluster \
     --name spark-pi \
     --class org.apache.spark.examples.SparkPi \
-    --conf spark.executor.instances=1 \
+    --conf spark.executor.instances=10 \
     --conf spark.kubernetes.namespace=spark-test \
     --conf spark.kubernetes.executor.request.cores=1 \
     --conf spark.kubernetes.container.image=apache/yunikorn:spark-2.4.4 \
