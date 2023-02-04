@@ -2,10 +2,15 @@
 * https://spark.apache.org/docs/latest/running-on-kubernetes.html
 
 ~~~shell
-kubectl cluster-info
+kubectl create ns spark-jobs
 
 kubectl config current-context
-kubectl config set-context minikube --namespace=spark-test
+kubectl config set-context minikube --namespace=spark-jobs
+
+kubectl cluster-info
+
+kubectl create serviceaccount spark
+kubectl create clusterrolebinding spark-role --clusterrole=edit --serviceaccount=default:spark --namespace=spark-jobs
 
 export K8S_CLUSTER="https://127.0.0.1:51239"
 export SPARK_IMAGE="gcr.io/spark-operator/spark:v3.1.1"
@@ -19,7 +24,7 @@ $SPARK_HOME/bin/spark-submit \
     --class org.apache.spark.examples.SparkPi \
     --conf spark.executor.instances=5 \
     --conf spark.kubernetes.container.image=$SPARK_IMAGE \
-    --conf spark.kubernetes.namespace=spark-test \
+    --conf spark.kubernetes.namespace=spark-jobs \
     --conf spark.kubernetes.authenticate.driver.serviceAccountName=spark \
     $SPARK_APP
 ~~~
