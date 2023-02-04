@@ -22,9 +22,9 @@ $SPARK_HOME/bin/spark-submit \
     --deploy-mode cluster \
     --name spark-pi \
     --class org.apache.spark.examples.SparkPi \
-    --conf spark.executor.instances=5 \
+    --conf spark.executor.instances=10 \
     --conf spark.kubernetes.container.image=$SPARK_IMAGE \
     --conf spark.kubernetes.namespace=spark-jobs \
     --conf spark.kubernetes.authenticate.driver.serviceAccountName=spark \
-    $SPARK_APP
+    $SPARK_APP 1000
 ~~~
