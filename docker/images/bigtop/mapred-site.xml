@@ -1,0 +1,16 @@
+<configuration>
+
+    <property>
+        <name>yarn.app.mapreduce.am.env</name>
+        <value>HADOOP_MAPRED_HOME=/usr/lib/hadoop-mapreduce</value>
+    </property>
+    <property>
+        <name>mapreduce.map.env</name>
+        <value>HADOOP_MAPRED_HOME=/usr/lib/hadoop-mapreduce</value>
+    </property>
+    <property>
+        <name>mapreduce.reduce.env</name>
+        <value>HADOOP_MAPRED_HOME=/usr/lib/hadoop-mapreduce</value>
+    </property>
+
+</configuration>
