@@ -17,6 +17,7 @@ export K8S_CLUSTER=$(kubectl config view -o jsonpath="{.clusters[?(@.name==\"$K8
 
 export SPARK_IMAGE="gcr.io/spark-operator/spark:v3.1.1"
 export SPARK_HOME="/Users/radek/programs/spark/spark-3.3.1-bin-hadoop3"
+export SPARK_APP="/Users/radek/programs/spark/spark-3.3.1-bin-hadoop3/examples/jars/spark-examples_2.12-3.3.1.jar"
 export SPARK_APP="local:///opt/spark/examples/jars/spark-examples_2.12-3.1.1.jar"
 export SPARK_ARGS="10000"
 
@@ -33,4 +34,44 @@ $SPARK_HOME/bin/spark-submit \
     $SPARK_APP $SPARK_ARGS
 
 kubectl get pods -n spark-jobs --no-headers=true | awk '/spark-pi/{print $1}' | xargs  kubectl delete -n spark-jobs pod
+
+$SPARK_HOME/bin/spark-shell \
+    --master k8s://$K8S_CLUSTER \
+    --deploy-mode client \
+    --conf spark.kubernetes.container.image=$SPARK_IMAGE \
+    --conf spark.kubernetes.namespace=spark-jobs
+
+# JupyterHub version
+export K8S_CLUSTER=$KUBERNETES_SERVICE_HOST:$KUBERNETES_SERVICE_PORT
+echo $K8S_CLUSTER
+export SPARK_IMAGE="gcr.io/spark-operator/spark:v3.1.1"
+spark-shell \
+    --master k8s://$K8S_CLUSTER \
+    --deploy-mode client \
+    --driver-memory 1g \
+    --executor-memory 1g \
+    --num-executors 1 \
+    --executor-cores 1 \
+    --conf spark.kubernetes.container.image=$SPARK_IMAGE \
+    --conf spark.kubernetes.namespace=jupyterhub \
+    --conf spark.shuffle.service.enabled=false \
+    --conf spark.dynamicAllocation.enabled=false \
+    --conf spark.driver.host=jupyter-radek \
+    --conf spark.blockManager.port=10025 \
+    --conf spark.driver.blockManager.port=10026 \
+    --conf spark.driver.port=10027
+
+val NUM_SAMPLES=1
+val count = sc.parallelize(1 to NUM_SAMPLES).filter { _ =>
+  val x = math.random
+  val y = math.random
+  x*x + y*y < 1
+}.count()
+println(s"Pi is roughly ${4.0 * count / NUM_SAMPLES}")
+
+APISERVER=https://kubernetes.default.svc
+spark-shell \
+  --master k8s://$APISERVER \
+  --deploy-mode client \
+  -Dcom.sun.net.ssl.checkRevocation=false
 ~~~
