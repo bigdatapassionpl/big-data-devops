@@ -1,7 +1,7 @@
 
-webserver:
-  service:
-    type: LoadBalancer
+#webserver:
+#  service:
+#    type: LoadBalancer
 
 config:
   core:
