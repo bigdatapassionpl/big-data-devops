@@ -2,10 +2,8 @@
 * https://github.com/trinodb/charts
 
 ~~~shell
-export HELM_REPO_NAME=trino
-export HELM_REPO_URL=https://trinodb.github.io/charts/
-export HELM_CHART=trino
-export HELM_CHART_VERSION=0.8.0
+
+# http://34.118.96.186:8080/
 
 kubectl edit configmap trino-worker -n trino
 # query.max-total-memory-per-node

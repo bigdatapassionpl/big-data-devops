@@ -1,5 +1,9 @@
 
-image:
-  repository: trinodb/trino
-  pullPolicy: Always
-  tag: 370
+#image:
+#  repository: trinodb/trino
+#  pullPolicy: Always
+#  tag: 403
+#
+#service:
+#  type: LoadBalancer
+#  port: 8080
