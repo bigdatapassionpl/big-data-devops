@@ -15,7 +15,7 @@ time gcloud container clusters create $GKE_CLUSTER \
 time gcloud container clusters create $GKE_CLUSTER \
     --num-nodes=1 \
     --machine-type=e2-standard-2 \
-    --enable-autoscaling --min-nodes=1 --max-nodes=3
+    --enable-autoscaling --min-nodes=1 --max-nodes=5
     
 time gcloud container clusters resize $GKE_CLUSTER \
     --num-nodes 3
