@@ -12,7 +12,9 @@ kubectl create clusterrolebinding spark-jobs-role --clusterrole=edit --serviceac
 
 kubectl cluster-info
 
-export K8S_CLUSTER="https://127.0.0.1:51128"
+export K8S_CLUSTER_NAME=$(kubectl config current-context)
+export K8S_CLUSTER=$(kubectl config view -o jsonpath="{.clusters[?(@.name==\"$K8S_CLUSTER_NAME\")].cluster.server}")
+
 export SPARK_IMAGE="gcr.io/spark-operator/spark:v3.1.1"
 export SPARK_HOME="/Users/radek/programs/spark/spark-3.3.1-bin-hadoop3"
 export SPARK_APP="local:///opt/spark/examples/jars/spark-examples_2.12-3.1.1.jar"
