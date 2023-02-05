@@ -6,10 +6,6 @@
 * https://hub.docker.com/u/jupyter
 
 ~~~shell
-export HELM_REPO_NAME=jupyterhub
-export HELM_REPO_URL=https://jupyterhub.github.io/helm-chart/
-export HELM_CHART=jupyterhub
-export HELM_CHART_VERSION=2.0.0
 
 # 1.1.3-n772.hf133567f  02 August 2022    2.3.1
 # 1.1.3-n445.hce673fec  25 April 2022     2.2.0
