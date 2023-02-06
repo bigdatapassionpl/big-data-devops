@@ -16,6 +16,7 @@ export K8S_CLUSTER_NAME=$(kubectl config current-context)
 export K8S_CLUSTER=$(kubectl config view -o jsonpath="{.clusters[?(@.name==\"$K8S_CLUSTER_NAME\")].cluster.server}")
 
 export SPARK_IMAGE="gcr.io/spark-operator/spark:v3.1.1"
+export SPARK_IMAGE="gcr.io/spark-operator/spark:v3.1.1-hadoop3"
 export SPARK_HOME="/Users/radek/programs/spark/spark-3.3.1-bin-hadoop3"
 export SPARK_APP="/Users/radek/programs/spark/spark-3.3.1-bin-hadoop3/examples/jars/spark-examples_2.12-3.3.1.jar"
 export SPARK_APP="local:///opt/spark/examples/jars/spark-examples_2.12-3.1.1.jar"
@@ -56,12 +57,12 @@ spark-shell \
     --conf spark.kubernetes.namespace=jupyterhub \
     --conf spark.shuffle.service.enabled=false \
     --conf spark.dynamicAllocation.enabled=false \
-    --conf spark.driver.host=jupyter-radek \
+    --conf spark.driver.host=10.32.0.167 \
     --conf spark.blockManager.port=10025 \
     --conf spark.driver.blockManager.port=10026 \
     --conf spark.driver.port=10027
 
-val NUM_SAMPLES=1
+val NUM_SAMPLES=1000
 val count = sc.parallelize(1 to NUM_SAMPLES).filter { _ =>
   val x = math.random
   val y = math.random
