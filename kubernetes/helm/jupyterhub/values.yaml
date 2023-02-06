@@ -12,6 +12,7 @@ singleuser:
     # NOTEBOOK_ARGS: "--allow-root"
   allowPrivilegeEscalation: true
   uid: 0
+  serviceAccountName: jovyan
   cmd: null
   defaultUrl: "/lab"
   image:
@@ -44,7 +45,7 @@ singleuser:
     - display_name: "Spark Scala Notebooks"
       description: "Jupyter Notebook Python, Scala, R, Spark Stack"
       kubespawner_override:
-        image: jupyter/all-spark-notebook:2022-11-14
+        image: jupyter/all-spark-notebook:spark-3.1.1
     - display_name: "GetInData MLOps (dev-latest)"
       description: "https://github.com/getindata/jupyter-images"
       kubespawner_override:

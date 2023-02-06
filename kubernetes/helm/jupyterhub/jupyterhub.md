@@ -24,6 +24,9 @@ time helm upgrade $HELM_RELEASE $HELM_CHART \
   --version=$HELM_CHART_VERSION
 
 kubectl --namespace=jupyterhub port-forward service/proxy-public 8080:http
+
+kubectl create serviceaccount jovyan -n jupyterhub
+kubectl create clusterrolebinding jovyan-role --clusterrole=edit --serviceaccount=jupyterhub:jovyan --namespace=jupyterhub
 ~~~
 
 ### Images
