@@ -70,13 +70,7 @@ spark-shell \
     --conf spark.driver.port=10027
 
 
-
-ip=`hostname -I`
-SPARK_DRIVER_HOST="${ip//./"-"}.jupyterhub.svc.cluster.local"
-echo $SPARK_DRIVER_HOST
-
-
-val NUM_SAMPLES=10000
+val NUM_SAMPLES=1000000000
 val count = sc.parallelize(1 to NUM_SAMPLES).filter { _ =>
   val x = math.random
   val y = math.random
@@ -84,9 +78,4 @@ val count = sc.parallelize(1 to NUM_SAMPLES).filter { _ =>
 }.count()
 println(s"Pi is roughly ${4.0 * count / NUM_SAMPLES}")
 
-APISERVER=https://kubernetes.default.svc
-spark-shell \
-  --master k8s://$APISERVER \
-  --deploy-mode client \
-  -Dcom.sun.net.ssl.checkRevocation=false
 ~~~
