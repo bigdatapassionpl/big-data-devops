@@ -56,7 +56,7 @@ spark-shell \
     --deploy-mode client \
     --driver-memory 1g \
     --executor-memory 1g \
-    --num-executors 1 \
+    --num-executors 2 \
     --executor-cores 1 \
     --conf spark.kubernetes.container.image=$SPARK_IMAGE \
     --conf spark.kubernetes.namespace=jupyterhub \
@@ -69,8 +69,7 @@ spark-shell \
     --conf spark.driver.blockManager.port=10026 \
     --conf spark.driver.port=10027
 
-
-val NUM_SAMPLES=1000000000
+val NUM_SAMPLES=10000
 val count = sc.parallelize(1 to NUM_SAMPLES).filter { _ =>
   val x = math.random
   val y = math.random
