@@ -48,6 +48,8 @@ $SPARK_HOME/bin/spark-shell \
 # JupyterHub version
 export K8S_CLUSTER=$KUBERNETES_SERVICE_HOST:$KUBERNETES_SERVICE_PORT
 echo $K8S_CLUSTER
+SPARK_DRIVER_HOST="$(echo `hostname -I` | sed -e "s/\./-/g").jupyterhub.pod.cluster.local"
+echo $SPARK_DRIVER_HOST
 export SPARK_IMAGE="gcr.io/spark-operator/spark:v3.1.1"
 spark-shell \
     --master k8s://$K8S_CLUSTER \
@@ -58,13 +60,21 @@ spark-shell \
     --executor-cores 1 \
     --conf spark.kubernetes.container.image=$SPARK_IMAGE \
     --conf spark.kubernetes.namespace=jupyterhub \
+    --conf spark.driver.host=$SPARK_DRIVER_HOST
+
+# Additional params
     --conf spark.shuffle.service.enabled=false \
     --conf spark.dynamicAllocation.enabled=false \
-    --conf spark.driver.host=10-32-0-14.jupyterhub.pod.cluster.local \
-    --conf spark.driver.host=jupyter-radek.jupyterhub.pod.cluster.local \
     --conf spark.blockManager.port=10025 \
     --conf spark.driver.blockManager.port=10026 \
     --conf spark.driver.port=10027
+
+
+
+ip=`hostname -I`
+SPARK_DRIVER_HOST="${ip//./"-"}.jupyterhub.svc.cluster.local"
+echo $SPARK_DRIVER_HOST
+
 
 val NUM_SAMPLES=10000
 val count = sc.parallelize(1 to NUM_SAMPLES).filter { _ =>
