@@ -1,0 +1,32 @@
+{
+  "name": "snowflake-snowpipe-streaming",
+  "config": {
+    "connector.class": "com.snowflake.kafka.connector.SnowflakeSinkConnector",
+    "tasks.max": "1",
+    "topics.regex": "test.*|debezium.dbserver1.*",
+    "snowflake.topic2table.map": "test-topic:test_topic,test-person:test_person,debezium.dbserver1.inventory.customers:customers",
+    "buffer.count.records": "10000",
+    "buffer.flush.time": "60",
+    "buffer.size.bytes": "20000000",
+    "snowflake.url.name": "${file:/opt/snowflake.properties:snowflake.url.name}",
+    "snowflake.user.name": "${file:/opt/snowflake.properties:snowflake.user.name}",
+    "snowflake.role.name": "${file:/opt/snowflake.properties:snowflake.role.name}",
+    "snowflake.private.key": "${file:/opt/snowflake.properties:snowflake.private.key}",
+    "snowflake.private.key.passphrase": "${file:/opt/snowflake.properties:snowflake.private.key.passphrase}",
+    "snowflake.database.name": "${file:/opt/snowflake.properties:snowflake.database.name}",
+    "snowflake.schema.name": "${file:/opt/snowflake.properties:snowflake.schema.name}",
+    "key.converter": "org.apache.kafka.connect.storage.StringConverter",
+    "value.converter": "org.apache.kafka.connect.json.JsonConverter",
+    "value.converter.schemas.enable": "false",
+    "snowflake.ingestion.method": "SNOWPIPE_STREAMING",
+    "errors.log.enable": "true",
+    "delivery.guarantee": "EXACTLY_ONCE",
+
+    "transforms"                                  : "castTypes,filterSmallOrder",
+    "transforms.filterSmallOrder.type"            : "io.confluent.connect.transforms.Filter$Value",
+    "transforms.filterSmallOrder.filter.condition": "$[?(@.id < 42)]",
+    "transforms.filterSmallOrder.filter.type"     : "include",
+    "transforms.castTypes.type"                   : "org.apache.kafka.connect.transforms.Cast$Value",
+    "transforms.castTypes.spec"                   : "id:int32"
+  }
+}
