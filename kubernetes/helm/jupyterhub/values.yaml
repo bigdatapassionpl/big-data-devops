@@ -16,12 +16,16 @@ singleuser:
   cmd: null
   defaultUrl: "/lab"
   image:
-    name: jupyter/minimal-notebook
-    tag: 2022-11-14
+    name: bigdatapassion/jupyter
+    tag: latest
   profileList:
+    - display_name: "BigDataPassion Jupyter Notebook"
+      description: "BigDataPassion Jupyter Notebook"
+      default: true
     - display_name: "Python Notebooks"
       description: "Minimal Jupyter Notebook Stack"
-      default: true
+      kubespawner_override:
+        image: jupyter/minimal-notebook:2022-11-14
     - display_name: "Scientific Python (SciPy) Notebooks"
       description: "Jupyter Notebook Scientific Python Stack"
       kubespawner_override:
