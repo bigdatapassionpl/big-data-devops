@@ -1,9 +1,9 @@
 
 ~~~sql
 SET 'auto.offset.reset' = 'earliest';
-
+    person_id BIGINT KEY,
 CREATE OR REPLACE STREAM PERSON_STREAM (
-    id VARCHAR,
+    id VARCHAR KEY,
     creationDate VARCHAR,
     person STRUCT<
         name VARCHAR,
@@ -20,7 +20,7 @@ WITH (KAFKA_TOPIC='test-person',
     PARTITIONS=1);
 
 show streams;
-drop stream person_stream;
+DESCRIBE person_stream;
 
 SELECT * FROM person_stream LIMIT 10;
 SELECT
@@ -55,4 +55,6 @@ PRINT 'test-person-amount-limit' FROM BEGINNING LIMIT 10;
 
 SELECT * FROM person_amount_limit_stream limit 10;
 
+drop stream person_stream;
+drop stream person_amount_limit_stream;
 ~~~
