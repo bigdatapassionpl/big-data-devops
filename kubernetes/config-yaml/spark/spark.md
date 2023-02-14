@@ -2,13 +2,11 @@
 * https://spark.apache.org/docs/latest/running-on-kubernetes.html
 
 ~~~shell
-kubectl create ns spark-jobs
-
+#kubectl create ns k8s-jobs
 #kubectl config current-context
-#kubectl config set-context minikube --namespace=spark-jobs
-
-kubectl create serviceaccount spark -n spark-jobs
-kubectl create clusterrolebinding spark-jobs-role --clusterrole=edit --serviceaccount=spark-jobs:spark --namespace=spark-jobs
+#kubectl config set-context minikube --namespace=k8s-jobs
+#kubectl create serviceaccount spark -n k8s-jobs
+#kubectl create clusterrolebinding k8s-jobs-role --clusterrole=edit --serviceaccount=k8s-jobs:spark --namespace=k8s-jobs
 
 kubectl cluster-info
 
@@ -33,17 +31,17 @@ $SPARK_HOME/bin/spark-submit \
     --conf spark.executor.instances=1 \
     --conf spark.kubernetes.executor.request.cores=1 \
     --conf spark.kubernetes.container.image=$SPARK_IMAGE \
-    --conf spark.kubernetes.namespace=spark-jobs \
+    --conf spark.kubernetes.namespace=k8s-jobs \
     --conf spark.kubernetes.authenticate.driver.serviceAccountName=spark \
     $SPARK_APP $SPARK_ARGS
 
-kubectl get pods -n spark-jobs --no-headers=true | awk '/spark-pi/{print $1}' | xargs  kubectl delete -n spark-jobs pod
+kubectl get pods -n k8s-jobs --no-headers=true | awk '/spark-pi/{print $1}' | xargs  kubectl delete -n k8s-jobs pod
 
 $SPARK_HOME/bin/spark-shell \
     --master k8s://$K8S_CLUSTER \
     --deploy-mode client \
     --conf spark.kubernetes.container.image=$SPARK_IMAGE \
-    --conf spark.kubernetes.namespace=spark-jobs
+    --conf spark.kubernetes.namespace=k8s-jobs
 
 # JupyterHub version
 export K8S_CLUSTER=$KUBERNETES_SERVICE_HOST:$KUBERNETES_SERVICE_PORT
@@ -59,7 +57,7 @@ spark-shell \
     --num-executors 2 \
     --executor-cores 1 \
     --conf spark.kubernetes.container.image=$SPARK_IMAGE \
-    --conf spark.kubernetes.namespace=jupyterhub \
+    --conf spark.kubernetes.namespace=k8s-jobs \
     --conf spark.driver.host=$SPARK_DRIVER_HOST
 
 # Additional params
