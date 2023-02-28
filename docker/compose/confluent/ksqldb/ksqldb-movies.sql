@@ -51,3 +51,13 @@ SELECT ratings.movie_id AS ID, title, release_year, rating
 FROM ratings
 LEFT JOIN movies ON ratings.movie_id = movies.id
 EMIT CHANGES LIMIT 10;
+
+CREATE STREAM rated_movies
+WITH (kafka_topic='rated_movies', value_format='avro') AS
+SELECT ratings.movie_id as id, title, rating
+FROM ratings
+LEFT JOIN movies ON ratings.movie_id = movies.id;
+
+select * from rated_movies limit 10
+
+PRINT rated_movies FROM BEGINNING LIMIT 9;
