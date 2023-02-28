@@ -1,11 +1,8 @@
 
-~~~shell
-docker exec -it ksqldb-server /bin/bash
-~~~
-
-~~~sql
 SET 'auto.offset.reset' = 'earliest';
-    person_id BIGINT KEY,
+
+--    person_id BIGINT KEY,
+
 CREATE OR REPLACE STREAM PERSON_STREAM (
     id VARCHAR KEY,
     creationDate VARCHAR,
@@ -61,4 +58,3 @@ SELECT * FROM person_amount_limit_stream limit 10;
 
 drop stream person_stream;
 drop stream person_amount_limit_stream;
-~~~
