@@ -5,6 +5,11 @@ show streams;
 show tables;
 show topics;
 
+drop stream rated_movies DELETE TOPIC;
+drop stream ratings DELETE TOPIC;
+drop table movies DELETE TOPIC;
+
+
 CREATE TABLE movies (ID INT PRIMARY KEY, title VARCHAR, release_year INT)
     WITH (kafka_topic='movies', partitions=1, value_format='avro');
 
@@ -58,6 +63,6 @@ SELECT ratings.movie_id as id, title, rating
 FROM ratings
 LEFT JOIN movies ON ratings.movie_id = movies.id;
 
-select * from rated_movies limit 10
+select * from rated_movies limit 100;
 
 PRINT rated_movies FROM BEGINNING LIMIT 9;
