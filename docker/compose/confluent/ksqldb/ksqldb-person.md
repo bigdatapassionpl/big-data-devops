@@ -1,4 +1,8 @@
 
+~~~shell
+docker exec -it ksqldb-server /bin/bash
+~~~
+
 ~~~sql
 SET 'auto.offset.reset' = 'earliest';
     person_id BIGINT KEY,
