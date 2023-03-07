@@ -13,6 +13,7 @@ export HELM_DIR=$HELM_CHART
 export HELM_NAMESPACE=$HELM_CHART
 export HELM_RELEASE=$HELM_REPO_NAME
 
+helm repo remove $HELM_REPO_NAME
 helm repo add $HELM_REPO_NAME $HELM_REPO_URL
 helm repo list
 helm repo update
