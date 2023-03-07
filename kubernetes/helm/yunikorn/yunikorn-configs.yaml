@@ -2,7 +2,9 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: yunikorn-configs
+  namespace: yunikorn
 data:
+  admissionController.filtering.processNamespaces: "k8s-jobs"
   queues.yaml: |
     partitions:
       - name: default
@@ -12,4 +14,16 @@ data:
             create: true
         queues:
           - name: root
+            submitacl: '*'
+          - name: k8s-jobs
+            submitacl: '*'
+      - name: getindata
+        placementrules:
+          - name: tag
+            value: namespace
+            create: true
+        queues:
+          - name: root
+            submitacl: '*'
+          - name: k8s-jobs
             submitacl: '*'
