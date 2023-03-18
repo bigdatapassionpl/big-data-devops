@@ -7,6 +7,7 @@
 #kubectl config set-context minikube --namespace=k8s-jobs
 #kubectl create serviceaccount spark -n k8s-jobs
 #kubectl create clusterrolebinding k8s-jobs-role --clusterrole=edit --serviceaccount=k8s-jobs:spark --namespace=k8s-jobs
+#kubectl create clusterrolebinding jovyan-edit --clusterrole=edit --serviceaccount=jupyterhub:jovyan --namespace=jupyterhub
 
 kubectl cluster-info
 
