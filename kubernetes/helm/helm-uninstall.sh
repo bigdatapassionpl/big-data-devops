@@ -13,4 +13,5 @@ export HELM_DIR=$HELM_CHART
 export HELM_NAMESPACE=$HELM_CHART
 export HELM_RELEASE=$HELM_REPO_NAME
 
-helm uninstall $HELM_RELEASE
+helm uninstall $HELM_RELEASE \
+  --namespace $HELM_NAMESPACE
