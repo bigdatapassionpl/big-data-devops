@@ -93,7 +93,10 @@ services:
       - bash
       - -c
       - |
-        echo "Installing Connector"
+        echo "Installing Connectors"
+        #
+        confluent-hub install --no-prompt confluentinc/connect-transforms:latest
+        #
         mkdir /usr/share/confluent-hub-components/debezium-connector-postgres
         mkdir /usr/share/confluent-hub-components/debezium-connector-postgres/lib
         wget https://repo1.maven.org/maven2/io/debezium/debezium-connector-postgres/2.1.1.Final/debezium-connector-postgres-2.1.1.Final-plugin.tar.gz -P /usr/share/confluent-hub-components/
