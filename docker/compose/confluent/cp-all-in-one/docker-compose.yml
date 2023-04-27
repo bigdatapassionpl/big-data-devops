@@ -96,11 +96,15 @@ services:
         echo "Installing Connectors"
         #
         confluent-hub install --no-prompt confluentinc/connect-transforms:latest
+        confluent-hub install --no-prompt confluentinc/kafka-connect-jdbc:10.7.0
         #
-        mkdir /usr/share/confluent-hub-components/debezium-connector-postgres
-        mkdir /usr/share/confluent-hub-components/debezium-connector-postgres/lib
+        yum install unzip -y
+        wget https://github.com/an0r0c/kafka-connect-transform-tojsonstring/releases/download/1.3/an0r0c-kafka-connect-transform-record2jsonstring-1.3.zip -P /usr/share/confluent-hub-components/
+        unzip /usr/share/confluent-hub-components/an0r0c-kafka-connect-transform-record2jsonstring-1.3.zip -d /usr/share/confluent-hub-components/
+        #
         wget https://repo1.maven.org/maven2/io/debezium/debezium-connector-postgres/2.1.1.Final/debezium-connector-postgres-2.1.1.Final-plugin.tar.gz -P /usr/share/confluent-hub-components/
         tar -zxf /usr/share/confluent-hub-components/debezium-connector-postgres-2.1.1.Final-plugin.tar.gz -C /usr/share/confluent-hub-components/
+        rm -rf /usr/share/confluent-hub-components/debezium-connector-postgres-2.1.1.Final-plugin.tar.gz
         #
         mkdir /usr/share/confluent-hub-components/snowflake-kafka-connector
         mkdir /usr/share/confluent-hub-components/snowflake-kafka-connector/lib
@@ -134,61 +138,6 @@ services:
 #      CONFLUENT_METRICS_TOPIC_REPLICATION: 1
 #      PORT: 9021
 
-#  ksqldb-server:
-#    image: confluentinc/cp-ksqldb-server:7.2.2
-#    hostname: ksqldb-server
-#    container_name: ksqldb-server
-#    depends_on:
-#      - broker
-#      - connect
-#    ports:
-#      - "8088:8088"
-#    environment:
-#      KSQL_CONFIG_DIR: "/etc/ksql"
-#      KSQL_BOOTSTRAP_SERVERS: "broker:29092"
-#      KSQL_HOST_NAME: ksqldb-server
-#      KSQL_LISTENERS: "http://0.0.0.0:8088"
-#      KSQL_CACHE_MAX_BYTES_BUFFERING: 0
-#      KSQL_KSQL_SCHEMA_REGISTRY_URL: "http://schema-registry:8081"
-#      KSQL_PRODUCER_INTERCEPTOR_CLASSES: "io.confluent.monitoring.clients.interceptor.MonitoringProducerInterceptor"
-#      KSQL_CONSUMER_INTERCEPTOR_CLASSES: "io.confluent.monitoring.clients.interceptor.MonitoringConsumerInterceptor"
-#      KSQL_KSQL_CONNECT_URL: "http://connect:8083"
-#      KSQL_KSQL_LOGGING_PROCESSING_TOPIC_REPLICATION_FACTOR: 1
-#      KSQL_KSQL_LOGGING_PROCESSING_TOPIC_AUTO_CREATE: 'true'
-#      KSQL_KSQL_LOGGING_PROCESSING_STREAM_AUTO_CREATE: 'true'
-
-#  ksqldb-cli:
-#    image: confluentinc/cp-ksqldb-cli:7.2.2
-#    container_name: ksqldb-cli
-#    depends_on:
-#      - broker
-#      - connect
-#      - ksqldb-server
-#    entrypoint: /bin/sh
-#    tty: true
-
-#  ksql-datagen:
-#    image: confluentinc/ksqldb-examples:7.2.2
-#    hostname: ksql-datagen
-#    container_name: ksql-datagen
-#    depends_on:
-#      - ksqldb-server
-#      - broker
-#      - schema-registry
-#      - connect
-#    command: "bash -c 'echo Waiting for Kafka to be ready... && \
-#                       cub kafka-ready -b broker:29092 1 40 && \
-#                       echo Waiting for Confluent Schema Registry to be ready... && \
-#                       cub sr-ready schema-registry 8081 40 && \
-#                       echo Waiting a few seconds for topic creation to finish... && \
-#                       sleep 11 && \
-#                       tail -f /dev/null'"
-#    environment:
-#      KSQL_CONFIG_DIR: "/etc/ksql"
-#      STREAMS_BOOTSTRAP_SERVERS: broker:29092
-#      STREAMS_SCHEMA_REGISTRY_HOST: schema-registry
-#      STREAMS_SCHEMA_REGISTRY_PORT: 8081
-
 #  rest-proxy:
 #    image: confluentinc/cp-kafka-rest:7.2.2
 #    hostname: rest-proxy
@@ -208,3 +157,4 @@ networks:
   default:
     name: bigdatanetwork
     driver: bridge
+    external: true
