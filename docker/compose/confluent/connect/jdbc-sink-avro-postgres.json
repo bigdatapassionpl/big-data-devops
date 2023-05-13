@@ -1,0 +1,22 @@
+{
+  "name": "jdbc-sink-avro-postgres",
+  "config": {
+    "connector.class": "io.confluent.connect.jdbc.JdbcSinkConnector",
+
+    "connection.url": "jdbc:postgresql://postgres:5432/",
+    "connection.user": "postgres",
+    "connection.password": "postgres",
+
+    "topics": "test-product-avro",
+
+    "key.converter": "org.apache.kafka.connect.storage.StringConverter",
+    "value.converter": "io.confluent.connect.avro.AvroConverter",
+    "value.converter.schema.registry.url": "http://schema-registry:8081",
+
+    "auto.create": "true",
+
+    "transforms": "tojson",
+    "transforms.tojson.json.string.field.name": "record_content",
+    "transforms.tojson.type": "com.github.cedelsb.kafka.connect.smt.Record2JsonStringConverter$Value"
+  }
+}
