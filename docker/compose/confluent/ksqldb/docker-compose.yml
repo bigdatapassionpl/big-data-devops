@@ -6,9 +6,9 @@ services:
     image: confluentinc/cp-ksqldb-server:7.2.2
     hostname: ksqldb-server
     container_name: ksqldb-server
-    depends_on:
-      - broker
-      - connect
+#    depends_on:
+#      - broker
+#      - connect
     ports:
       - "8088:8088"
     environment:
