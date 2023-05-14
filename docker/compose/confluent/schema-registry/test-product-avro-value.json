@@ -1,0 +1,4 @@
+{
+  "subject": "test-product-avro-value",
+  "schema": "{\"type\":\"record\",\"name\":\"ProductMessageAvro\",\"namespace\":\"com.bigdatapassion.kafka.dto\",\"fields\":[{\"name\":\"creationDate\",\"type\":[\"null\",{\"type\":\"string\",\"avro.java.string\":\"String\"}]},{\"name\":\"id\",\"type\":[\"null\",{\"type\":\"long\",\"java-class\":\"java.lang.Long\"}]},{\"name\":\"product\",\"type\":[\"null\",{\"type\":\"record\",\"name\":\"ProductAvro\",\"fields\":[{\"name\":\"color\",\"type\":[\"null\",{\"type\":\"string\",\"avro.java.string\":\"String\"}]},{\"name\":\"material\",\"type\":[\"null\",{\"type\":\"string\",\"avro.java.string\":\"String\"}]},{\"name\":\"price\",\"type\":[\"null\",{\"type\":\"string\",\"avro.java.string\":\"String\"}]},{\"name\":\"productName\",\"type\":[\"null\",{\"type\":\"string\",\"avro.java.string\":\"String\"}]},{\"name\":\"promotionCode\",\"type\":[\"null\",{\"type\":\"string\",\"avro.java.string\":\"String\"}]}]}]}]}"
+}
