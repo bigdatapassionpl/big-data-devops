@@ -35,6 +35,9 @@ curl $SCHEMA_REGISTRY_URL/subjects/$SUBJECT/versions/latest/schema | jq
 curl $SCHEMA_REGISTRY_URL/subjects/$SUBJECT/versions/$VERSION/schema > $SUBJECT.schema.json
 curl $SCHEMA_REGISTRY_URL/subjects/$SUBJECT/versions/latest/schema > $SUBJECT.schema.json
 
+cat $SUBJECT.json | jq '.schema' | jq -r > $SUBJECT.schema.json
+cat $SUBJECT.schema.json | tr -d '[:space:]' | jq -R > $SUBJECT.json
+
 curl -X POST -H $HEADER --data @$SUBJECT.json $SCHEMA_REGISTRY_URL/subjects/$SUBJECT | jq
 curl -X POST -H $HEADER --data @$SUBJECT.json $SCHEMA_REGISTRY_URL/subjects/$SUBJECT/versions | jq
 
