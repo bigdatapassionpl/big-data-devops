@@ -27,8 +27,13 @@ curl $SCHEMA_REGISTRY_URL/schemas/ids/$SCHEMA_ID/versions | jq
 curl $SCHEMA_REGISTRY_URL/subjects | jq
 curl $SCHEMA_REGISTRY_URL/subjects/$SUBJECT/versions | jq
 curl $SCHEMA_REGISTRY_URL/subjects/$SUBJECT/versions/$VERSION | jq
+curl $SCHEMA_REGISTRY_URL/subjects/$SUBJECT/versions/latest | jq
 curl $SCHEMA_REGISTRY_URL/subjects/$SUBJECT/versions/$VERSION > $SUBJECT.json
+curl $SCHEMA_REGISTRY_URL/subjects/$SUBJECT/versions/latest > $SUBJECT.json
 curl $SCHEMA_REGISTRY_URL/subjects/$SUBJECT/versions/$VERSION/schema | jq
+curl $SCHEMA_REGISTRY_URL/subjects/$SUBJECT/versions/latest/schema | jq
+curl $SCHEMA_REGISTRY_URL/subjects/$SUBJECT/versions/$VERSION/schema > $SUBJECT.schema.json
+curl $SCHEMA_REGISTRY_URL/subjects/$SUBJECT/versions/latest/schema > $SUBJECT.schema.json
 
 curl -X POST -H $HEADER --data @$SUBJECT.json $SCHEMA_REGISTRY_URL/subjects/$SUBJECT | jq
 curl -X POST -H $HEADER --data @$SUBJECT.json $SCHEMA_REGISTRY_URL/subjects/$SUBJECT/versions | jq
