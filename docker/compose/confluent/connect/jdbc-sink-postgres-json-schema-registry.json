@@ -1,5 +1,5 @@
 {
-  "name": "jdbc-sink-avro-postgres",
+  "name": "jdbc-sink-postgres-json-schema-registry",
   "config": {
     "connector.class": "io.confluent.connect.jdbc.JdbcSinkConnector",
 
@@ -7,11 +7,12 @@
     "connection.user": "postgres",
     "connection.password": "postgres",
 
-    "topics": "test-product-avro",
+    "topics": "test-product-json-schema-registry",
 
     "key.converter": "org.apache.kafka.connect.storage.StringConverter",
-    "value.converter": "io.confluent.connect.avro.AvroConverter",
+    "value.converter": "io.confluent.connect.json.JsonSchemaConverter",
     "value.converter.schema.registry.url": "http://schema-registry:8081",
+    "value.converter.use.optional.for.nonrequired": "true",
 
     "auto.create": "true",
 
