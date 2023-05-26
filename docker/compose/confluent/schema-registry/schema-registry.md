@@ -42,6 +42,7 @@ curl -X POST -H $HEADER --data @$SUBJECT.json $SCHEMA_REGISTRY_URL/subjects/$SUB
 curl -X POST -H $HEADER --data @$SUBJECT.json $SCHEMA_REGISTRY_URL/subjects/$SUBJECT/versions | jq
 
 curl -X DELETE $SCHEMA_REGISTRY_URL/subjects/$SUBJECT | jq
+curl -X DELETE $SCHEMA_REGISTRY_URL/subjects/$SUBJECT?permanent=true | jq
 curl -X DELETE -G $SCHEMA_REGISTRY_URL/subjects/$SUBJECT -d permanent=true | jq
 curl -X DELETE $SCHEMA_REGISTRY_URL/subjects/$SUBJECT/versions/$VERSION | jq
 curl -X DELETE $SCHEMA_REGISTRY_URL/subjects/$SUBJECT/versions/latest | jq
