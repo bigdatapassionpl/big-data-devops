@@ -43,7 +43,7 @@ services:
       - |
         echo "Installing Connectors"
         #
-        confluent-hub install --no-prompt confluentinc/connect-transforms:latest
+        confluent-hub install --no-prompt confluentinc/connect-transforms:1.4.3
         confluent-hub install --no-prompt confluentinc/kafka-connect-jdbc:10.7.0
         #
         yum install unzip -y
