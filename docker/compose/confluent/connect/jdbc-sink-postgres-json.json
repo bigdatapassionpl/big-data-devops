@@ -13,6 +13,8 @@
     "value.converter": "org.apache.kafka.connect.json.JsonConverter",
     "value.converter.schemas.enable": "false",
 
+    "auto.create": "true",
+
     "transforms": "tojson",
     "transforms.tojson.json.string.field.name": "record_content",
     "transforms.tojson.type": "com.github.cedelsb.kafka.connect.smt.Record2JsonStringConverter$Value"
