@@ -1,0 +1,20 @@
+{
+  "name": "jdbc-sink-postgres-json",
+  "config": {
+    "connector.class": "io.confluent.connect.jdbc.JdbcSinkConnector",
+
+    "connection.url": "jdbc:postgresql://postgres:5432/",
+    "connection.user": "postgres",
+    "connection.password": "postgres",
+
+    "topics": "test-product-json",
+
+    "key.converter": "org.apache.kafka.connect.storage.StringConverter",
+    "value.converter": "org.apache.kafka.connect.json.JsonConverter",
+    "value.converter.schemas.enable": "false",
+
+    "transforms": "tojson",
+    "transforms.tojson.json.string.field.name": "record_content",
+    "transforms.tojson.type": "com.github.cedelsb.kafka.connect.smt.Record2JsonStringConverter$Value"
+  }
+}
