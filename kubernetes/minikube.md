@@ -16,7 +16,7 @@ minikube --help
 minikube start
 
 export MINIKUBE_MEMORY=20480
-export MINIKUBE_MEMORY=9962
+export MINIKUBE_MEMORY=7959
 
 time minikube start \
     --nodes=1 \
@@ -37,4 +37,8 @@ minikube dashboard
 minikube dashboard --url
 
 minikube addons list
+
+minikube addons enable ingress
+kubectl get pods -n ingress-nginx
+
 ~~~
