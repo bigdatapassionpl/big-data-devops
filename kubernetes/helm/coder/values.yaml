@@ -27,3 +27,10 @@ coder:
   #tls:
   #  secretNames:
   #    - my-tls-secret-name
+
+  service:
+    externalTrafficPolicy: Local
+    sessionAffinity: None
+    annotations: {
+      service.beta.kubernetes.io/aws-load-balancer-type: "nlb"
+    }
