@@ -5,16 +5,59 @@ metadata:
   namespace: coder
 
 ---
+
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: coder-role
+  namespace: coder-workspace
+rules:
+- apiGroups:
+  - ""
+  resources:
+  - pods
+  verbs:
+  - "*"
+- apiGroups:
+  - ""
+  resources:
+  - services
+  verbs:
+  - "*"
+- apiGroups:
+  - ""
+  resources:
+  - configmaps
+  verbs:
+  - "*"
+- apiGroups:
+  - ""
+  resources:
+  - persistentvolumeclaims
+  verbs:
+  - "*"
+- apiGroups:
+  - sparkoperator.k8s.io
+  resources:
+  - sparkapplications
+  - sparkapplications/status
+  - scheduledsparkapplications
+  - scheduledsparkapplications/status
+  verbs:
+  - "*"
+
+---
+
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
+  name: coder-role-binding
+  namespace: coder-workspace
+subjects:
+- kind: ServiceAccount
   name: coder
   namespace: coder
-subjects:
-  - kind: ServiceAccount
-    name: coder
-    namespace: coder
 roleRef:
   kind: Role
-  name: coder
+  name: coder-role
   apiGroup: rbac.authorization.k8s.io
