@@ -6,7 +6,6 @@ hub:
 
 singleuser:
   extraEnv:
-    NB_USER: "radek"
     GRANT_SUDO: "yes"
     NB_UID: "146"
     # NOTEBOOK_ARGS: "--allow-root"
@@ -18,30 +17,31 @@ singleuser:
   image:
     name: bigdatapassion/jupyter
     tag: latest
+    pullPolicy: Always
   profileList:
     - display_name: "BigDataPassion Jupyter Notebook"
       description: "BigDataPassion Jupyter Notebook"
       default: true
-    - display_name: "Python Notebooks"
-      description: "Minimal Jupyter Notebook Stack"
-      kubespawner_override:
-        image: jupyter/minimal-notebook:2022-11-14
-    - display_name: "Scientific Python (SciPy) Notebooks"
-      description: "Jupyter Notebook Scientific Python Stack"
-      kubespawner_override:
-        image: jupyter/scipy-notebook:2022-11-14
-    - display_name: "Datascience Notebooks"
-      description: "Jupyter Notebook Data Science Stack"
-      kubespawner_override:
-        image: jupyter/datascience-notebook:2022-11-14
-    - display_name: "R Notebooks"
-      description: "Jupyter Notebook R Stack"
-      kubespawner_override:
-        image: jupyter/r-notebook:2022-11-14
-    - display_name: "Tensorflow Notebooks"
-      description: "Jupyter Notebook Deep Learning Stack"
-      kubespawner_override:
-        image: jupyter/tensorflow-notebook:2022-11-14
+#    - display_name: "Python Notebooks"
+#      description: "Minimal Jupyter Notebook Stack"
+#      kubespawner_override:
+#        image: jupyter/minimal-notebook:2022-11-14
+#    - display_name: "Scientific Python (SciPy) Notebooks"
+#      description: "Jupyter Notebook Scientific Python Stack"
+#      kubespawner_override:
+#        image: jupyter/scipy-notebook:2022-11-14
+#    - display_name: "Datascience Notebooks"
+#      description: "Jupyter Notebook Data Science Stack"
+#      kubespawner_override:
+#        image: jupyter/datascience-notebook:2022-11-14
+#    - display_name: "R Notebooks"
+#      description: "Jupyter Notebook R Stack"
+#      kubespawner_override:
+#        image: jupyter/r-notebook:2022-11-14
+#    - display_name: "Tensorflow Notebooks"
+#      description: "Jupyter Notebook Deep Learning Stack"
+#      kubespawner_override:
+#        image: jupyter/tensorflow-notebook:2022-11-14
     - display_name: "PySpark Notebooks"
       description: "Jupyter Notebook Python, Spark Stack"
       kubespawner_override:
@@ -50,18 +50,23 @@ singleuser:
       description: "Jupyter Notebook Python, Scala, R, Spark Stack"
       kubespawner_override:
         image: jupyter/all-spark-notebook:spark-3.1.1
-    - display_name: "GetInData MLOps (dev-latest)"
-      description: "https://github.com/getindata/jupyter-images"
-      kubespawner_override:
-        image: gcr.io/getindata-images-public/jupyterlab-mlops:dev-latest
-    - display_name: "GetInData DataOps 1.2.0"
-      description: "https://github.com/getindata/jupyter-images"
-      kubespawner_override:
-        image: gcr.io/getindata-images-public/jupyterlab-dataops:jupyterhub-1.2.0
-    - display_name: "GetInData Streaming (1.0.1)"
-      description: "https://github.com/getindata/jupyter-images"
-      kubespawner_override:
-        image: gcr.io/getindata-images-public/jupyterlab-streaming:1.0.1
+
+#    - display_name: "GetInData MLOps (dev-latest)"
+#      description: "https://github.com/getindata/jupyter-images"
+#      kubespawner_override:
+#        image: gcr.io/getindata-images-public/jupyterlab-mlops:dev-latest
+#    - display_name: "GetInData DataOps 1.2.0"
+#      description: "https://github.com/getindata/jupyter-images"
+#      kubespawner_override:
+#        image: gcr.io/getindata-images-public/jupyterlab-dataops:jupyterhub-1.2.0
+#    - display_name: "GetInData Streaming (1.0.1)"
+#      description: "https://github.com/getindata/jupyter-images"
+#      kubespawner_override:
+#        image: gcr.io/getindata-images-public/jupyterlab-streaming:1.0.1
+
+scheduling:
+  userScheduler:
+    enabled: false
 
 prePuller:
   pullProfileListImages: false
