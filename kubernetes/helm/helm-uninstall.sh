@@ -32,3 +32,13 @@ echo "HELM_RELEASE=$HELM_RELEASE"
 
 helm uninstall $HELM_RELEASE \
   --namespace $HELM_NAMESPACE
+
+
+
+unset HELM_REPO_NAME
+unset HELM_REPO_URL
+unset HELM_CHART
+unset HELM_CHART_VERSION
+unset HELM_DIR
+unset HELM_NAMESPACE
+unset HELM_RELEASE

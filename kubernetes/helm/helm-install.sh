@@ -42,3 +42,13 @@ time helm upgrade $HELM_RELEASE $HELM_REPO_NAME/$HELM_CHART \
   --namespace $HELM_NAMESPACE \
   --values $HELM_DIR/values.yaml \
   --version=$HELM_CHART_VERSION
+
+
+
+unset HELM_REPO_NAME
+unset HELM_REPO_URL
+unset HELM_CHART
+unset HELM_CHART_VERSION
+unset HELM_DIR
+unset HELM_NAMESPACE
+unset HELM_RELEASE

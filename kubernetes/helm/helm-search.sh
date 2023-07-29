@@ -44,3 +44,13 @@ helm search repo $HELM_REPO_NAME/$HELM_CHART --versions | head
 helm search repo $HELM_REPO_NAME/$HELM_CHART --versions --devel | head
 
 helm show values $HELM_REPO_NAME/$HELM_CHART --version=$HELM_CHART_VERSION > $HELM_DIR/values-default.yaml
+
+
+
+unset HELM_REPO_NAME
+unset HELM_REPO_URL
+unset HELM_CHART
+unset HELM_CHART_VERSION
+unset HELM_DIR
+unset HELM_NAMESPACE
+unset HELM_RELEASE
