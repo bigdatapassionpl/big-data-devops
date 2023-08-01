@@ -39,6 +39,7 @@ time helm upgrade $HELM_RELEASE $HELM_REPO_NAME/$HELM_CHART \
   --install \
   --timeout 10m \
   --cleanup-on-fail \
+  --create-namespace \
   --namespace $HELM_NAMESPACE \
   --values $HELM_DIR/values.yaml \
   --version=$HELM_CHART_VERSION
