@@ -1,0 +1,11 @@
+
+auth:
+  enablePostgresUser: true
+  postgresPassword: password
+  username: radek
+  password: password
+  database: radekdb
+
+primary:
+  persistence:
+    size: 10Gi
