@@ -11,7 +11,7 @@ gcloud container clusters list
 #gcloud container clusters create $GKE_CLUSTER
 
 time gcloud container clusters create $GKE_CLUSTER \
-    --num-nodes=5 \
+    --num-nodes=3 \
     --machine-type=e2-standard-2
 
 time gcloud container clusters create $GKE_CLUSTER \
@@ -21,7 +21,7 @@ time gcloud container clusters create $GKE_CLUSTER \
     --cluster-version=1.23.16-gke.2500
 
 time gcloud container clusters resize $GKE_CLUSTER \
-    --num-nodes 3
+    --num-nodes 5
 
 gcloud container clusters delete $GKE_CLUSTER
 
