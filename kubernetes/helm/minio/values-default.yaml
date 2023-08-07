@@ -14,7 +14,7 @@ clusterDomain: cluster.local
 ##
 image:
   repository: quay.io/minio/minio
-  tag: RELEASE.2023-07-07T07-13-57Z
+  tag: RELEASE.2022-09-17T00-09-45Z
   pullPolicy: IfNotPresent
 
 imagePullSecrets: []
@@ -25,11 +25,11 @@ imagePullSecrets: []
 ##
 mcImage:
   repository: quay.io/minio/mc
-  tag: RELEASE.2023-06-28T21-54-17Z
+  tag: RELEASE.2022-09-16T09-16-47Z
   pullPolicy: IfNotPresent
 
-## minio mode, i.e. standalone or distributed
-mode: distributed ## other supported values are "standalone"
+## minio mode, i.e. standalone or distributed or gateway.
+mode: distributed ## other supported values are "standalone", "gateway"
 
 ## Additional labels to include with deployment or statefulset
 additionalLabels: {}
@@ -52,9 +52,6 @@ extraVolumes: []
 ## Additional volumeMounts to minio container
 extraVolumeMounts: []
 
-## Additional sidecar containers
-extraContainers: []
-
 ## Internal port number for MinIO S3 API container
 ## Change service.port to change external port number
 minioAPIPort: "9000"
@@ -64,13 +61,13 @@ minioAPIPort: "9000"
 minioConsolePort: "9001"
 
 ## Update strategy for Deployments
-deploymentUpdate:
+DeploymentUpdate:
   type: RollingUpdate
   maxUnavailable: 0
   maxSurge: 100%
 
 ## Update strategy for StatefulSets
-statefulSetUpdate:
+StatefulSetUpdate:
   updateStrategy: RollingUpdate
 
 ## Pod priority settings
@@ -85,7 +82,7 @@ runtimeClassName: ""
 
 ## Set default rootUser, rootPassword
 ## AccessKey and secretKey is generated when not set
-## Distributed MinIO ref: https://min.io/docs/minio/linux/operations/install-deploy-manage/deploy-minio-multi-node-multi-drive.html
+## Distributed MinIO ref: https://docs.minio.io/docs/distributed-minio-quickstart-guide
 ##
 rootUser: ""
 rootPassword: ""
@@ -121,6 +118,11 @@ replicas: 16
 # Number of expanded MinIO clusters
 pools: 1
 
+# Deploy if 'mode == gateway' - 4 replicas.
+gateway:
+  type: "nas" # currently only "nas" are supported.
+  replicas: 4
+
 ## TLS Settings for MinIO
 tls:
   enabled: false
@@ -129,7 +131,7 @@ tls:
   publicCrt: public.crt
   privateKey: private.key
 
-## Trusted Certificates Settings for MinIO. Ref: https://min.io/docs/minio/linux/operations/network-encryption.html#third-party-certificate-authorities
+## Trusted Certificates Settings for MinIO. Ref: https://docs.minio.io/docs/how-to-secure-access-to-minio-server-with-tls#install-certificates-from-third-party-cas
 ## Bundle multiple trusted certificates into one secret and pass that here. Ref: https://github.com/minio/minio/tree/master/docs/tls/kubernetes#2-create-kubernetes-secret
 ## When using self-signed certificates, remember to include MinIO's own certificate in the bundle with key public.crt.
 ## If certSecret is left empty and tls is enabled, this chart installs the public certificate from .Values.tls.certSecret.
@@ -157,7 +159,7 @@ persistence:
   ## Storage class of PV to bind. By default it looks for standard storage class.
   ## If the PV uses a different storage class, specify that here.
   storageClass: ""
-  volumeName: ""
+  VolumeName: ""
   accessMode: ReadWriteOnce
   size: 500Gi
 
@@ -175,18 +177,16 @@ service:
   clusterIP: ~
   port: "9000"
   nodePort: 32000
-  loadBalancerIP: ~
-  externalIPs: []
-  annotations: {}
 
 ## Configure Ingress based on the documentation here: https://kubernetes.io/docs/concepts/services-networking/ingress/
 ##
 
 ingress:
   enabled: false
-  ingressClassName: ~
+  # ingressClassName: ""
   labels: {}
     # node-role.kubernetes.io/ingress: platform
+
   annotations: {}
     # kubernetes.io/ingress.class: nginx
     # kubernetes.io/tls-acme: "true"
@@ -208,15 +208,13 @@ consoleService:
   clusterIP: ~
   port: "9001"
   nodePort: 32001
-  loadBalancerIP: ~
-  externalIPs: []
-  annotations: {}
 
 consoleIngress:
   enabled: false
-  ingressClassName: ~
+  # ingressClassName: ""
   labels: {}
     # node-role.kubernetes.io/ingress: platform
+
   annotations: {}
     # kubernetes.io/ingress.class: nginx
     # kubernetes.io/tls-acme: "true"
@@ -320,13 +318,21 @@ policies: []
 #
 ## Additional Annotations for the Kubernetes Job makePolicyJob
 makePolicyJob:
+  podAnnotations: {}
+  annotations: {}
   securityContext:
     enabled: false
     runAsUser: 1000
     runAsGroup: 1000
+    fsGroup: 1000
   resources:
     requests:
       memory: 128Mi
+  nodeSelector: {}
+  tolerations: []
+  affinity: {}
+  extraVolumes: []
+  extraVolumeMounts: []
   # Command to run after the main command on exit
   exitCommand: ""
 
@@ -335,7 +341,7 @@ makePolicyJob:
 users:
   ## Username, password and policy to be assigned to the user
   ## Default policies are [readonly|readwrite|writeonly|consoleAdmin|diagnostics]
-  ## Add new policies as explained here https://min.io/docs/minio/kubernetes/upstream/administration/identity-access-management.html#access-management
+  ## Add new policies as explained here https://docs.min.io/docs/minio-multi-user-quickstart-guide.html
   ## NOTE: this will fail if LDAP is enabled in your MinIO deployment
   ## make sure to disable this if you are using LDAP.
   - accessKey: console
@@ -347,60 +353,30 @@ users:
   #  existingSecretKey: password
   #  policy: readonly
 
+
 ## Additional Annotations for the Kubernetes Job makeUserJob
 makeUserJob:
+  podAnnotations: {}
+  annotations: {}
   securityContext:
     enabled: false
     runAsUser: 1000
     runAsGroup: 1000
+    fsGroup: 1000
   resources:
     requests:
       memory: 128Mi
-  # Command to run after the main command on exit
-  exitCommand: ""
-
-## List of service accounts to be created after minio install
-##
-svcaccts: []
-  ## accessKey, secretKey and parent user to be assigned to the service accounts
-  ## Add new service accounts as explained here https://min.io/docs/minio/kubernetes/upstream/administration/identity-access-management/minio-user-management.html#service-accounts
-  # - accessKey: console-svcacct
-  #   secretKey: console123
-  #   user: console
-  ## Or you can refer to specific secret
-  # - accessKey: externalSecret
-  #   existingSecret: my-secret
-  #   existingSecretKey: password
-  #   user: console
-  ## You also can pass custom policy
-  # - accessKey: console-svcacct
-  #   secretKey: console123
-  #   user: console
-  #   policy:
-  #     statements:
-  #       - resources:
-  #           - 'arn:aws:s3:::example*/*'
-  #         actions:
-  #           - "s3:AbortMultipartUpload"
-  #           - "s3:GetObject"
-  #           - "s3:DeleteObject"
-  #           - "s3:PutObject"
-  #           - "s3:ListMultipartUploadParts"
-
-makeServiceAccountJob:
-  securityContext:
-    enabled: false
-    runAsUser: 1000
-    runAsGroup: 1000
-  resources:
-    requests:
-      memory: 128Mi
+  nodeSelector: {}
+  tolerations: []
+  affinity: {}
+  extraVolumes: []
+  extraVolumeMounts: []
   # Command to run after the main command on exit
   exitCommand: ""
 
 ## List of buckets to be created after minio install
 ##
-buckets: []
+buckets:
   #   # Name of the bucket
   # - name: bucket1
   #   # Policy to be set on the
@@ -412,47 +388,18 @@ buckets: []
   #   # bucket [true|false]
   #   versioning: false
   #   # set objectlocking for
-  #   # bucket [true|false] NOTE: versioning is enabled by default if you use locking
+  #   # bucket [true|false] NOTE: versioning is enabled by default if you use locking 
   #   objectlocking: false
   # - name: bucket2
   #   policy: none
   #   purge: false
   #   versioning: true
   #   # set objectlocking for
-  #   # bucket [true|false] NOTE: versioning is enabled by default if you use locking
+  #   # bucket [true|false] NOTE: versioning is enabled by default if you use locking 
   #   objectlocking: false
 
 ## Additional Annotations for the Kubernetes Job makeBucketJob
 makeBucketJob:
-  securityContext:
-    enabled: false
-    runAsUser: 1000
-    runAsGroup: 1000
-  resources:
-    requests:
-      memory: 128Mi
-  # Command to run after the main command on exit
-  exitCommand: ""
-
-## List of command to run after minio install
-## NOTE: the mc command TARGET is always "myminio"
-customCommands:
-  # - command: "admin policy attach myminio consoleAdmin --group='cn=ops,cn=groups,dc=example,dc=com'"
-
-## Additional Annotations for the Kubernetes Job customCommandJob
-customCommandJob:
-  securityContext:
-    enabled: false
-    runAsUser: 1000
-    runAsGroup: 1000
-  resources:
-    requests:
-      memory: 128Mi
-  # Command to run after the main command on exit
-  exitCommand: ""
-
-## Merge jobs
-postJob:
   podAnnotations: {}
   annotations: {}
   securityContext:
@@ -460,14 +407,44 @@ postJob:
     runAsUser: 1000
     runAsGroup: 1000
     fsGroup: 1000
+  resources:
+    requests:
+      memory: 128Mi
   nodeSelector: {}
   tolerations: []
   affinity: {}
+  extraVolumes: []
+  extraVolumeMounts: []
+  # Command to run after the main command on exit
+  exitCommand: ""
+  
+## List of command to run after minio install
+## NOTE: the mc command TARGET is always "myminio"
+customCommands:
+  # - command: "admin policy set myminio consoleAdmin group='cn=ops,cn=groups,dc=example,dc=com'"
 
+## Additional Annotations for the Kubernetes Job customCommandJob
+customCommandJob:
+  podAnnotations: {}
+  annotations: {}
+  securityContext:
+    enabled: false
+    runAsUser: 1000
+    runAsGroup: 1000
+    fsGroup: 1000
+  resources:
+    requests:
+      memory: 128Mi
+  nodeSelector: {}
+  tolerations: []
+  affinity: {}
+  # Command to run after the main command on exit
+  exitCommand: ""
+  
 ## Use this field to add environment variables relevant to MinIO server. These fields will be passed on to MinIO container(s)
 ## when Chart is deployed
 environment:
-  ## Please refer for comprehensive list https://min.io/docs/minio/linux/reference/minio-server/minio-server.html
+  ## Please refer for comprehensive list https://docs.min.io/minio/baremetal/reference/minio-server/minio-server.html
   ## MINIO_SUBNET_LICENSE: "License key obtained from https://subnet.min.io"
   ## MINIO_BROWSER: "off"
 
@@ -475,11 +452,11 @@ environment:
 ## This can be useful for LDAP password, etc
 ## The key in the secret must be 'config.env'
 ##
-extraSecret: ~
+# extraSecret: minio-extraenv
 
 ## OpenID Identity Management
 ## The following section documents environment variables for enabling external identity management using an OpenID Connect (OIDC)-compatible provider.
-## See https://min.io/docs/minio/linux/operations/external-iam/configure-openid-external-identity-management.html for a tutorial on using these variables.
+## See https://docs.min.io/minio/baremetal/security/openid-external-identity-management/external-authentication-with-openid-identity-provider.html#minio-external-identity-management-openid for a tutorial on using these variables.
 oidc:
   enabled: false
   configUrl: "https://identity-provider-url/.well-known/openid-configuration"
@@ -515,10 +492,9 @@ metrics:
   serviceMonitor:
     enabled: false
     # scrape each node/pod individually for additional metrics
-    includeNode: false
+    includeNode: false 
     public: true
     additionalLabels: {}
-    annotations: {}
     # for node metrics
     relabelConfigs: {}
     # for cluster metrics
@@ -526,11 +502,9 @@ metrics:
       # metricRelabelings:
       #   - regex: (server|pod)
       #     action: labeldrop
-    namespace: ~
-    # Scrape interval, for example `interval: 30s`
-    interval: ~
-    # Scrape timeout, for example `scrapeTimeout: 10s`
-    scrapeTimeout: ~
+    # namespace: monitoring
+    # interval: 30s
+    # scrapeTimeout: 10s
 
 ## ETCD settings: https://github.com/minio/minio/blob/master/docs/sts/etcd.md
 ## Define endpoints to enable this section.

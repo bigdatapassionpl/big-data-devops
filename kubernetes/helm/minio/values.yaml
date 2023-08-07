@@ -3,11 +3,15 @@
 ## AccessKey and secretKey is generated when not set
 ## Distributed MinIO ref: https://min.io/docs/minio/linux/operations/install-deploy-manage/deploy-minio-multi-node-multi-drive.html
 ##
-rootUser: "minio"
+rootUser: "rootuser"
 rootPassword: "rootpass123"
 
+# Number of drives attached to a node
+drivesPerNode: 1
 # Number of MinIO containers running
 replicas: 3
+# Number of expanded MinIO clusters
+pools: 1
 
 ## Configure resource requests and limits
 ## ref: http://kubernetes.io/docs/user-guide/compute-resources/
@@ -15,3 +19,8 @@ replicas: 3
 resources:
   requests:
     memory: 4Gi
+
+users:
+  - accessKey: console
+    secretKey: console123
+    policy: consoleAdmin
