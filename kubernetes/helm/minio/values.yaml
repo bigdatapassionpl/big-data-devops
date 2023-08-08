@@ -1,21 +1,14 @@
 
-## Set default rootUser, rootPassword
-## AccessKey and secretKey is generated when not set
-## Distributed MinIO ref: https://min.io/docs/minio/linux/operations/install-deploy-manage/deploy-minio-multi-node-multi-drive.html
-##
 rootUser: "minioadmin"
 rootPassword: "minioadmin"
 
-# Number of drives attached to a node
 drivesPerNode: 1
-# Number of MinIO containers running
 replicas: 2
-# Number of expanded MinIO clusters
 pools: 1
 
-## Configure resource requests and limits
-## ref: http://kubernetes.io/docs/user-guide/compute-resources/
-##
+persistence:
+  size: 100Gi
+
 resources:
   requests:
     memory: 4Gi
@@ -24,3 +17,15 @@ users:
   - accessKey: console
     secretKey: console123
     policy: consoleAdmin
+
+buckets:
+  - name: dremio
+    policy: none
+    purge: false
+    versioning: false
+    objectlocking: false
+  - name: test
+    policy: none
+    purge: false
+    versioning: false
+    objectlocking: false
