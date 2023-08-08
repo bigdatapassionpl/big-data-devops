@@ -6,22 +6,24 @@ if [ $# -eq 1 ]
 then
   echo $1
   source $1/$1.sh
-  export HELM_DIR=$1
+  if [ -z "$HELM_DIR" ]; then export HELM_DIR=$1; fi
+  if [ -z "$HELM_NAMESPACE" ]; then export HELM_NAMESPACE=$1; fi
+  if [ -z "$HELM_RELEASE" ]; then export HELM_RELEASE=$1; fi
 elif [ $# -eq 2 ]
 then
   echo "$1 $2"
   source $1-$2/$2.sh
-  export HELM_DIR=$1-$2
+  if [ -z "$HELM_DIR" ]; then export HELM_DIR=$1-$2; fi
+  if [ -z "$HELM_NAMESPACE" ]; then export HELM_NAMESPACE=$1-$2; fi
+  if [ -z "$HELM_RELEASE" ]; then export HELM_RELEASE=$1-$2; fi
 else
   echo "illegal number of parameters"
   exit
 fi
 
-if [ -z "$HELM_NAMESPACE" ]; then export HELM_NAMESPACE=$HELM_CHART; fi
-if [ -z "$HELM_RELEASE" ]; then export HELM_RELEASE=$HELM_REPO_NAME; fi
-
 echo "HELM_REPO_NAME=$HELM_REPO_NAME"
 echo "HELM_REPO_URL=$HELM_REPO_URL"
+echo "HELM_REPO_DIR=$HELM_REPO_DIR"
 echo "HELM_CHART=$HELM_CHART"
 echo "HELM_CHART_VERSION=$HELM_CHART_VERSION"
 echo "HELM_DIR=$HELM_DIR"
