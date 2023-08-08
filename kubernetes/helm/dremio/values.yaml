@@ -25,7 +25,7 @@ distStorage:
     extraProperties: |
      <property>
        <name>fs.s3a.endpoint</name>
-       <value>play.min.io</value>
+       <value>minio.minio.svc.cluster.local:9000</value>
      </property>
      <property>
        <name>fs.s3a.path.style.access</name>
@@ -34,4 +34,8 @@ distStorage:
      <property>
        <name>dremio.s3.compat</name>
        <value>true</value>
+     </property>
+     <property>
+       <name>fs.s3a.connection.ssl.enabled</name>
+       <value>false</value>
      </property>
