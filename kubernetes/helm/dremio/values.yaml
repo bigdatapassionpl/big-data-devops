@@ -1,0 +1,39 @@
+
+coordinator:
+  cpu: 1
+  memory: 4096
+  count: 0
+
+executor:
+  cpu: 1
+  memory: 4096
+  count: 1
+
+zookeeper:
+  count: 1
+
+distStorage:
+  type: aws
+
+  aws:
+    bucketName: "dremio"
+    path: "/dremio"
+    authentication: "accessKeySecret"
+
+    credentials:
+      accessKey: "minioadmin"
+      secret: "minioadmin"
+
+    extraProperties: |
+      <property>
+        <name>fs.s3a.endpoint</name>
+        <value>http://minio.minio.svc.cluster.local:9000</value>
+      </property>
+      <property>
+        <name>fs.s3a.path.style.access</name>
+        <value>true</value>
+      </property>
+      <property>
+        <name>dremio.s3.compat</name>
+        <value>true</value>
+      </property>
