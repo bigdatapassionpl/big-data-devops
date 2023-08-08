@@ -23,6 +23,11 @@ gcloud compute instances list --format="json"
 gcloud compute instances list --format="table(NAME,EXTERNAL_IP)"
 gcloud compute instances list --format='get(networkInterfaces[0].accessConfigs[0].natIP)'
 
+for i in $(gcloud projects list |  sed 1d | cut -f1 -d$' ');
+do 
+gcloud compute instances list --project $i;
+done;
+
 gcloud compute machine-types list
 gcloud compute machine-types list --zones $GCP_ZONE
 
