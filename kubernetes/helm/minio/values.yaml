@@ -3,13 +3,13 @@
 ## AccessKey and secretKey is generated when not set
 ## Distributed MinIO ref: https://min.io/docs/minio/linux/operations/install-deploy-manage/deploy-minio-multi-node-multi-drive.html
 ##
-rootUser: "rootuser"
-rootPassword: "rootpass123"
+rootUser: "minioadmin"
+rootPassword: "minioadmin"
 
 # Number of drives attached to a node
 drivesPerNode: 1
 # Number of MinIO containers running
-replicas: 3
+replicas: 2
 # Number of expanded MinIO clusters
 pools: 1
 
