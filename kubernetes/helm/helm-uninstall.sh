@@ -39,6 +39,7 @@ helm uninstall $HELM_RELEASE \
 
 unset HELM_REPO_NAME
 unset HELM_REPO_URL
+unset HELM_REPO_DIR
 unset HELM_CHART
 unset HELM_CHART_VERSION
 unset HELM_DIR

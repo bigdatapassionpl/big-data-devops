@@ -32,24 +32,32 @@ echo "HELM_RELEASE=$HELM_RELEASE"
 
 
 
-helm repo remove $HELM_REPO_NAME
-helm repo add $HELM_REPO_NAME $HELM_REPO_URL
-helm repo list
-helm repo update
-
-time helm upgrade $HELM_RELEASE $HELM_REPO_NAME/$HELM_CHART \
-  --install \
-  --timeout 10m \
-  --cleanup-on-fail \
-  --create-namespace \
-  --namespace $HELM_NAMESPACE \
-  --values $HELM_DIR/values.yaml \
-  --version=$HELM_CHART_VERSION
-
+if [ -n "$HELM_REPO_NAME" ]
+then
+  echo "Installing Helm Chart from repository"
+  time helm upgrade $HELM_RELEASE $HELM_REPO_NAME/$HELM_CHART \
+    --install \
+    --timeout 10m \
+    --cleanup-on-fail \
+    --create-namespace \
+    --namespace $HELM_NAMESPACE \
+    --values $HELM_DIR/values.yaml \
+    --version=$HELM_CHART_VERSION
+else
+  echo "Installing Helm Chart from local directory"
+  time helm upgrade $HELM_RELEASE $HELM_REPO_DIR/$HELM_CHART \
+    --install \
+    --timeout 10m \
+    --cleanup-on-fail \
+    --create-namespace \
+    --namespace $HELM_NAMESPACE \
+    --values $HELM_DIR/values.yaml
+fi
 
 
 unset HELM_REPO_NAME
 unset HELM_REPO_URL
+unset HELM_REPO_DIR
 unset HELM_CHART
 unset HELM_CHART_VERSION
 unset HELM_DIR

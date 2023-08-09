@@ -51,6 +51,7 @@ helm show values $HELM_REPO_NAME/$HELM_CHART --version=$HELM_CHART_VERSION > $HE
 
 unset HELM_REPO_NAME
 unset HELM_REPO_URL
+unset HELM_REPO_DIR
 unset HELM_CHART
 unset HELM_CHART_VERSION
 unset HELM_DIR
