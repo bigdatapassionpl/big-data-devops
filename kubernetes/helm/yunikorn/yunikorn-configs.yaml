@@ -15,15 +15,13 @@ data:
         queues:
           - name: root
             submitacl: '*'
-          - name: k8s-jobs
-            submitacl: '*'
-      - name: getindata
-        placementrules:
-          - name: tag
-            value: namespace
-            create: true
-        queues:
-          - name: root
-            submitacl: '*'
-          - name: k8s-jobs
-            submitacl: '*'
+            queues:
+              - name: dev
+                submitacl: '*'
+              - name: k8s-jobs
+                submitacl: '*'
+                resources:
+                  guaranteed:
+                    {memory: 4G, vcore: 2}
+                  max:
+                    {memory: 8G, vcore: 4}
