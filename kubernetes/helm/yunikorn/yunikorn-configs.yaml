@@ -27,6 +27,6 @@ data:
                 submitacl: '*'
                 resources:
                   guaranteed:
-                    {memory: 6G, vcore: 4}
+                    {memory: 12G, vcore: 8}
                   max:
                     {memory: 40G, vcore: 11}
