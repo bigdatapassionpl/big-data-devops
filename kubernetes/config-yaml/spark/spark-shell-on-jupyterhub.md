@@ -36,7 +36,7 @@ spark-shell \
 ~~~
 
 
-~~~python
+~~~scala
 val NUM_SAMPLES=1000
 val count = sc.parallelize(1 to NUM_SAMPLES).filter { _ =>
   val x = math.random

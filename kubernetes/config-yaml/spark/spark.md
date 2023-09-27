@@ -3,8 +3,8 @@
 
 
 ~~~shell
-export SPARK_HOME="/Users/radek/programs/spark/spark-3.1.1-bin-hadoop3.2"
-export SPARK_APP="/Users/radek/programs/spark/spark-3.1.1-bin-hadoop3.2/examples/jars/spark-examples_2.12-3.1.1.jar"
+export SPARK_HOME="/Users/radek/programs/spark/spark-3.5.0-bin-hadoop3"
+export SPARK_APP="${SPARK_HOME}/examples/jars/spark-examples_2.12-3.5.0.jar"
 export SPARK_ARGS="100"
 
 $SPARK_HOME/bin/spark-submit \
@@ -34,40 +34,37 @@ echo $K8S_CLUSTER_NAME
 export K8S_CLUSTER=$(kubectl config view -o jsonpath="{.clusters[?(@.name==\"$K8S_CLUSTER_NAME\")].cluster.server}")
 echo $K8S_CLUSTER
 
-
-
 #export SPARK_IMAGE="gcr.io/spark-operator/spark:v3.1.1"
 #export SPARK_HOME="/Users/radek/programs/spark/spark-3.3.1-bin-hadoop3"
-#export SPARK_APP="/Users/radek/programs/spark/spark-3.3.1-bin-hadoop3/examples/jars/spark-examples_2.12-3.3.1.jar"
 
+kubectl get pods -n k8s-jobs --no-headers=true | awk '/spark-pi/{print $1}' | xargs  kubectl delete -n k8s-jobs pod
+
+export SPARK_HOME="/Users/radek/programs/spark/spark-3.5.0-bin-hadoop3"
 export SPARK_IMAGE="gcr.io/spark-operator/spark:v3.1.1-hadoop3"
-export SPARK_HOME="/Users/radek/programs/spark/spark-3.1.1-bin-hadoop3.2"
-export SPARK_APP="/Users/radek/programs/spark/spark-3.1.1-bin-hadoop3.2/examples/jars/spark-examples_2.12-3.1.1.jar"
 export SPARK_APP="local:///opt/spark/examples/jars/spark-examples_2.12-3.1.1.jar"
 export SPARK_ARGS="10000"
+export SPARK_EXECUTORS=10
 
 $SPARK_HOME/bin/spark-submit \
     --master k8s://$K8S_CLUSTER \
     --deploy-mode cluster \
     --name spark-pi \
     --class org.apache.spark.examples.SparkPi \
-    --conf spark.executor.instances=1 \
+    --conf spark.executor.instances=$SPARK_EXECUTORS \
+    --conf spark.driver.memory=1g \
+    --conf spark.executor.memory=1g \
     --conf spark.kubernetes.executor.request.cores=1 \
     --conf spark.kubernetes.container.image=$SPARK_IMAGE \
     --conf spark.kubernetes.namespace=k8s-jobs \
     --conf spark.kubernetes.authenticate.driver.serviceAccountName=spark \
     $SPARK_APP $SPARK_ARGS
 
-kubectl get pods -n k8s-jobs --no-headers=true | awk '/spark-pi/{print $1}' | xargs  kubectl delete -n k8s-jobs pod
+
 
 $SPARK_HOME/bin/spark-shell \
     --master k8s://$K8S_CLUSTER \
     --deploy-mode client \
     --conf spark.kubernetes.container.image=$SPARK_IMAGE \
     --conf spark.kubernetes.namespace=k8s-jobs
-
-
-
-
 
 ~~~
