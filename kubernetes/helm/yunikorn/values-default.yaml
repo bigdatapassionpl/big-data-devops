@@ -17,17 +17,21 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-imagePullSecrets:
+imagePullSecrets: []
+replicaCount: 1
 serviceAccount: yunikorn-admin
+hostNetwork: false
+
+priorityClassName: ""
 
 image:
   repository: apache/yunikorn
-  tag: scheduler-1.2.0
+  tag: scheduler-1.3.0
   pullPolicy: Always
 
 pluginImage:
   repository: apache/yunikorn
-  tag: scheduler-plugin-1.2.0
+  tag: scheduler-plugin-1.3.0
   pullPolicy: Always
 
 nodeSelector: {}
@@ -39,9 +43,10 @@ operatorPlugins: null  # deprecated; use service.operatorPlugins in yunikornDefa
 placeHolderImage: null # deprecated; use service.placeholderImage in yunikornDefaults
 
 admissionController:
+  priorityClassName: ""
   image:
     repository: apache/yunikorn
-    tag: admission-1.2.0
+    tag: admission-1.3.0
     pullPolicy: Always
   replicaCount: 1
   serviceAccount: yunikorn-admission-controller
@@ -58,23 +63,24 @@ admissionController:
   affinity: {}
   service:
     type: ClusterIP
-  processNamespaces: null # deprecated; use admissionController.processNamespaces in yunikornDefaults
-  bypassNamespaces: null  # deprecated; use admissionController.bypassNamespaces in yunikornDefaults
-  labelNamespaces: null   # deprecated; use admissionController.labelNamespaces in yunikornDefaults
-  noLabelNamespaces: null # deprecated; use admissionController.noLabelNamespaces in yunikornDefaults
+  processNamespaces: null # deprecated; use admissionController.filtering.processNamespaces in yunikornDefaults
+  bypassNamespaces: null  # deprecated; use admissionController.filtering.bypassNamespaces in yunikornDefaults
+  labelNamespaces: null   # deprecated; use admissionController.filtering.labelNamespaces in yunikornDefaults
+  noLabelNamespaces: null # deprecated; use admissionController.filtering.noLabelNamespaces in yunikornDefaults
+  podLabels: {}
 
 web:
   image:
     repository: apache/yunikorn
-    tag: web-1.2.0
+    tag: web-1.3.0
     pullPolicy: Always
   resources:
     requests:
-      memory: "100Mi"
-      cpu: "100m"
+      cpu: 100m
+      memory: 100Mi
     limits:
-      memory: "500Mi"
-      cpu: "200m"
+      cpu: 200m
+      memory: 500Mi
 
 service:
   type: ClusterIP
@@ -115,4 +121,6 @@ embedAdmissionController: true
 # When this flag is true, the scheduler will be deployed as Kubernetes scheduler plugin.
 # When this flag is false, the scheduler will be deployed as a standalone scheduler.
 enableSchedulerPlugin: false
+
+podLabels: {}
 
