@@ -16,12 +16,17 @@ data:
           - name: root
             submitacl: '*'
             queues:
-              - name: dev
+              - name: k8s-jobs-dev
                 submitacl: '*'
+                resources:
+                  guaranteed:
+                    {memory: 3G, vcore: 2}
+                  max:
+                    {memory: 9G, vcore: 6}
               - name: k8s-jobs
                 submitacl: '*'
                 resources:
                   guaranteed:
-                    {memory: 4G, vcore: 2}
+                    {memory: 6G, vcore: 4}
                   max:
-                    {memory: 8G, vcore: 4}
+                    {memory: 40G, vcore: 11}
