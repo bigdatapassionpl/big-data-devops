@@ -25,4 +25,9 @@ $SPARK_HOME/bin/spark-submit \
     --conf spark.kubernetes.container.image=$SPARK_IMAGE \
     --conf spark.kubernetes.namespace=k8s-jobs \
     --conf spark.kubernetes.authenticate.driver.serviceAccountName=spark \
+    --conf spark.kubernetes.scheduler.name=yunikorn \
+    --conf spark.kubernetes.driver.label.queue=root.k8s-jobs \
+    --conf spark.kubernetes.executor.label.queue=root.k8s-jobs \
+    --conf spark.kubernetes.driver.annotation.yunikorn.apache.org/app-id={{APP_ID}} \
+    --conf spark.kubernetes.executor.annotation.yunikorn.apache.org/app-id={{APP_ID}} \
     $SPARK_APP $SPARK_ARGS
