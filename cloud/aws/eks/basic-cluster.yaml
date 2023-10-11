@@ -4,6 +4,7 @@ kind: ClusterConfig
 metadata:
   name: bigdatapassion
   region: us-east-1
+  version: "1.27"
 
 nodeGroups:
   - name: ng-1
