@@ -15,12 +15,6 @@ nodeGroups:
       allow: true # will use ~/.ssh/id_rsa.pub as the default ssh key
     iam:
       instanceRoleARN: "arn:aws:iam::547069339515:role/LabRole"
-  - name: ng-2
-    instanceType: m5.xlarge
-    desiredCapacity: 1
-    volumeSize: 100
-    iam:
-      instanceRoleARN: "arn:aws:iam::547069339515:role/LabRole"
 
 availabilityZones: ['us-east-1a', 'us-east-1b', 'us-east-1c']
 
