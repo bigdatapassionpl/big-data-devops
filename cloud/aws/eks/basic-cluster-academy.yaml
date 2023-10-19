@@ -6,11 +6,16 @@ metadata:
   region: us-east-1
   version: "1.27"
 
+# AWS Academy details:
+# On-Demand instances only
+# Supported Instance types: nano, micro, small, medium, and large.
+# Maximum of 9 concurrently running EC2 instances
+# EBS volumes - sizes up to 100 GB and type must be General Purpose SSD (gp2, gp3 ) cold HDD (sc1), or standard.
 nodeGroups:
   - name: ng-1
-    instanceType: m5.large
-    desiredCapacity: 2
-    volumeSize: 80
+    instanceType: r5.large
+    desiredCapacity: 8
+    volumeSize: 50
     ssh:
       allow: true # will use ~/.ssh/id_rsa.pub as the default ssh key
     iam:
