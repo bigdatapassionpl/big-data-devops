@@ -4,7 +4,7 @@ metadata:
   name: yunikorn-configs
   namespace: yunikorn
 data:
-  admissionController.filtering.processNamespaces: "k8s-jobs"
+#  admissionController.filtering.processNamespaces: "k8s-jobs"
   queues.yaml: |
     partitions:
       - name: default
@@ -18,15 +18,27 @@ data:
             queues:
               - name: k8s-jobs-dev
                 submitacl: '*'
+                maxapplications: 1
                 resources:
                   guaranteed:
-                    {memory: 3G, vcore: 2}
+                    {memory: 10G, vcore: 2}
                   max:
-                    {memory: 9G, vcore: 6}
-              - name: k8s-jobs
+                    {memory: 63G, vcore: 7}
+                properties:
+                  priority.policy: default
+                  priority.offset: 0
+                  application.sort.priority: enabled
+                  application.sort.policy: fifo
+              - name: k8s-jobs-prod
                 submitacl: '*'
+                maxapplications: 1
                 resources:
                   guaranteed:
-                    {memory: 12G, vcore: 8}
+                    {memory: 53G, vcore: 5}
                   max:
-                    {memory: 40G, vcore: 11}
+                    {memory: 63G, vcore: 7}
+                properties:
+                  priority.policy: default
+                  priority.offset: 0
+                  application.sort.priority: enabled
+                  application.sort.policy: fifo
