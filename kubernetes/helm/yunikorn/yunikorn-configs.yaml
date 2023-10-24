@@ -21,9 +21,9 @@ data:
                 maxapplications: 1
                 resources:
                   guaranteed:
-                    {memory: 10G, vcore: 2}
+                    {memory: 63G, vcore: 7720m}
                   max:
-                    {memory: 63G, vcore: 7}
+                    {memory: 63G, vcore: 7720m}
                 properties:
                   priority.policy: default
                   priority.offset: 0
@@ -34,11 +34,11 @@ data:
                 maxapplications: 1
                 resources:
                   guaranteed:
-                    {memory: 53G, vcore: 5}
+                    {memory: 63G, vcore: 7720m}
                   max:
-                    {memory: 63G, vcore: 7}
+                    {memory: 63G, vcore: 7720m} 
                 properties:
                   priority.policy: default
-                  priority.offset: 0
+                  priority.offset: 100
                   application.sort.priority: enabled
                   application.sort.policy: fifo
