@@ -18,12 +18,12 @@ data:
             queues:
               - name: k8s-jobs-dev
                 submitacl: '*'
-                maxapplications: 1
+                maxapplications: 5
                 resources:
                   guaranteed:
-                    {memory: 63G, vcore: 7720m}
+                    {memory: 126G, vcore: 15400m}
                   max:
-                    {memory: 63G, vcore: 7720m}
+                    {memory: 126G, vcore: 15400m}
                 properties:
                   priority.policy: default
                   priority.offset: 0
@@ -31,12 +31,12 @@ data:
                   application.sort.policy: fifo
               - name: k8s-jobs-prod
                 submitacl: '*'
-                maxapplications: 1
+                maxapplications: 5
                 resources:
                   guaranteed:
-                    {memory: 63G, vcore: 7720m}
+                    {memory: 126G, vcore: 15400m}
                   max:
-                    {memory: 63G, vcore: 7720m} 
+                    {memory: 126G, vcore: 15400m} 
                 properties:
                   priority.policy: default
                   priority.offset: 100
