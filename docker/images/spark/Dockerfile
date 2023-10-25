@@ -1,9 +1,9 @@
 
 # https://github.com/apache/spark/blob/branch-3.3/resource-managers/kubernetes/docker/src/main/dockerfiles/spark/Dockerfile
 
-ARG java_image_tag=11-jre-slim
+ARG java_image_tag=17-jre
 
-FROM openjdk:${java_image_tag}
+FROM eclipse-temurin:${java_image_tag}
 
 ARG spark_uid=185
 
