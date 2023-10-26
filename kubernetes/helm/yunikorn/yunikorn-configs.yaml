@@ -15,36 +15,42 @@ data:
         queues:
           - name: root
             submitacl: '*'
-            maxapplications: 6
+            maxapplications: 8
             properties:
               priority.policy: default
               priority.offset: 0
               application.sort.priority: enabled
               application.sort.policy: fifo
+              preemption.policy: fence
+              preemption.delay: 10s
             queues:
               - name: k8s-jobs-dev
                 submitacl: '*'
-                maxapplications: 3
+                maxapplications: 4
                 resources:
                   guaranteed:
-                    {memory: 10G, vcore: 2}
+                    {memory: 20G, vcore: 2}
                   max:
-                    {memory: 126G, vcore: 12000m}
+                    {memory: 120G, vcore: 12000m}
                 properties:
                   priority.policy: default
                   priority.offset: 0
                   application.sort.priority: enabled
                   application.sort.policy: fifo
+                  preemption.policy: fence
+                  preemption.delay: 10s
               - name: k8s-jobs-prod
                 submitacl: '*'
-                maxapplications: 3
+                maxapplications: 4
                 resources:
                   guaranteed:
-                    {memory: 10G, vcore: 2}
+                    {memory: 100G, vcore: 10}
                   max:
-                    {memory: 126G, vcore: 12000m} 
+                    {memory: 120G, vcore: 12000m} 
                 properties:
                   priority.policy: default
-                  priority.offset: 100
+                  priority.offset: 100000
                   application.sort.priority: enabled
                   application.sort.policy: fifo
+                  preemption.policy: fence
+                  preemption.delay: 10s
