@@ -2,9 +2,9 @@ apiVersion: eksctl.io/v1alpha5
 kind: ClusterConfig
 
 metadata:
-  name: bigdatapassion
+  name: bigdatapassion3
   region: us-east-1
-  version: "1.27"
+  version: "1.28"
 
 # AWS Academy details:
 # On-Demand instances only
@@ -14,14 +14,14 @@ metadata:
 nodeGroups:
   - name: ng-1
     instanceType: r5.large
-    desiredCapacity: 4
+    desiredCapacity: 8
     volumeSize: 50
     ssh:
       allow: true # will use ~/.ssh/id_rsa.pub as the default ssh key
     iam:
-      instanceRoleARN: "arn:aws:iam::547069339515:role/LabRole"
+      instanceRoleARN: "arn:aws:iam::358392856810:role/LabRole"
 
 availabilityZones: ['us-east-1a', 'us-east-1b', 'us-east-1c']
 
 iam:
-  serviceRoleARN: "arn:aws:iam::547069339515:role/LabRole"
+  serviceRoleARN: "arn:aws:iam::358392856810:role/LabRole"
