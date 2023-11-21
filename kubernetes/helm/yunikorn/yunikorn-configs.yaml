@@ -4,14 +4,19 @@ metadata:
   name: yunikorn-configs
   namespace: yunikorn
 data:
-#  admissionController.filtering.processNamespaces: "k8s-jobs"
+  admissionController.filtering.processNamespaces: ""
+  admissionController.filtering.bypassNamespaces: "^kube-system$"
+  admissionController.filtering.labelNamespaces: ""
+  admissionController.filtering.noLabelNamespaces: ""
   queues.yaml: |
     partitions:
       - name: default
         placementrules:
-          - name: tag
-            value: namespace
+          - name: provided
             create: true
+            parent:
+              name: user
+              create: true
         queues:
           - name: root
             submitacl: '*'
@@ -29,9 +34,9 @@ data:
                 maxapplications: 10
                 resources:
                   guaranteed:
-                    {memory: 20G, vcore: 2}
+                    {memory: 30G, vcore: 3}
                   max:
-                    {memory: 120G, vcore: 10000m}
+                    {memory: 100G, vcore: 10000m}
                 properties:
                   priority.policy: default
                   priority.offset: 0
@@ -44,9 +49,9 @@ data:
                 maxapplications: 10
                 resources:
                   guaranteed:
-                    {memory: 20G, vcore: 2}
+                    {memory: 70G, vcore: 7}
                   max:
-                    {memory: 120G, vcore: 10000m} 
+                    {memory: 100G, vcore: 10000m} 
                 properties:
                   priority.policy: default
                   priority.offset: 1000000000000
@@ -54,3 +59,49 @@ data:
                   application.sort.policy: fifo
                   preemption.policy: fence
                   preemption.delay: 10s
+              - name: myteam
+                submitacl: '*'
+                maxapplications: 100
+                resources:
+                  guaranteed:
+                    {memory: 100G, vcore: 10000m}
+                  max:
+                    {memory: 100G, vcore: 10000m}
+                properties:
+                  priority.policy: default
+                  priority.offset: 0
+                  application.sort.priority: enabled
+                  application.sort.policy: fifo
+                  preemption.policy: fence
+                  preemption.delay: 10s
+                queues:
+                  - name: k8s-jobs-dev
+                    submitacl: '*'
+                    maxapplications: 10
+                    resources:
+                      guaranteed:
+                        {memory: 30G, vcore: 3}
+                      max:
+                        {memory: 100G, vcore: 10000m}
+                    properties:
+                      priority.policy: default
+                      priority.offset: 0
+                      application.sort.priority: enabled
+                      application.sort.policy: fifo
+                      preemption.policy: fence
+                      preemption.delay: 10s
+                  - name: k8s-jobs-prod
+                    submitacl: '*'
+                    maxapplications: 10
+                    resources:
+                      guaranteed:
+                        {memory: 70G, vcore: 7}
+                      max:
+                        {memory: 100G, vcore: 10000m} 
+                    properties:
+                      priority.policy: default
+                      priority.offset: 1000000000000
+                      application.sort.priority: enabled
+                      application.sort.policy: fifo
+                      preemption.policy: fence
+                      preemption.delay: 10s
