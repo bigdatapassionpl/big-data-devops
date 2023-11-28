@@ -18,7 +18,6 @@
 # Declare variables to be passed into your templates.
 
 imagePullSecrets: []
-replicaCount: 1
 serviceAccount: yunikorn-admin
 hostNetwork: false
 
@@ -26,12 +25,12 @@ priorityClassName: ""
 
 image:
   repository: apache/yunikorn
-  tag: scheduler-1.3.0
+  tag: scheduler-1.4.0
   pullPolicy: Always
 
 pluginImage:
   repository: apache/yunikorn
-  tag: scheduler-plugin-1.3.0
+  tag: scheduler-plugin-1.4.0
   pullPolicy: Always
 
 nodeSelector: {}
@@ -46,7 +45,7 @@ admissionController:
   priorityClassName: ""
   image:
     repository: apache/yunikorn
-    tag: admission-1.3.0
+    tag: admission-1.4.0
     pullPolicy: Always
   replicaCount: 1
   serviceAccount: yunikorn-admission-controller
@@ -68,11 +67,12 @@ admissionController:
   labelNamespaces: null   # deprecated; use admissionController.filtering.labelNamespaces in yunikornDefaults
   noLabelNamespaces: null # deprecated; use admissionController.filtering.noLabelNamespaces in yunikornDefaults
   podLabels: {}
+  podAnnotations: {}
 
 web:
   image:
     repository: apache/yunikorn
-    tag: web-1.3.0
+    tag: web-1.4.0
     pullPolicy: Always
   resources:
     requests:
@@ -123,4 +123,5 @@ embedAdmissionController: true
 enableSchedulerPlugin: false
 
 podLabels: {}
+podAnnotations: {}
 
