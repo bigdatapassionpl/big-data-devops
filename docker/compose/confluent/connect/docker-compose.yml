@@ -1,9 +1,8 @@
-version: "3.9"
-
+---
 services:
 
   connect:
-    image: confluentinc/cp-kafka-connect-base:7.2.2
+    image: confluentinc/cp-kafka-connect-base:7.9.2.arm64
     hostname: connect
     container_name: connect
     user: root
@@ -12,14 +11,10 @@ services:
 #      - schema-registry
     ports:
       - "8083:8083"
-    volumes:
-      - ../connect/snowflake.properties:/opt/snowflake.properties:rw
     environment:
       CONNECT_BOOTSTRAP_SERVERS: 'broker:29092'
       CONNECT_REST_ADVERTISED_HOST_NAME: connect
       CONNECT_GROUP_ID: compose-connect-group
-      CONNECT_CONFIG_PROVIDERS: 'file'
-      CONNECT_CONFIG_PROVIDERS_FILE_CLASS: 'org.apache.kafka.common.config.provider.FileConfigProvider'
       CONNECT_CONFIG_STORAGE_TOPIC: docker-connect-configs
       CONNECT_CONFIG_STORAGE_REPLICATION_FACTOR: 1
       CONNECT_OFFSET_FLUSH_INTERVAL_MS: 10000
@@ -30,36 +25,14 @@ services:
       CONNECT_KEY_CONVERTER: org.apache.kafka.connect.storage.StringConverter
       CONNECT_VALUE_CONVERTER: io.confluent.connect.avro.AvroConverter
       CONNECT_VALUE_CONVERTER_SCHEMA_REGISTRY_URL: http://schema-registry:8081
-      # CLASSPATH required due to CC-2422
-      CLASSPATH: /usr/share/java/monitoring-interceptors/monitoring-interceptors-7.2.2.jar
-      CONNECT_PRODUCER_INTERCEPTOR_CLASSES: "io.confluent.monitoring.clients.interceptor.MonitoringProducerInterceptor"
-      CONNECT_CONSUMER_INTERCEPTOR_CLASSES: "io.confluent.monitoring.clients.interceptor.MonitoringConsumerInterceptor"
       CONNECT_PLUGIN_PATH: "/usr/share/java,/usr/share/confluent-hub-components"
-      # CONNECT_LOG4J_ROOT_LOGLEVEL: "DEBUG"
-      CONNECT_LOG4J_LOGGERS: org.apache.zookeeper=ERROR,org.I0Itec.zkclient=ERROR,org.reflections=ERROR
     command:
       - bash
       - -c
       - |
         echo "Installing Connectors"
         #
-        confluent-hub install --no-prompt confluentinc/connect-transforms:1.4.3
-        confluent-hub install --no-prompt confluentinc/kafka-connect-jdbc:10.7.0
-        #
-        yum install unzip -y
-        wget https://github.com/an0r0c/kafka-connect-transform-tojsonstring/releases/download/1.3/an0r0c-kafka-connect-transform-record2jsonstring-1.3.zip -P /usr/share/confluent-hub-components/
-        unzip /usr/share/confluent-hub-components/an0r0c-kafka-connect-transform-record2jsonstring-1.3.zip -d /usr/share/confluent-hub-components/
-        rm -rf /usr/share/confluent-hub-components/an0r0c-kafka-connect-transform-record2jsonstring-1.3.zip
-        #
-        wget https://repo1.maven.org/maven2/io/debezium/debezium-connector-postgres/2.1.1.Final/debezium-connector-postgres-2.1.1.Final-plugin.tar.gz -P /usr/share/confluent-hub-components/
-        tar -zxf /usr/share/confluent-hub-components/debezium-connector-postgres-2.1.1.Final-plugin.tar.gz -C /usr/share/confluent-hub-components/
-        rm -rf /usr/share/confluent-hub-components/debezium-connector-postgres-2.1.1.Final-plugin.tar.gz
-        #
-        mkdir /usr/share/confluent-hub-components/snowflake-kafka-connector
-        mkdir /usr/share/confluent-hub-components/snowflake-kafka-connector/lib
-        wget https://repo1.maven.org/maven2/com/snowflake/snowflake-kafka-connector/1.8.2/snowflake-kafka-connector-1.8.2.jar -P /usr/share/confluent-hub-components/snowflake-kafka-connector/lib/
-        wget https://repo1.maven.org/maven2/org/bouncycastle/bc-fips/1.0.2.3/bc-fips-1.0.2.3.jar -P /usr/share/confluent-hub-components/snowflake-kafka-connector/lib/
-        wget https://repo1.maven.org/maven2/org/bouncycastle/bcpkix-fips/1.0.7/bcpkix-fips-1.0.7.jar -P /usr/share/confluent-hub-components/snowflake-kafka-connector/lib/
+        confluent-hub install --no-prompt snowflakeinc/snowflake-kafka-connector:latest
         #
         echo "Launching Kafka Connect worker"
         /etc/confluent/docker/run
