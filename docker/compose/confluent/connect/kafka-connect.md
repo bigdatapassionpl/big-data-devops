@@ -87,7 +87,7 @@ curl -X DELETE $CONNECT_URL/connectors/$CONNECTOR_NAME | jq
 
 ~~~
 
-~~~sql
+~~~bash
 psql -h localhost -p 5432 -d postgres -U postgres
 
 \l # list databases

@@ -11,6 +11,8 @@ services:
 #      - schema-registry
     ports:
       - "8083:8083"
+    volumes:
+      - /Users/radek/projects/radek/local_config/kafka/connect/snowflake.properties:/opt/snowflake.properties:rw
     environment:
       CONNECT_BOOTSTRAP_SERVERS: 'broker:29092'
       CONNECT_REST_ADVERTISED_HOST_NAME: connect
@@ -26,6 +28,14 @@ services:
       CONNECT_VALUE_CONVERTER: io.confluent.connect.avro.AvroConverter
       CONNECT_VALUE_CONVERTER_SCHEMA_REGISTRY_URL: http://schema-registry:8081
       CONNECT_PLUGIN_PATH: "/usr/share/java,/usr/share/confluent-hub-components"
+
+      # Enable Config Providers
+      CONNECT_CONFIG_PROVIDERS: "file,env"
+      CONNECT_CONFIG_PROVIDERS_FILE_CLASS: "org.apache.kafka.common.config.provider.FileConfigProvider"
+      CONNECT_CONFIG_PROVIDERS_ENV_CLASS: "org.apache.kafka.common.config.provider.EnvVarConfigProvider"
+
+#      CONNECT_CONFIG_PROVIDERS: 'file'
+#      CONNECT_CONFIG_PROVIDERS_FILE_CLASS: 'org.apache.kafka.common.config.provider.FileConfigProvider'
     command:
       - bash
       - -c
