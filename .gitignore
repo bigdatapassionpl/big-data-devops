@@ -41,3 +41,5 @@ ansible/ansible-collect-technical-info/clusterfiles
 /scripts/scheduler/airflow/webserver_config.py
 /scripts/scheduler/airflow/airflow-webserver.pid
 /scripts/scheduler/airflow/unittests.cfg
+
+.DS_Store
