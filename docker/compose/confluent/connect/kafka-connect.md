@@ -75,7 +75,7 @@ curl $CONNECT_URL/connector-plugins/ | jq
 
 curl $CONNECT_URL/connectors | jq
 
-curl -X POST -H "Content-Type: application/json" --data @$CONNECTOR_NAME.json $CONNECT_URL/connectors | jq
+curl -X POST -H "Content-Type: application/json" --data @connectors/$CONNECTOR_NAME.json $CONNECT_URL/connectors | jq
 
 curl $CONNECT_URL/connectors/$CONNECTOR_NAME/status | jq
 
