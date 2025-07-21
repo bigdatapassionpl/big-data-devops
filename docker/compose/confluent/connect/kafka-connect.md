@@ -65,6 +65,7 @@ export CONNECT_URL=http://localhost:8083
 
 export CONNECTOR_NAME=snowflake-snowpipe
 export CONNECTOR_NAME=snowflake-snowpipe-streaming
+export CONNECTOR_NAME=snowflake-snowpipe-streaming-iceberg
 export CONNECTOR_NAME=debezium-postgres
 
 echo $CONNECT_URL; echo $CONNECTOR_NAME
