@@ -40,6 +40,7 @@ services:
         echo "Installing Connectors"
         #
         confluent-hub install --no-prompt snowflakeinc/snowflake-kafka-connector:latest
+        confluent-hub install --no-prompt debezium/debezium-connector-postgresql:latest
         #
         echo "Launching Kafka Connect worker"
         /etc/confluent/docker/run
