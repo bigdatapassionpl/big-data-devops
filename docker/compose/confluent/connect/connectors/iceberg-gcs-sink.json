@@ -1,0 +1,27 @@
+{
+  "name": "iceberg-gcs-sink",
+  "config": {
+    "connector.class": "org.apache.iceberg.connect.IcebergSinkConnector",
+    "tasks.max": "1",
+    "topics": "your-kafka-topic",
+    "key.converter": "org.apache.kafka.connect.storage.StringConverter",
+    "value.converter": "org.apache.kafka.connect.json.JsonConverter",
+    "value.converter.schemas.enable": "false",
+    
+    "iceberg.catalog": "hadoop",
+    "iceberg.catalog.hadoop.warehouse": "gs://your-gcs-bucket/iceberg-warehouse",
+    "iceberg.catalog.hadoop.config.fs.gs.impl": "com.google.cloud.hadoop.fs.gcs.GoogleHadoopFileSystem",
+    "iceberg.catalog.hadoop.config.fs.AbstractFileSystem.gs.impl": "com.google.cloud.hadoop.fs.gcs.GoogleHadoopFS",
+    "iceberg.catalog.hadoop.config.google.cloud.auth.service.account.json.keyfile": "/path/to/gcs-service-account-key.json",
+    
+    "iceberg.table": "default.{topics}",
+    "iceberg.table.auto-create-enabled": "true",
+    "iceberg.table.schema-update-enabled": "true",
+    
+    "iceberg.control.commit.interval-ms": "300000",
+    "iceberg.control.commit.timeout-ms": "120000",
+    
+    "iceberg.table.write.format.default": "PARQUET",
+    "iceberg.table.write.target-file-size-bytes": "134217728"
+  }
+}
