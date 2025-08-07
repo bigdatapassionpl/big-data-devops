@@ -3,17 +3,17 @@
   "config": {
     "connector.class": "com.snowflake.kafka.connector.SnowflakeSinkConnector",
     "tasks.max": "1",
-    "topics.regex": "test.*|debezium.dbserver1.*|confluent.*",
-    "snowflake.topic2table.map": "test-topic:test_topic_iceberg,test-person:test_person_iceberg,debezium.dbserver1.inventory.customers:customers_iceberg,confluent-kafka-python-example-topic:CONFLUENT_KAFKA_PYTHON_EXAMPLE_TOPIC_ICEBERG",
+    "topics.regex": "confluent.*",
+    "snowflake.topic2table.map": "confluent-kafka-python-example-topic:CONFLUENT_KAFKA_PYTHON_EXAMPLE_TOPIC_ICEBERG",
     "buffer.count.records": "10000",
     "buffer.flush.time": "60",
     "buffer.size.bytes": "20000000",
-    "snowflake.url.name": "${file:/opt/snowflake.properties:snowflake.url.name}",
-    "snowflake.user.name": "${file:/opt/snowflake.properties:snowflake.user.name}",
-    "snowflake.role.name": "${file:/opt/snowflake.properties:snowflake.role.name}",
-    "snowflake.private.key": "${file:/opt/snowflake.properties:snowflake.private.key}",
-    "snowflake.database.name": "${file:/opt/snowflake.properties:snowflake.database.name}",
-    "snowflake.schema.name": "${file:/opt/snowflake.properties:snowflake.schema.name}",
+    "snowflake.url.name": "${file:/home/radek/snowflake.properties:snowflake.url.name}",
+    "snowflake.user.name": "${file:/home/radek/snowflake.properties:snowflake.user.name}",
+    "snowflake.role.name": "${file:/home/radek/snowflake.properties:snowflake.role.name}",
+    "snowflake.private.key": "${file:/home/radek/snowflake.properties:snowflake.private.key}",
+    "snowflake.database.name": "${file:/home/radek/snowflake.properties:snowflake.database.name}",
+    "snowflake.schema.name": "${file:/home/radek/snowflake.properties:snowflake.schema.name}",
     "key.converter": "org.apache.kafka.connect.storage.StringConverter",
     "value.converter": "org.apache.kafka.connect.json.JsonConverter",
     "value.converter.schemas.enable": "false",
@@ -22,7 +22,11 @@
     "snowflake.enable.iceberg": "true",
     "snowflake.streaming.iceberg.enabled": "true",
 
-    "snowflake.enable.schematization": false,
-    "snowflake.enable.schema.evolution": "true"
+    "snowflake.enable.schematization": "true",
+    "snowflake.enable.schema.evolution": "true",
+    "snowflake.streaming.iceberg.auto.create.table": "true",
+    "snowflake.streaming.iceberg.schema.evolution": "true",
+    "snowflake.schema.evolution": "true"
+
   }
 }
