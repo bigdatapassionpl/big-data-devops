@@ -14,6 +14,4 @@ RUN confluent-hub install --no-prompt snowflakeinc/snowflake-kafka-connector:lat
     confluent-hub install --no-prompt debezium/debezium-connector-postgresql:latest && \
     confluent-hub install --no-prompt iceberg/iceberg-kafka-connect:latest
 
-#COPY --chown=appuser:appuser --chmod=755 ./run /etc/confluent/docker/run
-
 USER appuser
