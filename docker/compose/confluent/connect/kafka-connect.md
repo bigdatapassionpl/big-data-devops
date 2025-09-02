@@ -63,6 +63,11 @@ wget https://repo1.maven.org/maven2/com/snowflake/snowflake-kafka-connector/1.8.
 ~~~shell
 export CONNECT_URL=http://localhost:8083
 
+export CONNECT_URL=https://radek-test-1000272782314.europe-west3.run.app
+GCP_TOKEN=$(gcloud auth print-identity-token)
+alias curl='curl -H "Authorization: Bearer $GCP_TOKEN"'
+unalias curl
+
 export CONNECTOR_NAME=snowflake-snowpipe
 export CONNECTOR_NAME=snowflake-snowpipe-streaming
 export CONNECTOR_NAME=snowflake-snowpipe-streaming-iceberg
