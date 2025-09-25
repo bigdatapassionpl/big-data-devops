@@ -41,17 +41,7 @@ services:
         #
         confluent-hub install --no-prompt snowflakeinc/snowflake-kafka-connector:latest
         confluent-hub install --no-prompt debezium/debezium-connector-postgresql:latest
-        
-        echo "Installing Apache Iceberg Kafka Connect"
-        mkdir -p /usr/share/confluent-hub-components/iceberg-kafka-connect
-        cd /usr/share/confluent-hub-components/iceberg-kafka-connect
-        wget https://repo1.maven.org/maven2/org/apache/iceberg/iceberg-kafka-connect/1.6.1/iceberg-kafka-connect-1.6.1.jar
-        wget https://repo1.maven.org/maven2/org/apache/iceberg/iceberg-core/1.6.1/iceberg-core-1.6.1.jar
-        wget https://repo1.maven.org/maven2/org/apache/iceberg/iceberg-api/1.6.1/iceberg-api-1.6.1.jar
-        wget https://repo1.maven.org/maven2/org/apache/iceberg/iceberg-common/1.6.1/iceberg-common-1.6.1.jar
-        wget https://repo1.maven.org/maven2/org/apache/iceberg/iceberg-hadoop/1.6.1/iceberg-hadoop-1.6.1.jar
-        wget https://repo1.maven.org/maven2/org/apache/iceberg/iceberg-parquet/1.6.1/iceberg-parquet-1.6.1.jar
-        wget https://repo1.maven.org/maven2/org/apache/iceberg/iceberg-snowflake/1.6.1/iceberg-snowflake-1.6.1.jar
+        confluent-hub install --no-prompt iceberg/iceberg-kafka-connect:latest
         #
         echo "Launching Kafka Connect worker"
         /etc/confluent/docker/run
